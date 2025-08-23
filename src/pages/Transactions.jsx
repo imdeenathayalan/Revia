@@ -1,0 +1,82 @@
+import { useState, useEffect } from 'react';
+import { Button, Container } from 'react-bootstrap';
+import AddTransactionModal from '../components/Finance/AddTransactionModal.jsx';
+import TransactionTable from '../components/Finance/TransactionTable.jsx';
+import ConfirmationModal from '../components/UI/ConfirmationModal.jsx';
+import { getTransactions, saveTransactions } from '../utils/storage.js';
+
+function Transactions() {
+  const [transactions, setTransactions] = useState([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [transactionToDelete, setTransactionToDelete] = useState(null);
+
+  useEffect(() => {
+    setTransactions(getTransactions());
+  }, []);
+
+  const addTransaction = (newTransaction) => {
+    const updatedTransactions = [newTransaction, ...transactions];
+    setTransactions(updatedTransactions);
+    saveTransactions(updatedTransactions);
+  };
+
+  const requestDelete = (id) => {
+    const transaction = transactions.find(t => t.id === id);
+    setTransactionToDelete(transaction);
+    setShowConfirmModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (transactionToDelete) {
+      const updatedTransactions = transactions.filter(t => t.id !== transactionToDelete.id);
+      setTransactions(updatedTransactions);
+      saveTransactions(updatedTransactions);
+      setTransactionToDelete(null);
+    }
+    setShowConfirmModal(false);
+  };
+
+  const cancelDelete = () => {
+    setTransactionToDelete(null);
+    setShowConfirmModal(false);
+  };
+
+  return (
+    <Container>
+      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-white rounded-lg shadow-lg"> {/* Tailwind */}
+        <h1 className="text-2xl font-bold text-gray-800 m-0">Transactions</h1> {/* Tailwind */}
+        <Button 
+          variant="primary" 
+          onClick={() => setShowAddModal(true)}
+          className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors shadow-md" // Tailwind
+        >
+          + Add Transaction
+        </Button>
+      </div>
+
+      <TransactionTable 
+        transactions={transactions} 
+        deleteTransaction={requestDelete} 
+      />
+
+      <AddTransactionModal
+        show={showAddModal}
+        handleClose={() => setShowAddModal(false)}
+        addTransaction={addTransaction}
+      />
+
+      <ConfirmationModal
+        show={showConfirmModal}
+        onHide={cancelDelete}
+        onConfirm={confirmDelete}
+        title="Delete Transaction"
+        message={transactionToDelete ? `Are you sure you want to delete "${transactionToDelete.description}"?` : "Are you sure you want to delete this transaction?"}
+        confirmText="Delete"
+        variant="danger"
+      />
+    </Container>
+  );
+}
+
+export default Transactions;

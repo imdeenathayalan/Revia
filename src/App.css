@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+/* Add some custom styles */
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+}
