@@ -16,7 +16,7 @@ function Dashboard() {
 
   return (
     <Container>
-      <h1 className="mb-6 text-3xl font-bold text-gray-800">Dashboard</h1> {/* Tailwind */}
+      <h1 className="mb-6 text-3xl font-bold text-red-400">Dashboard</h1> {/* Dark red title */}
       <SummaryCards 
         balance={totals.balance} 
         income={totals.income} 
@@ -25,16 +25,16 @@ function Dashboard() {
       
       <MonthlyChart transactions={transactions} />
       
-      <div className="mt-8 p-6 bg-white rounded-lg shadow-lg"> {/* Tailwind */}
-        <h2 className="text-xl font-semibold text-gray-800 mb-3">Recent Activity</h2> {/* Tailwind */}
-        <p className="text-gray-600"> {/* Tailwind */}
+      <div className="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg border border-red-700"> {/* Dark card with red border */}
+        <h2 className="text-xl font-semibold text-red-400 mb-3">Recent Activity</h2> {/* Dark red */}
+        <p className="text-gray-300"> {/* Light gray text */}
           You have {transactions.length} total transaction{transactions.length !== 1 ? 's' : ''}. 
           Go to the Transactions page to manage them.
         </p>
         {transactions.length > 0 && (
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg"> {/* Tailwind */}
-            <p className="text-sm text-gray-500"> {/* Tailwind */}
-              <strong>Latest transaction:</strong> {transactions[0]?.description} - 
+          <div className="mt-4 p-4 bg-gray-700 rounded-lg border border-red-800"> {/* Darker card */}
+            <p className="text-sm text-gray-400"> {/* Gray text */}
+              <strong className="text-red-300">Latest transaction:</strong> {transactions[0]?.description} - 
               ${Math.abs(transactions[0]?.amount).toFixed(2)}
             </p>
           </div>

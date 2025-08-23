@@ -12,35 +12,35 @@ function ConfirmationModal({
   size = "md"
 }) {
   const buttonClasses = {
-    danger: "bg-red-600 hover:bg-red-700 text-white",
+    danger: "bg-red-600 hover:bg-red-700 text-white border border-red-700",
     primary: "bg-blue-600 hover:bg-blue-700 text-white",
     secondary: "bg-gray-600 hover:bg-gray-700 text-white"
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered size={size} className="shadow-2xl"> {/* Tailwind */}
-      <Modal.Header closeButton className="border-b border-gray-200 px-6 py-4"> {/* Tailwind */}
-        <Modal.Title className="text-lg font-semibold text-gray-800"> {/* Tailwind */}
+    <Modal show={show} onHide={onHide} centered size={size} contentClassName="bg-gray-800 text-white"> {/* Dark theme */}
+      <Modal.Header closeButton className="border-b border-red-700 bg-gray-900"> {/* Dark header */}
+        <Modal.Title className="text-lg font-semibold text-red-400"> {/* Dark red title */}
           {title}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="px-6 py-4"> {/* Tailwind */}
-        <p className="text-gray-700 leading-relaxed"> {/* Tailwind */}
+      <Modal.Body className="px-6 py-4 bg-gray-800"> {/* Dark body */}
+        <p className="text-gray-300 leading-relaxed"> {/* Light gray text */}
           {message}
         </p>
       </Modal.Body>
-      <Modal.Footer className="border-t border-gray-200 px-6 py-4"> {/* Tailwind */}
+      <Modal.Footer className="border-t border-red-700 px-6 py-4 bg-gray-900"> {/* Dark footer */}
         <Button 
           variant="outline-secondary" 
           onClick={onHide}
-          className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors" // Tailwind
+          className="px-4 py-2 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors" // Dark button
         >
           {cancelText}
         </Button>
         <Button 
           variant={variant} 
           onClick={onConfirm}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${buttonClasses[variant]}`} // Tailwind
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${buttonClasses[variant]}`} // Colored button
         >
           {confirmText}
         </Button>

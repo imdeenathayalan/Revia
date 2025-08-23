@@ -48,22 +48,22 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} className="shadow-xl"> {/* Tailwind */}
-      <Modal.Header closeButton className="border-b border-gray-200"> {/* Tailwind */}
-        <Modal.Title className="text-xl font-semibold text-gray-800"> {/* Tailwind */}
+    <Modal show={show} onHide={handleClose} className="shadow-2xl" contentClassName="bg-gray-800 text-white"> {/* Dark theme */}
+      <Modal.Header closeButton className="border-b border-red-700 bg-gray-900"> {/* Dark header */}
+        <Modal.Title className="text-xl font-semibold text-red-400"> {/* Dark red title */}
           Add New Transaction
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
-        <Modal.Body className="p-6"> {/* Tailwind */}
+        <Modal.Body className="p-6 bg-gray-800"> {/* Dark background */}
           {error && (
-            <Alert variant="danger" className="mb-4 rounded-lg"> {/* Tailwind */}
+            <Alert variant="danger" className="mb-4 rounded-lg bg-red-900 border-red-700 text-red-200"> {/* Dark red alert */}
               {error}
             </Alert>
           )}
           
-          <Form.Group className="mb-4"> {/* Tailwind */}
-            <Form.Label className="block text-sm font-medium text-gray-700 mb-2"> {/* Tailwind */}
+          <Form.Group className="mb-4">
+            <Form.Label className="block text-sm font-medium text-gray-300 mb-2"> {/* Light gray text */}
               Description
             </Form.Label>
             <Form.Control
@@ -72,12 +72,12 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               value={formData.description}
               onChange={handleChange}
               placeholder="Enter description"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Tailwind
+              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent" // Dark inputs
             />
           </Form.Group>
 
-          <Form.Group className="mb-4"> {/* Tailwind */}
-            <Form.Label className="block text-sm font-medium text-gray-700 mb-2"> {/* Tailwind */}
+          <Form.Group className="mb-4">
+            <Form.Label className="block text-sm font-medium text-gray-300 mb-2">
               Amount
             </Form.Label>
             <Form.Control
@@ -87,34 +87,34 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               onChange={handleChange}
               placeholder="Enter amount"
               step="0.01"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Tailwind
+              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent"
             />
           </Form.Group>
 
-          <Form.Group className="mb-4"> {/* Tailwind */}
-            <Form.Label className="block text-sm font-medium text-gray-700 mb-2"> {/* Tailwind */}
+          <Form.Group className="mb-4">
+            <Form.Label className="block text-sm font-medium text-gray-300 mb-2">
               Type
             </Form.Label>
             <Form.Select 
               name="type" 
               value={formData.type} 
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Tailwind
+              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="expense">Expense</option>
               <option value="income">Income</option>
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="mb-4"> {/* Tailwind */}
-            <Form.Label className="block text-sm font-medium text-gray-700 mb-2"> {/* Tailwind */}
+          <Form.Group className="mb-4">
+            <Form.Label className="block text-sm font-medium text-gray-300 mb-2">
               Category
             </Form.Label>
             <Form.Select 
               name="category" 
               value={formData.category} 
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Tailwind
+              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="">Select category</option>
               {categories.map(cat => (
@@ -123,18 +123,18 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
             </Form.Select>
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer className="border-t border-gray-200 px-6 py-4"> {/* Tailwind */}
+        <Modal.Footer className="border-t border-red-700 px-6 py-4 bg-gray-900"> {/* Dark footer */}
           <Button 
             variant="outline-secondary" 
             onClick={handleClose}
-            className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors" // Tailwind
+            className="px-4 py-2 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
           >
             Cancel
           </Button>
           <Button 
-            variant="primary" 
+            variant="danger" 
             type="submit"
-            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors" // Tailwind
+            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors border border-red-700"
           >
             Add Transaction
           </Button>

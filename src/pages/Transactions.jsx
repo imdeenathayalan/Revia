@@ -44,12 +44,12 @@ function Transactions() {
 
   return (
     <Container>
-      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-white rounded-lg shadow-lg"> {/* Tailwind */}
-        <h1 className="text-2xl font-bold text-gray-800 m-0">Transactions</h1> {/* Tailwind */}
+      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-gray-800 rounded-lg shadow-lg border border-red-700"> {/* Dark card */}
+        <h1 className="text-2xl font-bold text-red-400 m-0">Transactions</h1> {/* Dark red */}
         <Button 
-          variant="primary" 
+          variant="danger" 
           onClick={() => setShowAddModal(true)}
-          className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors shadow-md" // Tailwind
+          className="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors shadow-md border border-red-700" // Dark red button
         >
           + Add Transaction
         </Button>

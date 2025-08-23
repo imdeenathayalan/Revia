@@ -9,7 +9,7 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="d-flex flex-column min-vh-100 bg-gray-50"> {/* Tailwind bg */}
+      <div className="d-flex flex-column min-vh-100 bg-gray-900 text-white"> {/* Dark background */}
         <Navigation />
         <Container className="my-4 flex-grow-1">
           <Routes>
