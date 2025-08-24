@@ -1,6 +1,7 @@
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
+import NotificationBell from '../UI/NotificationBell.jsx';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Navigation() {
                 <Nav.Link 
                   as={Link} 
                   to="/" 
-                  className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
                 >
                   <i className="bi bi-speedometer2 me-1"></i>
                   Dashboard
@@ -34,15 +35,23 @@ function Navigation() {
                 <Nav.Link 
                   as={Link} 
                   to="/transactions"
-                  className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
                 >
                   <i className="bi bi-currency-exchange me-1"></i>
                   Transactions
                 </Nav.Link>
                 <Nav.Link 
                   as={Link} 
+                  to="/recurring"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
+                >
+                  <i className="bi bi-arrow-repeat me-1"></i>
+                  Recurring
+                </Nav.Link>
+                <Nav.Link 
+                  as={Link} 
                   to="/reports"
-                  className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
                 >
                   <i className="bi bi-bar-chart me-1"></i>
                   Reports
@@ -50,18 +59,23 @@ function Navigation() {
                 <Nav.Link 
                   as={Link} 
                   to="/settings"
-                  className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
                 >
                   <i className="bi bi-gear me-1"></i>
                   Settings
                 </Nav.Link>
               </Nav>
+              
+              <Nav className="me-3 my-3 my-lg-0">
+                <NotificationBell />
+              </Nav>
+
               <Nav>
                 <Dropdown>
                   <Dropdown.Toggle 
                     variant="outline-light" 
                     id="dropdown-basic"
-                    className="border-maroon text-white bg-transparent hover:bg-maroon-dark hover:border-maroon-dark hover:text-white"
+                    className="border-maroon text-white bg-transparent hover:bg-maroon-dark hover:border-maroon-dark hover:text-white my-3 my-lg-0"
                   >
                     <i className="bi bi-person-circle me-1"></i>
                     {user?.name || 'User'}
@@ -83,7 +97,7 @@ function Navigation() {
               <Nav.Link 
                 as={Link} 
                 to="/login"
-                className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
               >
                 <i className="bi bi-box-arrow-in-right me-1"></i>
                 Login
@@ -91,7 +105,7 @@ function Navigation() {
               <Nav.Link 
                 as={Link} 
                 to="/signup"
-                className="ml-2 px-4 py-2 bg-maroon hover:bg-maroon-dark text-white rounded-lg transition-colors duration-200"
+                className="ml-2 px-4 py-2 bg-maroon hover:bg-maroon-dark text-white rounded-lg transition-colors duration-200 my-3 my-lg-0"
               >
                 <i className="bi bi-person-plus me-1"></i>
                 Sign Up

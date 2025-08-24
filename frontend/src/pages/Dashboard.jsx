@@ -4,10 +4,12 @@ import MonthlyChart from '../components/Finance/MonthlyChart.jsx';
 import BudgetTracker from '../components/Finance/BudgetTracker.jsx';
 import GoalTracker from '../components/Finance/GoalTracker.jsx';
 import { useFinance } from '../context/FinanceContext.jsx';
+import { useNotificationTriggers } from '../hooks/useNotificationTriggers.js';
 import { formatIndianCurrency } from '../utils/storage.js';
 
 function Dashboard() {
   const { transactions, totals } = useFinance();
+  useNotificationTriggers(); // Notification triggers added here
 
   return (
     <Container>

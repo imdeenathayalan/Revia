@@ -52,35 +52,35 @@ function ProfileSettings() {
         </Alert>
       )}
 
-      <Card className="bg-grey-medium border border-maroon mb-4">
+      <Card className="bg-white border border-maroon mb-4">
         <Card.Body className="p-4">
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label className="text-white">Full Name</Form.Label>
+              <Form.Label className="text-black">Full Name</Form.Label>
               <Form.Control
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="bg-grey-dark border-maroon text-white"
+                className="bg-white border-maroon text-black"
                 placeholder="Enter your full name"
               />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="text-white">Email Address</Form.Label>
+              <Form.Label className="text-black">Email Address</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="bg-grey-dark border-maroon text-white"
+                className="bg-white border-maroon text-black"
                 placeholder="Enter your email"
               />
             </Form.Group>
 
             <Form.Group className="mb-4">
-              <Form.Label className="text-white">Preferred Currency</Form.Label>
+              <Form.Label className="text-black">Preferred Currency</Form.Label>
               <Form.Select
                 name="currency"
                 value={formData.currency}
@@ -95,7 +95,7 @@ function ProfileSettings() {
             </Form.Group>
 
             <Form.Group className="mb-4">
-              <Form.Label className="text-white">Language</Form.Label>
+              <Form.Label className="text-black">Language</Form.Label>
               <Form.Select
                 name="language"
                 value={formData.language}
