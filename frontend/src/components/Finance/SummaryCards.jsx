@@ -8,24 +8,27 @@ function SummaryCards({ balance, income, expenses }) {
       amount: balance,
       variant: balance >= 0 ? 'success' : 'danger',
       icon: 'bi-wallet2',
-      bgColor: balance >= 0 ? 'bg-green-900' : 'bg-red-900',
-      textColor: balance >= 0 ? 'text-green-300' : 'text-red-300'
+      bgColor: 'bg-grey-dark',
+      textColor: balance >= 0 ? 'text-green-400' : 'text-red-400',
+      borderColor: 'border-maroon'
     },
     {
       title: 'Total Income',
       amount: income,
       variant: 'success',
       icon: 'bi-arrow-up-circle',
-      bgColor: 'bg-gray-800',
-      textColor: 'text-blue-300'
+      bgColor: 'bg-grey-dark',
+      textColor: 'text-green-400',
+      borderColor: 'border-maroon'
     },
     {
       title: 'Total Expenses',
       amount: expenses,
       variant: 'danger',
       icon: 'bi-arrow-down-circle',
-      bgColor: 'bg-gray-800',
-      textColor: 'text-red-300'
+      bgColor: 'bg-grey-dark',
+      textColor: 'text-red-400',
+      borderColor: 'border-maroon'
     }
   ];
 
@@ -33,12 +36,12 @@ function SummaryCards({ balance, income, expenses }) {
     <Row className="g-4 mb-6">
       {cards.map((card, index) => (
         <Col md={4} key={index}>
-          <Card className={`h-100 text-center border-0 shadow-lg transition-transform hover:scale-105 ${card.bgColor} border border-red-700`}>
+          <Card className={`h-100 text-center border-0 shadow-lg transition-transform hover:scale-105 ${card.bgColor} ${card.borderColor}`}>
             <Card.Body className="p-6">
-              <div className="text-4xl mb-3">
+              <div className="text-4xl mb-3 text-white">
                 <i className={card.icon}></i>
               </div>
-              <Card.Title className={`text-lg font-semibold mb-2 ${card.textColor}`}>
+              <Card.Title className={`text-lg font-semibold mb-2 text-white`}>
                 {card.title}
               </Card.Title>
               <Card.Text className={`text-3xl font-bold ${card.textColor}`}>

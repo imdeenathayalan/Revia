@@ -1,15 +1,30 @@
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --color-maroon: #800000;
+  --color-maroon-dark: #5a0000;
+  --color-maroon-light: #a52a2a;
+  --color-dark-grey: #1a1a1a;
+  --color-grey-dark: #2d2d2d;
+  --color-grey-medium: #404040;
+  --color-grey-light: #666666;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+.bg-maroon { background-color: var(--color-maroon); }
+.bg-maroon-dark { background-color: var(--color-maroon-dark); }
+.bg-maroon-light { background-color: var(--color-maroon-light); }
+.bg-dark-grey { background-color: var(--color-dark-grey); }
+.bg-grey-dark { background-color: var(--color-grey-dark); }
+.bg-grey-medium { background-color: var(--color-grey-medium); }
+.bg-grey-light { background-color: var(--color-grey-light); }
+
+.border-maroon { border-color: var(--color-maroon); }
+.border-maroon-dark { border-color: var(--color-maroon-dark); }
+.border-maroon-light { border-color: var(--color-maroon-light); }
+
+.text-maroon { color: var(--color-maroon); }
+.text-maroon-dark { color: var(--color-maroon-dark); }
+.text-maroon-light { color: var(--color-maroon-light); }
+
+.hover\:bg-maroon-dark:hover { background-color: var(--color-maroon-dark); }
+.hover\:text-maroon-dark:hover { color: var(--color-maroon-dark); }

@@ -49,15 +49,14 @@ function Transactions() {
 
   return (
     <Container>
-      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-white rounded-lg shadow-lg border border-red-600">
-        <h1 className="text-2xl font-bold text-black m-0">
+      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-grey-dark rounded-lg shadow-lg border border-maroon">
+        <h1 className="text-2xl font-bold text-white m-0">
           <i className="bi bi-currency-exchange me-3"></i>
           Transactions
         </h1>
         <Button 
-          variant="danger" 
+          className="px-6 py-2 rounded-lg bg-maroon hover:bg-maroon-dark text-white font-semibold transition-colors border border-maroon"
           onClick={() => setShowAddModal(true)}
-          className="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors border border-red-700"
         >
           <i className="bi bi-plus-circle me-2"></i>
           Add Transaction

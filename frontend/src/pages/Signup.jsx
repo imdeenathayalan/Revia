@@ -79,150 +79,150 @@ function Signup({ updateAuthState }) {
   };
 
   return (
-    <Container className="d-flex align-items-center justify-content-center min-vh-100 bg-gray-900">
+    <Container className="d-flex align-items-center justify-content-center min-vh-100 bg-dark-grey">
       <div className="w-full max-w-md">
-        <Card className="shadow-xl border border-red-700 bg-white">
+        <Card className="shadow-xl border border-maroon bg-grey-dark">
           <Card.Body className="p-8">
-            {/* Header */}
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500">
+              <div className="w-16 h-16 bg-maroon rounded-full flex items-center justify-center mx-auto mb-4 border border-maroon-light">
                 <span className="text-2xl text-white">
                   <i className="bi bi-person-plus"></i>
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-black mb-2">Create Account</h1>
-              <p className="text-gray-600">Join Revia to manage your finances</p>
+              <h1 className="text-2xl font-bold text-white mb-2">Create Account</h1>
+              <p className="text-white">Join Revia to manage your finances</p>
             </div>
 
             {error && (
-              <Alert variant="danger" className="mb-6 bg-red-100 border-red-400 text-red-800 rounded-lg">
+              <Alert variant="danger" className="mb-6 bg-maroon-dark border-maroon text-white rounded-lg">
                 <i className="bi bi-exclamation-triangle-fill me-2"></i>
                 {error}
               </Alert>
             )}
 
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
-                  <i className="bi bi-person me-2"></i>
-                  Full Name
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your full name"
-                  className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
-                  disabled={isLoading}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
-                  <i className="bi bi-envelope me-2"></i>
-                  Email Address
-                </Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email address"
-                  className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
-                  disabled={isLoading}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
-                  <i className="bi bi-lock me-2"></i>
-                  Password
-                </Form.Label>
-                <InputGroup>
+            <div className="bg-white rounded-lg p-6 border border-grey-light">
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-4">
+                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                    <i className="bi bi-person me-2"></i>
+                    Full Name
+                  </Form.Label>
                   <Form.Control
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
+                    type="text"
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
-                    placeholder="Create a password (min. 6 characters)"
-                    className="p-3 border border-gray-400 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500 border-r-0"
+                    placeholder="Enter your full name"
+                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
                     disabled={isLoading}
                   />
-                  <Button
-                    variant="outline-secondary"
-                    onClick={() => togglePasswordVisibility('password')}
-                    className="bg-white border border-gray-400 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
-                    disabled={isLoading}
-                  >
-                    {showPassword ? (
-                      <i className="bi bi-eye-slash"></i>
-                    ) : (
-                      <i className="bi bi-eye"></i>
-                    )}
-                  </Button>
-                </InputGroup>
-                <Form.Text className="text-gray-500 text-xs mt-1">
-                  Must be at least 6 characters long
-                </Form.Text>
-              </Form.Group>
+                </Form.Group>
 
-              <Form.Group className="mb-6">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
-                  <i className="bi bi-lock-fill me-2"></i>
-                  Confirm Password
-                </Form.Label>
-                <InputGroup>
+                <Form.Group className="mb-4">
+                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                    <i className="bi bi-envelope me-2"></i>
+                    Email Address
+                  </Form.Label>
                   <Form.Control
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
+                    type="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
-                    placeholder="Confirm your password"
-                    className="p-3 border border-gray-400 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500 border-r-0"
+                    placeholder="Enter your email address"
+                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
                     disabled={isLoading}
                   />
-                  <Button
-                    variant="outline-secondary"
-                    onClick={() => togglePasswordVisibility('confirm')}
-                    className="bg-white border border-gray-400 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
-                    disabled={isLoading}
-                  >
-                    {showConfirmPassword ? (
-                      <i className="bi bi-eye-slash"></i>
-                    ) : (
-                      <i className="bi bi-eye"></i>
-                    )}
-                  </Button>
-                </InputGroup>
-              </Form.Group>
+                </Form.Group>
 
-              <Button
-                type="submit"
-                variant="danger"
-                className="w-full py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold border border-red-700 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2"></span>
-                    Creating Account...
-                  </>
-                ) : (
-                  <>
-                    <i className="bi bi-person-plus me-2"></i>
-                    Create Account
-                  </>
-                )}
-              </Button>
-            </Form>
+                <Form.Group className="mb-4">
+                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                    <i className="bi bi-lock me-2"></i>
+                    Password
+                  </Form.Label>
+                  <InputGroup>
+                    <Form.Control
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="Create a password (min. 6 characters)"
+                      className="p-3 border border-gray-300 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon border-r-0"
+                      disabled={isLoading}
+                    />
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => togglePasswordVisibility('password')}
+                      className="bg-white border border-gray-300 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
+                      disabled={isLoading}
+                    >
+                      {showPassword ? (
+                        <i className="bi bi-eye-slash"></i>
+                      ) : (
+                        <i className="bi bi-eye"></i>
+                      )}
+                    </Button>
+                  </InputGroup>
+                  <Form.Text className="text-gray-500 text-xs mt-1">
+                    Must be at least 6 characters long
+                  </Form.Text>
+                </Form.Group>
 
-            <div className="text-center mt-6 pt-6 border-t border-gray-300">
-              <p className="text-gray-600">
+                <Form.Group className="mb-6">
+                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                    <i className="bi bi-lock-fill me-2"></i>
+                    Confirm Password
+                  </Form.Label>
+                  <InputGroup>
+                    <Form.Control
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      placeholder="Confirm your password"
+                      className="p-3 border border-gray-300 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon border-r-0"
+                      disabled={isLoading}
+                    />
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => togglePasswordVisibility('confirm')}
+                      className="bg-white border border-gray-300 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
+                      disabled={isLoading}
+                    >
+                      {showConfirmPassword ? (
+                        <i className="bi bi-eye-slash"></i>
+                      ) : (
+                        <i className="bi bi-eye"></i>
+                      )}
+                    </Button>
+                  </InputGroup>
+                </Form.Group>
+
+                <Button
+                  type="submit"
+                  className="w-full py-3 rounded-lg bg-maroon hover:bg-maroon-dark text-white font-semibold border border-maroon shadow-lg disabled:opacity-50 disabled: cursor-not-allowed"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2"></span>
+                      Creating Account...
+                    </>
+                  ) : (
+                    <>
+                      <i className="bi bi-person-plus me-2"></i>
+                      Create Account
+                    </>
+                  )}
+                </Button>
+              </Form>
+            </div>
+
+            <div className="text-center mt-6 pt-6 border-t border-grey-medium">
+              <p className="text-white">
                 Already have an account?{' '}
                 <Link 
                   to="/login" 
-                  className="text-red-600 hover:text-red-700 font-medium transition-colors"
+                  className="text-maroon-light hover:text-maroon font-medium transition-colors"
                 >
                   Sign In
                 </Link>

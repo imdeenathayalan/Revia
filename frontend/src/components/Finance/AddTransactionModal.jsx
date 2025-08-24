@@ -37,7 +37,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
       description: formData.description,
       amount: formData.type === 'income' ? amount : -amount,
       category: formData.category || 'Other Expense',
-      date: new Date().toLocaleDateString('en-IN') // Indian date format
+      date: new Date().toLocaleDateString('en-IN')
     };
 
     addTransaction(transaction);
@@ -48,16 +48,16 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
 
   return (
     <Modal show={show} onHide={handleClose} className="shadow-xl">
-      <Modal.Header closeButton className="border-b border-red-700 bg-gray-200">
+      <Modal.Header closeButton className="border-b border-maroon bg-white">
         <Modal.Title className="text-xl font-semibold text-black">
           <i className="bi bi-plus-circle me-2"></i>
           Add New Transaction
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
-        <Modal.Body className="p-6 bg-gray-100">
+        <Modal.Body className="p-6 bg-white">
           {error && (
-            <Alert variant="danger" className="mb-4 rounded-lg bg-red-100 border-red-400 text-red-800">
+            <Alert variant="danger" className="mb-4 rounded-lg bg-red-100 border-maroon text-red-800">
               <i className="bi bi-exclamation-triangle-fill me-2"></i>
               {error}
             </Alert>
@@ -74,7 +74,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               value={formData.description}
               onChange={handleChange}
               placeholder="Enter description (e.g., Groceries, Salary, etc.)"
-              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
             />
           </Form.Group>
 
@@ -90,7 +90,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               onChange={handleChange}
               placeholder="Enter amount in rupees"
               step="0.01"
-              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
             />
           </Form.Group>
 
@@ -103,7 +103,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               name="type" 
               value={formData.type} 
               onChange={handleChange}
-              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
             >
               <option value="expense">Expense</option>
               <option value="income">Income</option>
@@ -119,7 +119,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               name="category" 
               value={formData.category} 
               onChange={handleChange}
-              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
             >
               <option value="">Select category</option>
               {indianCategories.map(cat => (
@@ -128,19 +128,18 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
             </Form.Select>
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer className="border-t border-red-700 px-6 py-4 bg-gray-200">
+        <Modal.Footer className="border-t border-maroon px-6 py-4 bg-white">
           <Button 
             variant="outline-secondary" 
             onClick={handleClose}
-            className="px-4 py-2 rounded-lg border border-gray-500 text-black hover:bg-gray-300 transition-colors"
+            className="px-4 py-2 rounded-lg border border-gray-400 text-black hover:bg-gray-100 transition-colors"
           >
             <i className="bi bi-x-circle me-2"></i>
             Cancel
           </Button>
           <Button 
-            variant="danger" 
+            className="px-4 py-2 rounded-lg bg-maroon hover:bg-maroon-dark text-white border border-maroon transition-colors"
             type="submit"
-            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white border border-red-700 transition-colors"
           >
             <i className="bi bi-check-circle me-2"></i>
             Add Transaction

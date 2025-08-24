@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-// Register ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -41,7 +40,6 @@ function MonthlyChart({ transactions }) {
 
     setIsEmpty(false);
     
-    // Group transactions by month and calculate income/expenses
     const monthlyData = {};
     
     transactions.forEach(transaction => {
@@ -64,7 +62,6 @@ function MonthlyChart({ transactions }) {
       }
     });
 
-    // Sort months chronologically
     const sortedMonths = Object.keys(monthlyData).sort();
     const labels = sortedMonths.map(month => monthlyData[month].label);
     
@@ -77,7 +74,7 @@ function MonthlyChart({ transactions }) {
         {
           label: 'Income',
           data: incomeData,
-          backgroundColor: 'rgba(72, 187, 120, 0.7)', // Green
+          backgroundColor: 'rgba(72, 187, 120, 0.7)',
           borderColor: 'rgba(72, 187, 120, 1)',
           borderWidth: 2,
           borderRadius: 6,
@@ -85,7 +82,7 @@ function MonthlyChart({ transactions }) {
         {
           label: 'Expenses',
           data: expensesData,
-          backgroundColor: 'rgba(239, 68, 68, 0.7)', // Red
+          backgroundColor: 'rgba(239, 68, 68, 0.7)',
           borderColor: 'rgba(239, 68, 68, 1)',
           borderWidth: 2,
           borderRadius: 6,
@@ -101,7 +98,7 @@ function MonthlyChart({ transactions }) {
       legend: {
         position: 'top',
         labels: {
-          color: '#000000', // Black text
+          color: '#ffffff',
           font: {
             size: 14,
             weight: '600',
@@ -111,17 +108,17 @@ function MonthlyChart({ transactions }) {
       title: {
         display: true,
         text: 'Monthly Income vs Expenses (₹)',
-        color: '#dc2626', // Red-600
+        color: '#ffffff',
         font: {
           size: 18,
           weight: 'bold',
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(255, 255, 255, 0.95)', // White background
-        titleColor: '#000000', // Black text
-        bodyColor: '#000000', // Black text
-        borderColor: '#e5e7eb', // Gray border
+        backgroundColor: 'rgba(45, 45, 45, 0.95)',
+        titleColor: '#ffffff',
+        bodyColor: '#ffffff',
+        borderColor: '#800000',
         borderWidth: 1,
         cornerRadius: 8,
         callbacks: {
@@ -135,10 +132,10 @@ function MonthlyChart({ transactions }) {
       y: {
         beginAtZero: true,
         grid: {
-          color: 'rgba(0, 0, 0, 0.1)', // Light black grid
+          color: 'rgba(255, 255, 255, 0.1)',
         },
         ticks: {
-          color: '#000000', // Black text
+          color: '#ffffff',
           callback: function(value) {
             return '₹' + value.toLocaleString('en-IN');
           }
@@ -146,15 +143,15 @@ function MonthlyChart({ transactions }) {
         title: {
           display: true,
           text: 'Amount (₹)',
-          color: '#000000', // Black text
+          color: '#ffffff',
         }
       },
       x: {
         grid: {
-          color: 'rgba(0, 0, 0, 0.1)', // Light black grid
+          color: 'rgba(255, 255, 255, 0.1)',
         },
         ticks: {
-          color: '#000000', // Black text
+          color: '#ffffff',
         }
       }
     },
@@ -162,13 +159,13 @@ function MonthlyChart({ transactions }) {
 
   if (isEmpty) {
     return (
-      <Card className="mt-6 shadow-xl border border-red-700 bg-gray-100">
+      <Card className="mt-6 shadow-xl border border-maroon bg-grey-dark">
         <Card.Body className="p-8 text-center">
-          <div className="text-6xl mb-4 text-red-600">
+          <div className="text-6xl mb-4 text-maroon-light">
             <i className="bi bi-bar-chart"></i>
           </div>
-          <h3 className="text-xl font-semibold text-black mb-2">No Data Available</h3>
-          <p className="text-gray-600">
+          <h3 className="text-xl font-semibold text-white mb-2">No Data Available</h3>
+          <p className="text-white">
             Add some transactions to see your monthly financial trends
           </p>
         </Card.Body>
@@ -177,21 +174,21 @@ function MonthlyChart({ transactions }) {
   }
 
   return (
-    <Card className="mt-6 shadow-xl border border-red-700 bg-gray-100">
+    <Card className="mt-6 shadow-xl border border-maroon bg-grey-dark">
       <Card.Body className="p-6">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-semibold text-black">
+          <h3 className="text-lg font-semibold text-white">
             <i className="bi bi-graph-up me-2"></i>
             Monthly Overview
           </h3>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-              <span className="text-sm text-black">Income</span>
+              <span className="text-sm text-white">Income</span>
             </div>
             <div className="flex items-center">
               <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-              <span className="text-sm text-black">Expenses</span>
+              <span className="text-sm text-white">Expenses</span>
             </div>
           </div>
         </div>
@@ -201,8 +198,8 @@ function MonthlyChart({ transactions }) {
         </div>
         
         {chartData.labels.length > 0 && (
-          <div className="mt-4 p-4 bg-white rounded-lg border border-gray-300">
-            <p className="text-black text-sm text-center">
+          <div className="mt-4 p-4 bg-grey-medium rounded-lg border border-maroon">
+            <p className="text-white text-sm text-center">
               <i className="bi bi-calendar me-2"></i>
               Showing data for {chartData.labels.length} month{chartData.labels.length !== 1 ? 's' : ''}
             </p>
