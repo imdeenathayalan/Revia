@@ -47,6 +47,14 @@ function Navigation() {
                   <i className="bi bi-bar-chart me-1"></i>
                   Reports
                 </Nav.Link>
+                <Nav.Link 
+                  as={Link} 
+                  to="/settings"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                >
+                  <i className="bi bi-gear me-1"></i>
+                  Settings
+                </Nav.Link>
               </Nav>
               <Nav>
                 <Dropdown>
