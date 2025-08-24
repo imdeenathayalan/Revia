@@ -1,8 +1,8 @@
 // src/components/Finance/BudgetTracker.jsx
 import { useState } from 'react';
 import { Card, Button, ProgressBar, Badge } from 'react-bootstrap';
-import { useBudget } from '../../context/BudgetContext';
-import { useFinance } from '../../context/FinanceContext';
+import { useBudget } from '../../context/BudgetContext.jsx';
+import { useFinance } from '../../context/FinanceContext.jsx';
 import { indianCategories } from '../../utils/storage';
 import AddBudgetModal from './AddBudgetModal.jsx';
 
