@@ -12,10 +12,10 @@ function Navigation({ authState, updateAuthState }) {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="mb-4 shadow-lg border-b border-red-800">
+    <Navbar bg="white" variant="light" expand="lg" className="mb-4 shadow-lg border-b border-red-600">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="text-xl font-bold text-red-400">
-          <i className="bi bi-graph-up-arrow me-2"></i>
+        <Navbar.Brand as={Link} to="/" className="text-xl font-bold text-red-600">
+          <i className="bi bi-currency-rupee me-2"></i>
           Revia
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-red-600" />
@@ -26,7 +26,7 @@ function Navigation({ authState, updateAuthState }) {
                 <Nav.Link 
                   as={Link} 
                   to="/" 
-                  className="hover:text-red-300 transition-colors duration-200 text-gray-300"
+                  className="hover:text-red-700 transition-colors duration-200 text-black"
                 >
                   <i className="bi bi-speedometer2 me-1"></i>
                   Dashboard
@@ -34,7 +34,7 @@ function Navigation({ authState, updateAuthState }) {
                 <Nav.Link 
                   as={Link} 
                   to="/transactions"
-                  className="hover:text-red-300 transition-colors duration-200 text-gray-300"
+                  className="hover:text-red-700 transition-colors duration-200 text-black"
                 >
                   <i className="bi bi-currency-exchange me-1"></i>
                   Transactions
@@ -43,16 +43,16 @@ function Navigation({ authState, updateAuthState }) {
               <Nav>
                 <Dropdown>
                   <Dropdown.Toggle 
-                    variant="outline-light" 
+                    variant="outline-danger" 
                     id="dropdown-basic"
-                    className="border-red-600 text-red-300 hover:bg-red-700 hover:text-white"
+                    className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
                   >
                     <i className="bi bi-person-circle me-1"></i>
                     {authState.user?.name || 'User'}
                   </Dropdown.Toggle>
-                  <Dropdown.Menu className="bg-gray-800 border border-red-700">
+                  <Dropdown.Menu className="bg-white border border-red-600">
                     <Dropdown.Item 
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className="text-black hover:bg-red-100 hover:text-red-700"
                       onClick={handleLogout}
                     >
                       <i className="bi bi-box-arrow-right me-2"></i>
@@ -67,7 +67,7 @@ function Navigation({ authState, updateAuthState }) {
               <Nav.Link 
                 as={Link} 
                 to="/login"
-                className="hover:text-red-300 transition-colors duration-200 text-gray-300"
+                className="hover:text-red-700 transition-colors duration-200 text-black"
               >
                 <i className="bi bi-box-arrow-in-right me-1"></i>
                 Login

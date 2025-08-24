@@ -81,32 +81,29 @@ function Signup({ updateAuthState }) {
   return (
     <Container className="d-flex align-items-center justify-content-center min-vh-100 bg-gray-900">
       <div className="w-full max-w-md">
-        <Card className="shadow-xl border border-red-800 bg-gray-800">
+        <Card className="shadow-xl border border-red-700 bg-white">
           <Card.Body className="p-8">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-red-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-700">
+              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500">
                 <span className="text-2xl text-white">
                   <i className="bi bi-person-plus"></i>
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-red-400 mb-2">Create Account</h1>
-              <p className="text-gray-600">Join Finance Tracker</p>
+              <h1 className="text-2xl font-bold text-black mb-2">Create Account</h1>
+              <p className="text-gray-600">Join Revia to manage your finances</p>
             </div>
 
-            {/* Error Alert */}
             {error && (
-              <Alert variant="danger" className="mb-6 bg-red-900 border-red-800 text-red-200 rounded-lg">
+              <Alert variant="danger" className="mb-6 bg-red-100 border-red-400 text-red-800 rounded-lg">
                 <i className="bi bi-exclamation-triangle-fill me-2"></i>
                 {error}
               </Alert>
             )}
 
-            {/* Signup Form */}
             <Form onSubmit={handleSubmit}>
-              {/* Name Field */}
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2 bg-gray-200 px-2 py-1 rounded">
+                <Form.Label className="block text-sm font-semibold text-black mb-2">
                   <i className="bi bi-person me-2"></i>
                   Full Name
                 </Form.Label>
@@ -116,14 +113,13 @@ function Signup({ updateAuthState }) {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
-                  className="w-full p-3 border border-gray-600 rounded-lg bg-white text-black placeholder-gray-500 focus:border-red-600 focus:ring-2 focus:ring-red-600"
+                  className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
                   disabled={isLoading}
                 />
               </Form.Group>
 
-              {/* Email Field */}
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2 bg-gray-200 px-2 py-1 rounded">
+                <Form.Label className="block text-sm font-semibold text-black mb-2">
                   <i className="bi bi-envelope me-2"></i>
                   Email Address
                 </Form.Label>
@@ -132,15 +128,14 @@ function Signup({ updateAuthState }) {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter your email"
-                  className="w-full p-3 border border-gray-600 rounded-lg bg-white text-black placeholder-gray-500 focus:border-red-600 focus:ring-2 focus:ring-red-600"
+                  placeholder="Enter your email address"
+                  className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
                   disabled={isLoading}
                 />
               </Form.Group>
 
-              {/* Password Field */}
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2 bg-gray-200 px-2 py-1 rounded">
+                <Form.Label className="block text-sm font-semibold text-black mb-2">
                   <i className="bi bi-lock me-2"></i>
                   Password
                 </Form.Label>
@@ -150,14 +145,14 @@ function Signup({ updateAuthState }) {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    placeholder="Create password (min. 6 characters)"
-                    className="p-3 border border-gray-600 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-red-600 focus:ring-2 focus:ring-red-600 border-r-0"
+                    placeholder="Create a password (min. 6 characters)"
+                    className="p-3 border border-gray-400 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500 border-r-0"
                     disabled={isLoading}
                   />
                   <Button
                     variant="outline-secondary"
                     onClick={() => togglePasswordVisibility('password')}
-                    className="bg-gray-200 border border-gray-600 border-l-0 text-black hover:bg-gray-300 rounded-r-lg px-4"
+                    className="bg-white border border-gray-400 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
                     disabled={isLoading}
                   >
                     {showPassword ? (
@@ -167,14 +162,13 @@ function Signup({ updateAuthState }) {
                     )}
                   </Button>
                 </InputGroup>
-                <Form.Text className="text-gray-400 text-xs mt-1">
+                <Form.Text className="text-gray-500 text-xs mt-1">
                   Must be at least 6 characters long
                 </Form.Text>
               </Form.Group>
 
-              {/* Confirm Password Field */}
               <Form.Group className="mb-6">
-                <Form.Label className="block text-sm font-semibold text-black mb-2 bg-gray-200 px-2 py-1 rounded">
+                <Form.Label className="block text-sm font-semibold text-black mb-2">
                   <i className="bi bi-lock-fill me-2"></i>
                   Confirm Password
                 </Form.Label>
@@ -185,13 +179,13 @@ function Signup({ updateAuthState }) {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Confirm your password"
-                    className="p-3 border border-gray-600 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-red-600 focus:ring-2 focus:ring-red-600 border-r-0"
+                    className="p-3 border border-gray-400 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500 border-r-0"
                     disabled={isLoading}
                   />
                   <Button
                     variant="outline-secondary"
                     onClick={() => togglePasswordVisibility('confirm')}
-                    className="bg-gray-200 border border-gray-600 border-l-0 text-black hover:bg-gray-300 rounded-r-lg px-4"
+                    className="bg-white border border-gray-400 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
                     disabled={isLoading}
                   >
                     {showConfirmPassword ? (
@@ -203,11 +197,10 @@ function Signup({ updateAuthState }) {
                 </InputGroup>
               </Form.Group>
 
-              {/* Submit Button */}
               <Button
                 type="submit"
                 variant="danger"
-                className="w-full py-3 rounded-lg bg-red-700 hover:bg-red-600 text-white font-semibold border border-red-600 shadow-lg disabled:opacity-50"
+                className="w-full py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold border border-red-700 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -224,15 +217,14 @@ function Signup({ updateAuthState }) {
               </Button>
             </Form>
 
-            {/* Login Link */}
-            <div className="text-center mt-6 pt-6 border-t border-gray-700">
+            <div className="text-center mt-6 pt-6 border-t border-gray-300">
               <p className="text-gray-600">
                 Already have an account?{' '}
                 <Link 
                   to="/login" 
-                  className="text-red-400 hover:text-red-300 font-medium transition-colors"
+                  className="text-red-600 hover:text-red-700 font-medium transition-colors"
                 >
-                  Sign in
+                  Sign In
                 </Link>
               </p>
             </div>

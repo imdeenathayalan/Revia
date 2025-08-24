@@ -49,8 +49,8 @@ function Transactions() {
 
   return (
     <Container>
-      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-gray-800 rounded-lg shadow-lg border border-red-700">
-        <h1 className="text-2xl font-bold text-red-400 m-0">
+      <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-white rounded-lg shadow-lg border border-red-600">
+        <h1 className="text-2xl font-bold text-black m-0">
           <i className="bi bi-currency-exchange me-3"></i>
           Transactions
         </h1>
@@ -80,9 +80,10 @@ function Transactions() {
         onHide={cancelDelete}
         onConfirm={confirmDelete}
         title="Delete Transaction"
-        message={transactionToDelete ? `Are you sure you want to delete "${transactionToDelete.description}"?` : "Are you sure you want to delete this transaction?"}
+        message={transactionToDelete ? `Are you sure you want to delete "${transactionToDelete.description}"? This action cannot be undone.` : "Are you sure you want to delete this transaction?"}
         confirmText="Delete"
         variant="danger"
+        isLoading={isDeleting}
       />
     </Container>
   );

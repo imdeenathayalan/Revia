@@ -110,7 +110,7 @@ function MonthlyChart({ transactions }) {
       },
       title: {
         display: true,
-        text: 'Monthly Income vs Expenses',
+        text: 'Monthly Income vs Expenses (₹)',
         color: '#dc2626', // Red-600
         font: {
           size: 18,
@@ -124,6 +124,11 @@ function MonthlyChart({ transactions }) {
         borderColor: '#e5e7eb', // Gray border
         borderWidth: 1,
         cornerRadius: 8,
+        callbacks: {
+          label: function(context) {
+            return `${context.dataset.label}: ₹${context.raw.toLocaleString('en-IN')}`;
+          }
+        }
       }
     },
     scales: {
@@ -135,12 +140,12 @@ function MonthlyChart({ transactions }) {
         ticks: {
           color: '#000000', // Black text
           callback: function(value) {
-            return '$' + value;
+            return '₹' + value.toLocaleString('en-IN');
           }
         },
         title: {
           display: true,
-          text: 'Amount ($)',
+          text: 'Amount (₹)',
           color: '#000000', // Black text
         }
       },

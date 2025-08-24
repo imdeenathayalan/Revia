@@ -1,4 +1,5 @@
 import { Card, Row, Col } from 'react-bootstrap';
+import { formatIndianCurrency } from '../../utils/storage.js';
 
 function SummaryCards({ balance, income, expenses }) {
   const cards = [
@@ -41,7 +42,7 @@ function SummaryCards({ balance, income, expenses }) {
                 {card.title}
               </Card.Title>
               <Card.Text className={`text-3xl font-bold ${card.textColor}`}>
-                ${card.amount.toFixed(2)}
+                {formatIndianCurrency(card.amount)}
               </Card.Text>
             </Card.Body>
           </Card>

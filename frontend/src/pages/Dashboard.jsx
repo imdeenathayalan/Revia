@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import SummaryCards from '../components/Finance/SummaryCards.jsx';
 import MonthlyChart from '../components/Finance/MonthlyChart.jsx';
-import { getTransactions, calculateTotals } from '../utils/storage.js';
+import { getTransactions, calculateTotals, formatIndianCurrency } from '../utils/storage.js';
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -43,7 +43,7 @@ function Dashboard() {
             <p className="text-sm text-gray-400">
               <i className="bi bi-arrow-up-right me-2"></i>
               <strong>Latest transaction:</strong> {transactions[0]?.description} - 
-              ${Math.abs(transactions[0]?.amount).toFixed(2)}
+              {formatIndianCurrency(Math.abs(transactions[0]?.amount))}
             </p>
           </div>
         )}

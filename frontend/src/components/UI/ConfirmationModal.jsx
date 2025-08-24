@@ -34,17 +34,17 @@ function ConfirmationModal({
       onHide={onHide} 
       centered 
       size={size} 
-      contentClassName="bg-gray-100 border border-red-700" 
+      contentClassName="bg-white border border-red-600" 
       backdrop="static"
     >
-      <Modal.Header closeButton className="border-b border-red-700 bg-gray-200">
+      <Modal.Header closeButton className="border-b border-red-600 bg-red-100">
         <Modal.Title className="text-lg font-semibold text-black">
           <i className={`bi ${iconClasses[variant] || 'bi-question-circle'} me-2`}></i>
           {title}
         </Modal.Title>
       </Modal.Header>
       
-      <Modal.Body className="px-6 py-4 bg-gray-100">
+      <Modal.Body className="px-6 py-4 bg-white">
         <div className="flex items-start">
           <div className="flex-shrink-0">
             <div className="w-6 h-6 rounded-full bg-red-200 flex items-center justify-center mr-3">
@@ -57,11 +57,11 @@ function ConfirmationModal({
         </div>
       </Modal.Body>
       
-      <Modal.Footer className="border-t border-red-700 px-6 py-4 bg-gray-200">
+      <Modal.Footer className="border-t border-red-600 px-6 py-4 bg-red-100">
         <Button 
           variant="outline-secondary" 
           onClick={onHide}
-          className="px-4 py-2 rounded-lg border border-gray-500 text-black hover:bg-gray-300 transition-colors disabled:opacity-50"
+          className="px-4 py-2 rounded-lg border border-gray-500 text-black hover:bg-gray-200 transition-colors disabled:opacity-50"
           disabled={isLoading}
         >
           <i className="bi bi-x-circle me-2"></i>

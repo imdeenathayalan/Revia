@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { indianCategories } from '../../utils/storage.js';
 
 function AddTransactionModal({ show, handleClose, addTransaction }) {
   const [formData, setFormData] = useState({
@@ -9,8 +10,6 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
     category: ''
   });
   const [error, setError] = useState('');
-
-  const categories = ['Food', 'Transport', 'Entertainment', 'Utilities', 'Shopping', 'Salary', 'Other'];
 
   const handleChange = (e) => {
     setFormData({
@@ -37,8 +36,8 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
       id: Date.now(),
       description: formData.description,
       amount: formData.type === 'income' ? amount : -amount,
-      category: formData.category || 'Other',
-      date: new Date().toISOString().split('T')[0]
+      category: formData.category || 'Other Expense',
+      date: new Date().toLocaleDateString('en-IN') // Indian date format
     };
 
     addTransaction(transaction);
@@ -74,22 +73,22 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Enter description"
+              placeholder="Enter description (e.g., Groceries, Salary, etc.)"
               className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
             />
           </Form.Group>
 
           <Form.Group className="mb-4">
             <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-currency-dollar me-2"></i>
-              Amount
+              <i className="bi bi-currency-rupee me-2"></i>
+              Amount (₹)
             </Form.Label>
             <Form.Control
               type="number"
               name="amount"
               value={formData.amount}
               onChange={handleChange}
-              placeholder="Enter amount"
+              placeholder="Enter amount in rupees"
               step="0.01"
               className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
             />
@@ -123,7 +122,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="">Select category</option>
-              {categories.map(cat => (
+              {indianCategories.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
               ))}
             </Form.Select>
