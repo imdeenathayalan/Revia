@@ -41,6 +41,7 @@ function MonthlyChart({ transactions }) {
 
     setIsEmpty(false);
     
+    // Group transactions by month and calculate income/expenses
     const monthlyData = {};
     
     transactions.forEach(transaction => {
@@ -63,6 +64,7 @@ function MonthlyChart({ transactions }) {
       }
     });
 
+    // Sort months chronologically
     const sortedMonths = Object.keys(monthlyData).sort();
     const labels = sortedMonths.map(month => monthlyData[month].label);
     
@@ -99,7 +101,7 @@ function MonthlyChart({ transactions }) {
       legend: {
         position: 'top',
         labels: {
-          color: '#D1D5DB', // Light gray
+          color: '#000000', // Black text
           font: {
             size: 14,
             weight: '600',
@@ -109,17 +111,17 @@ function MonthlyChart({ transactions }) {
       title: {
         display: true,
         text: 'Monthly Income vs Expenses',
-        color: '#F87171', // Light red
+        color: '#dc2626', // Red-600
         font: {
           size: 18,
           weight: 'bold',
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(31, 41, 55, 0.95)', // Dark gray
-        titleColor: '#F87171', // Light red
-        bodyColor: '#D1D5DB', // Light gray
-        borderColor: '#EF4444', // Red
+        backgroundColor: 'rgba(255, 255, 255, 0.95)', // White background
+        titleColor: '#000000', // Black text
+        bodyColor: '#000000', // Black text
+        borderColor: '#e5e7eb', // Gray border
         borderWidth: 1,
         cornerRadius: 8,
       }
@@ -128,10 +130,10 @@ function MonthlyChart({ transactions }) {
       y: {
         beginAtZero: true,
         grid: {
-          color: 'rgba(75, 85, 99, 0.5)', // Dark gray
+          color: 'rgba(0, 0, 0, 0.1)', // Light black grid
         },
         ticks: {
-          color: '#9CA3AF', // Gray
+          color: '#000000', // Black text
           callback: function(value) {
             return '$' + value;
           }
@@ -139,15 +141,15 @@ function MonthlyChart({ transactions }) {
         title: {
           display: true,
           text: 'Amount ($)',
-          color: '#F87171', // Light red
+          color: '#000000', // Black text
         }
       },
       x: {
         grid: {
-          color: 'rgba(75, 85, 99, 0.3)', // Dark gray
+          color: 'rgba(0, 0, 0, 0.1)', // Light black grid
         },
         ticks: {
-          color: '#9CA3AF', // Gray
+          color: '#000000', // Black text
         }
       }
     },
@@ -155,11 +157,13 @@ function MonthlyChart({ transactions }) {
 
   if (isEmpty) {
     return (
-      <Card className="mt-6 shadow-xl border border-red-700 bg-gray-800"> {/* Dark card */}
+      <Card className="mt-6 shadow-xl border border-red-700 bg-gray-100">
         <Card.Body className="p-8 text-center">
-          <div className="text-6xl mb-4 text-red-400">📊</div> {/* Dark red */}
-          <h3 className="text-xl font-semibold text-red-300 mb-2">No Data Available</h3> {/* Light red */}
-          <p className="text-gray-400 text-sm"> {/* Gray */}
+          <div className="text-6xl mb-4 text-red-600">
+            <i className="bi bi-bar-chart"></i>
+          </div>
+          <h3 className="text-xl font-semibold text-black mb-2">No Data Available</h3>
+          <p className="text-gray-600">
             Add some transactions to see your monthly financial trends
           </p>
         </Card.Body>
@@ -168,18 +172,21 @@ function MonthlyChart({ transactions }) {
   }
 
   return (
-    <Card className="mt-6 shadow-xl border border-red-700 bg-gray-800"> {/* Dark card */}
+    <Card className="mt-6 shadow-xl border border-red-700 bg-gray-100">
       <Card.Body className="p-6">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-semibold text-red-400">Monthly Overview</h3> {/* Dark red */}
+          <h3 className="text-lg font-semibold text-black">
+            <i className="bi bi-graph-up me-2"></i>
+            Monthly Overview
+          </h3>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
-              <div className="w-3 h-3 bg-green-400 rounded-full mr-2"></div>
-              <span className="text-sm text-gray-300">Income</span> {/* Light gray */}
+              <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+              <span className="text-sm text-black">Income</span>
             </div>
             <div className="flex items-center">
-              <div className="w-3 h-3 bg-red-400 rounded-full mr-2"></div>
-              <span className="text-sm text-gray-300">Expenses</span> {/* Light gray */}
+              <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+              <span className="text-sm text-black">Expenses</span>
             </div>
           </div>
         </div>
@@ -187,6 +194,15 @@ function MonthlyChart({ transactions }) {
         <div className="h-80">
           <Bar data={chartData} options={options} />
         </div>
+        
+        {chartData.labels.length > 0 && (
+          <div className="mt-4 p-4 bg-white rounded-lg border border-gray-300">
+            <p className="text-black text-sm text-center">
+              <i className="bi bi-calendar me-2"></i>
+              Showing data for {chartData.labels.length} month{chartData.labels.length !== 1 ? 's' : ''}
+            </p>
+          </div>
+        )}
       </Card.Body>
     </Card>
   );

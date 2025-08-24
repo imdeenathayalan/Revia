@@ -48,22 +48,25 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} className="shadow-2xl" contentClassName="bg-gray-800 text-white"> {/* Dark theme */}
-      <Modal.Header closeButton className="border-b border-red-700 bg-gray-900"> {/* Dark header */}
-        <Modal.Title className="text-xl font-semibold text-red-400"> {/* Dark red title */}
+    <Modal show={show} onHide={handleClose} className="shadow-xl">
+      <Modal.Header closeButton className="border-b border-red-700 bg-gray-200">
+        <Modal.Title className="text-xl font-semibold text-black">
+          <i className="bi bi-plus-circle me-2"></i>
           Add New Transaction
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
-        <Modal.Body className="p-6 bg-gray-800"> {/* Dark background */}
+        <Modal.Body className="p-6 bg-gray-100">
           {error && (
-            <Alert variant="danger" className="mb-4 rounded-lg bg-red-900 border-red-700 text-red-200"> {/* Dark red alert */}
+            <Alert variant="danger" className="mb-4 rounded-lg bg-red-100 border-red-400 text-red-800">
+              <i className="bi bi-exclamation-triangle-fill me-2"></i>
               {error}
             </Alert>
           )}
           
           <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-medium text-gray-300 mb-2"> {/* Light gray text */}
+            <Form.Label className="block text-sm font-semibold text-black mb-2">
+              <i className="bi bi-text-paragraph me-2"></i>
               Description
             </Form.Label>
             <Form.Control
@@ -72,12 +75,13 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               value={formData.description}
               onChange={handleChange}
               placeholder="Enter description"
-              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent" // Dark inputs
+              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
             />
           </Form.Group>
 
           <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-medium text-gray-300 mb-2">
+            <Form.Label className="block text-sm font-semibold text-black mb-2">
+              <i className="bi bi-currency-dollar me-2"></i>
               Amount
             </Form.Label>
             <Form.Control
@@ -87,19 +91,20 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
               onChange={handleChange}
               placeholder="Enter amount"
               step="0.01"
-              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
             />
           </Form.Group>
 
           <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-medium text-gray-300 mb-2">
+            <Form.Label className="block text-sm font-semibold text-black mb-2">
+              <i className="bi bi-arrow-left-right me-2"></i>
               Type
             </Form.Label>
             <Form.Select 
               name="type" 
               value={formData.type} 
               onChange={handleChange}
-              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="expense">Expense</option>
               <option value="income">Income</option>
@@ -107,14 +112,15 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
           </Form.Group>
 
           <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-medium text-gray-300 mb-2">
+            <Form.Label className="block text-sm font-semibold text-black mb-2">
+              <i className="bi bi-tag me-2"></i>
               Category
             </Form.Label>
             <Form.Select 
               name="category" 
               value={formData.category} 
               onChange={handleChange}
-              className="w-full p-3 border border-red-700 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-400 rounded-lg bg-white text-black focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="">Select category</option>
               {categories.map(cat => (
@@ -123,19 +129,21 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
             </Form.Select>
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer className="border-t border-red-700 px-6 py-4 bg-gray-900"> {/* Dark footer */}
+        <Modal.Footer className="border-t border-red-700 px-6 py-4 bg-gray-200">
           <Button 
             variant="outline-secondary" 
             onClick={handleClose}
-            className="px-4 py-2 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            className="px-4 py-2 rounded-lg border border-gray-500 text-black hover:bg-gray-300 transition-colors"
           >
+            <i className="bi bi-x-circle me-2"></i>
             Cancel
           </Button>
           <Button 
             variant="danger" 
             type="submit"
-            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors border border-red-700"
+            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white border border-red-700 transition-colors"
           >
+            <i className="bi bi-check-circle me-2"></i>
             Add Transaction
           </Button>
         </Modal.Footer>

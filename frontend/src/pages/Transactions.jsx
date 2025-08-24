@@ -31,10 +31,7 @@ function Transactions() {
   const confirmDelete = async () => {
     if (transactionToDelete) {
       setIsDeleting(true);
-      
-      // Simulate async operation (like API call)
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
       const updatedTransactions = transactions.filter(t => t.id !== transactionToDelete.id);
       setTransactions(updatedTransactions);
       saveTransactions(updatedTransactions);
@@ -53,13 +50,17 @@ function Transactions() {
   return (
     <Container>
       <div className="d-flex justify-content-between align-items-center mb-6 p-4 bg-gray-800 rounded-lg shadow-lg border border-red-700">
-        <h1 className="text-2xl font-bold text-red-400 m-0">Transactions</h1>
+        <h1 className="text-2xl font-bold text-red-400 m-0">
+          <i className="bi bi-currency-exchange me-3"></i>
+          Transactions
+        </h1>
         <Button 
           variant="danger" 
           onClick={() => setShowAddModal(true)}
           className="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors border border-red-700"
         >
-          + Add Transaction
+          <i className="bi bi-plus-circle me-2"></i>
+          Add Transaction
         </Button>
       </div>
 
@@ -79,10 +80,9 @@ function Transactions() {
         onHide={cancelDelete}
         onConfirm={confirmDelete}
         title="Delete Transaction"
-        message={transactionToDelete ? `Are you sure you want to delete "${transactionToDelete.description}"? This action cannot be undone.` : "Are you sure you want to delete this transaction?"}
+        message={transactionToDelete ? `Are you sure you want to delete "${transactionToDelete.description}"?` : "Are you sure you want to delete this transaction?"}
         confirmText="Delete"
         variant="danger"
-        isLoading={isDeleting}
       />
     </Container>
   );

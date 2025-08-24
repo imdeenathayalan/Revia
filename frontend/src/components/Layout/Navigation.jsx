@@ -5,7 +5,6 @@ function Navigation({ authState, updateAuthState }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear authentication data
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     updateAuthState(false, null);
@@ -16,7 +15,8 @@ function Navigation({ authState, updateAuthState }) {
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-4 shadow-lg border-b border-red-800">
       <Container>
         <Navbar.Brand as={Link} to="/" className="text-xl font-bold text-red-400">
-          💰 Finance Tracker
+          <i className="bi bi-graph-up-arrow me-2"></i>
+          Revia
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-red-600" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -28,6 +28,7 @@ function Navigation({ authState, updateAuthState }) {
                   to="/" 
                   className="hover:text-red-300 transition-colors duration-200 text-gray-300"
                 >
+                  <i className="bi bi-speedometer2 me-1"></i>
                   Dashboard
                 </Nav.Link>
                 <Nav.Link 
@@ -35,6 +36,7 @@ function Navigation({ authState, updateAuthState }) {
                   to="/transactions"
                   className="hover:text-red-300 transition-colors duration-200 text-gray-300"
                 >
+                  <i className="bi bi-currency-exchange me-1"></i>
                   Transactions
                 </Nav.Link>
               </Nav>
@@ -45,14 +47,16 @@ function Navigation({ authState, updateAuthState }) {
                     id="dropdown-basic"
                     className="border-red-600 text-red-300 hover:bg-red-700 hover:text-white"
                   >
-                    👤 {authState.user?.name || 'User'}
+                    <i className="bi bi-person-circle me-1"></i>
+                    {authState.user?.name || 'User'}
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="bg-gray-800 border border-red-700">
                     <Dropdown.Item 
                       className="text-gray-300 hover:bg-gray-700 hover:text-white"
                       onClick={handleLogout}
                     >
-                      🚪 Logout
+                      <i className="bi bi-box-arrow-right me-2"></i>
+                      Logout
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -65,6 +69,7 @@ function Navigation({ authState, updateAuthState }) {
                 to="/login"
                 className="hover:text-red-300 transition-colors duration-200 text-gray-300"
               >
+                <i className="bi bi-box-arrow-in-right me-1"></i>
                 Login
               </Nav.Link>
               <Nav.Link 
@@ -72,6 +77,7 @@ function Navigation({ authState, updateAuthState }) {
                 to="/signup"
                 className="ml-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200"
               >
+                <i className="bi bi-person-plus me-1"></i>
                 Sign Up
               </Nav.Link>
             </Nav>

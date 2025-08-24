@@ -16,7 +16,10 @@ function Dashboard() {
 
   return (
     <Container>
-      <h1 className="mb-6 text-3xl font-bold text-red-400">Dashboard</h1> {/* Dark red title */}
+      <h1 className="mb-6 text-3xl font-bold text-red-400">
+        <i className="bi bi-speedometer2 me-3"></i>
+        Dashboard
+      </h1>
       <SummaryCards 
         balance={totals.balance} 
         income={totals.income} 
@@ -25,16 +28,21 @@ function Dashboard() {
       
       <MonthlyChart transactions={transactions} />
       
-      <div className="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg border border-red-700"> {/* Dark card with red border */}
-        <h2 className="text-xl font-semibold text-red-400 mb-3">Recent Activity</h2> {/* Dark red */}
-        <p className="text-gray-300"> {/* Light gray text */}
+      <div className="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg border border-red-700">
+        <h2 className="text-xl font-semibold text-red-400 mb-3">
+          <i className="bi bi-clock-history me-2"></i>
+          Recent Activity
+        </h2>
+        <p className="text-gray-300">
+          <i className="bi bi-list-check me-2"></i>
           You have {transactions.length} total transaction{transactions.length !== 1 ? 's' : ''}. 
           Go to the Transactions page to manage them.
         </p>
         {transactions.length > 0 && (
-          <div className="mt-4 p-4 bg-gray-700 rounded-lg border border-red-800"> {/* Darker card */}
-            <p className="text-sm text-gray-400"> {/* Gray text */}
-              <strong className="text-red-300">Latest transaction:</strong> {transactions[0]?.description} - 
+          <div className="mt-4 p-4 bg-gray-700 rounded-lg border border-red-800">
+            <p className="text-sm text-gray-400">
+              <i className="bi bi-arrow-up-right me-2"></i>
+              <strong>Latest transaction:</strong> {transactions[0]?.description} - 
               ${Math.abs(transactions[0]?.amount).toFixed(2)}
             </p>
           </div>
