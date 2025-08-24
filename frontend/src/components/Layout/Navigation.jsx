@@ -1,7 +1,6 @@
-// src/components/Layout/Navigation.jsx
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';  // Added .jsx extension
+import { useAuth } from '../../context/AuthContext.jsx';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -39,6 +38,14 @@ function Navigation() {
                 >
                   <i className="bi bi-currency-exchange me-1"></i>
                   Transactions
+                </Nav.Link>
+                <Nav.Link 
+                  as={Link} 
+                  to="/reports"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white"
+                >
+                  <i className="bi bi-bar-chart me-1"></i>
+                  Reports
                 </Nav.Link>
               </Nav>
               <Nav>

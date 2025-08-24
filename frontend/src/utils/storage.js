@@ -1,11 +1,23 @@
+// src/utils/storage.js
 // Utility functions to handle localStorage
 export const getTransactions = () => {
   const data = localStorage.getItem('transactions');
-  return data ? JSON.parse(data) : [];
+  const transactions = data ? JSON.parse(data) : [];
+  
+  // Ensure all dates are proper Date objects
+  return transactions.map(transaction => ({
+    ...transaction,
+    date: new Date(transaction.date)
+  }));
 };
 
 export const saveTransactions = (transactions) => {
-  localStorage.setItem('transactions', JSON.stringify(transactions));
+  // Convert Date objects to ISO string for storage
+  const transactionsForStorage = transactions.map(transaction => ({
+    ...transaction,
+    date: transaction.date.toISOString() // Store as ISO string
+  }));
+  localStorage.setItem('transactions', JSON.stringify(transactionsForStorage));
 };
 
 // Calculate totals with rupee symbol
@@ -52,3 +64,15 @@ export const indianCategories = [
   'Other Income',
   'Other Expense'
 ];
+
+// Helper function to format date for display
+export const formatDisplayDate = (date) => {
+  if (!(date instanceof Date) || isNaN(date)) {
+    return 'Invalid Date';
+  }
+  return date.toLocaleDateString('en-IN', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+};

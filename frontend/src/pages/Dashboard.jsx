@@ -2,6 +2,7 @@ import { Container } from 'react-bootstrap';
 import SummaryCards from '../components/Finance/SummaryCards.jsx';
 import MonthlyChart from '../components/Finance/MonthlyChart.jsx';
 import BudgetTracker from '../components/Finance/BudgetTracker.jsx';
+import GoalTracker from '../components/Finance/GoalTracker.jsx';
 import { useFinance } from '../context/FinanceContext.jsx';
 import { formatIndianCurrency } from '../utils/storage.js';
 
@@ -24,6 +25,8 @@ function Dashboard() {
       <MonthlyChart transactions={transactions} />
       
       <BudgetTracker />
+      
+      <GoalTracker />
       
       <div className="mt-8 p-6 bg-grey-dark rounded-lg shadow-lg border border-maroon">
         <h2 className="text-xl font-semibold text-white mb-3">

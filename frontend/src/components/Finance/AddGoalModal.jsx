@@ -1,15 +1,17 @@
+// src/components/Finance/AddGoalModal.jsx
 import { useState } from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
-import { indianCategories } from '../../utils/storage.js';
+import { useGoal } from '../../context/GoalContext';
 
-function AddTransactionModal({ show, handleClose, addTransaction }) {
+function AddGoalModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
-    description: '',
-    amount: '',
-    type: 'expense',
-    category: ''
+    name: '',
+    targetAmount: '',
+    targetDate: '',
+    description: ''
   });
   const [error, setError] = useState('');
+  const { createGoal } = useGoal();
 
   const handleChange = (e) => {
     setFormData({
@@ -22,37 +24,46 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!formData.description || !formData.amount) {
-      setError('Please fill in all fields');
+    if (!formData.name || !formData.targetAmount) {
+      setError('Please fill in goal name and target amount');
       return;
     }
 
-    const amount = parseFloat(formData.amount);
-    if (isNaN(amount)) {
-      setError('Please enter a valid amount');
+    const targetAmount = parseFloat(formData.targetAmount);
+    if (isNaN(targetAmount) || targetAmount <= 0) {
+      setError('Please enter a valid target amount');
       return;
     }
 
-    const transaction = {
-      id: Date.now(),
-      description: formData.description,
-      amount: formData.type === 'income' ? amount : -amount,
-      category: formData.category || 'Other Expense',
-      date: new Date() // Store as Date object instead of locale string
-    };
+    if (formData.targetDate && new Date(formData.targetDate) < new Date()) {
+      setError('Target date cannot be in the past');
+      return;
+    }
 
-    addTransaction(transaction);
+    createGoal({
+      name: formData.name,
+      targetAmount: targetAmount,
+      targetDate: formData.targetDate || null,
+      description: formData.description || ''
+    });
+
+    setFormData({ name: '', targetAmount: '', targetDate: '', description: '' });
     handleClose();
-    setFormData({ description: '', amount: '', type: 'expense', category: '' });
     setError('');
+  };
+
+  const getMinDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
   };
 
   return (
     <Modal show={show} onHide={handleClose} className="shadow-xl">
       <Modal.Header closeButton className="border-b border-maroon bg-white">
         <Modal.Title className="text-xl font-semibold text-black">
-          <i className="bi bi-plus-circle me-2"></i>
-          Add New Transaction
+          <i className="bi bi-trophy me-2"></i>
+          Create New Goal
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
@@ -66,15 +77,15 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
           
           <Form.Group className="mb-4">
             <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-text-paragraph me-2"></i>
-              Description
+              <i className="bi bi-bullseye me-2"></i>
+              Goal Name
             </Form.Label>
             <Form.Control
               type="text"
-              name="description"
-              value={formData.description}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
-              placeholder="Enter description (e.g., Groceries, Salary, etc.)"
+              placeholder="e.g., New Laptop, Vacation, Emergency Fund"
               className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
             />
           </Form.Group>
@@ -82,51 +93,49 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
           <Form.Group className="mb-4">
             <Form.Label className="block text-sm font-semibold text-black mb-2">
               <i className="bi bi-currency-rupee me-2"></i>
-              Amount (₹)
+              Target Amount (₹)
             </Form.Label>
             <Form.Control
               type="number"
-              name="amount"
-              value={formData.amount}
+              name="targetAmount"
+              value={formData.targetAmount}
               onChange={handleChange}
-              placeholder="Enter amount in rupees"
+              placeholder="Enter target amount"
               step="0.01"
+              min="1"
               className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
             />
           </Form.Group>
 
           <Form.Group className="mb-4">
             <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-arrow-left-right me-2"></i>
-              Type
+              <i className="bi bi-calendar me-2"></i>
+              Target Date (Optional)
             </Form.Label>
-            <Form.Select 
-              name="type" 
-              value={formData.type} 
+            <Form.Control
+              type="date"
+              name="targetDate"
+              value={formData.targetDate}
               onChange={handleChange}
+              min={getMinDate()}
               className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
-            >
-              <option value="expense">Expense</option>
-              <option value="income">Income</option>
-            </Form.Select>
+            />
           </Form.Group>
 
           <Form.Group className="mb-4">
             <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-tag me-2"></i>
-              Category
+              <i className="bi bi-text-paragraph me-2"></i>
+              Description (Optional)
             </Form.Label>
-            <Form.Select 
-              name="category" 
-              value={formData.category} 
+            <Form.Control
+              as="textarea"
+              rows={3}
+              name="description"
+              value={formData.description}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
-            >
-              <option value="">Select category</option>
-              {indianCategories.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </Form.Select>
+              placeholder="Describe your goal..."
+              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer className="border-t border-maroon px-6 py-4 bg-white">
@@ -143,7 +152,7 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
             type="submit"
           >
             <i className="bi bi-check-circle me-2"></i>
-            Add Transaction
+            Create Goal
           </Button>
         </Modal.Footer>
       </Form>
@@ -151,4 +160,4 @@ function AddTransactionModal({ show, handleClose, addTransaction }) {
   );
 }
 
-export default AddTransactionModal;
+export default AddGoalModal;

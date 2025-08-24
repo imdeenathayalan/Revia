@@ -1,5 +1,5 @@
 import { Button, Badge, Table } from 'react-bootstrap';
-import { formatIndianCurrency } from '../../utils/storage.js';
+import { formatIndianCurrency, formatDisplayDate } from '../../utils/storage.js';
 
 function TransactionTable({ transactions, deleteTransaction }) {
   const formatAmount = (amount) => {
@@ -14,14 +14,6 @@ function TransactionTable({ transactions, deleteTransaction }) {
         {formatIndianCurrency(Math.abs(amount))}
       </Badge>
     );
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
   };
 
   if (transactions.length === 0) {
@@ -81,7 +73,7 @@ function TransactionTable({ transactions, deleteTransaction }) {
             <tr key={transaction.id} className={index < transactions.length - 1 ? 'border-bottom' : ''}>
               <td className="px-4 py-3 align-middle border-end">
                 <div className="text-sm text-dark">
-                  {formatDate(transaction.date)}
+                  {formatDisplayDate(transaction.date)}
                 </div>
               </td>
               <td className="px-4 py-3 align-middle border-end">
