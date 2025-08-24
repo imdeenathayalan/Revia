@@ -1,6 +1,7 @@
 import { Container } from 'react-bootstrap';
 import SummaryCards from '../components/Finance/SummaryCards.jsx';
 import MonthlyChart from '../components/Finance/MonthlyChart.jsx';
+import BudgetTracker from '../components/Finance/BudgetTracker.jsx';
 import { useFinance } from '../context/FinanceContext.jsx';
 import { formatIndianCurrency } from '../utils/storage.js';
 
@@ -13,6 +14,7 @@ function Dashboard() {
         <i className="bi bi-speedometer2 me-3"></i>
         Dashboard
       </h1>
+      
       <SummaryCards 
         balance={totals.balance} 
         income={totals.income} 
@@ -20,6 +22,8 @@ function Dashboard() {
       />
       
       <MonthlyChart transactions={transactions} />
+      
+      <BudgetTracker />
       
       <div className="mt-8 p-6 bg-grey-dark rounded-lg shadow-lg border border-maroon">
         <h2 className="text-xl font-semibold text-white mb-3">
