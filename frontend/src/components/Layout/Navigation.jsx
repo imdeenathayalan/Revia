@@ -1,13 +1,14 @@
+// src/components/Layout/Navigation.jsx
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';  // Added .jsx extension
 
-function Navigation({ authState, updateAuthState }) {
+function Navigation() {
   const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
-    updateAuthState(false, null);
+    logout();
     navigate('/login');
   };
 
@@ -20,7 +21,7 @@ function Navigation({ authState, updateAuthState }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-maroon" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {authState.isAuthenticated ? (
+          {isAuthenticated ? (
             <>
               <Nav className="me-auto">
                 <Nav.Link 
@@ -48,7 +49,7 @@ function Navigation({ authState, updateAuthState }) {
                     className="border-maroon text-white bg-transparent dropdown-custom"
                   >
                     <i className="bi bi-person-circle me-1"></i>
-                    {authState.user?.name || 'User'}
+                    {user?.name || 'User'}
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="bg-grey-dark border border-maroon p-0 overflow-hidden dropdown-menu-custom">
                     <Dropdown.Item 

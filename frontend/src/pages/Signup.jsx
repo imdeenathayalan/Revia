@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Container, Card, Form, Button, Alert, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-function Signup({ updateAuthState }) {
+function Signup() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,6 +15,7 @@ function Signup({ updateAuthState }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -66,9 +68,7 @@ function Signup({ updateAuthState }) {
         email: formData.email
       };
       
-      localStorage.setItem('authToken', 'mock-jwt-token-' + Date.now());
-      localStorage.setItem('user', JSON.stringify(userData));
-      updateAuthState(true, userData);
+      login(userData);
       navigate('/');
 
     } catch (err) {

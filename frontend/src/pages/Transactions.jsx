@@ -1,26 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import AddTransactionModal from '../components/Finance/AddTransactionModal.jsx';
 import TransactionTable from '../components/Finance/TransactionTable.jsx';
 import ConfirmationModal from '../components/UI/ConfirmationModal.jsx';
-import { getTransactions, saveTransactions } from '../utils/storage.js';
+import { useFinance } from '../context/FinanceContext.jsx';
 
 function Transactions() {
-  const [transactions, setTransactions] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    setTransactions(getTransactions());
-  }, []);
-
-  const addTransaction = (newTransaction) => {
-    const updatedTransactions = [newTransaction, ...transactions];
-    setTransactions(updatedTransactions);
-    saveTransactions(updatedTransactions);
-  };
+  
+  const { transactions, addTransaction, deleteTransaction } = useFinance();
 
   const requestDelete = (id) => {
     const transaction = transactions.find(t => t.id === id);
@@ -32,9 +23,7 @@ function Transactions() {
     if (transactionToDelete) {
       setIsDeleting(true);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      const updatedTransactions = transactions.filter(t => t.id !== transactionToDelete.id);
-      setTransactions(updatedTransactions);
-      saveTransactions(updatedTransactions);
+      deleteTransaction(transactionToDelete.id);
       setTransactionToDelete(null);
       setIsDeleting(false);
     }

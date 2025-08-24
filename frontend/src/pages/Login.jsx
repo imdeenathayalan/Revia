@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Container, Card, Form, Button, Alert, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-function Login({ updateAuthState }) {
+function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -11,6 +12,7 @@ function Login({ updateAuthState }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -39,9 +41,7 @@ function Login({ updateAuthState }) {
           email: formData.email
         };
         
-        localStorage.setItem('authToken', 'mock-jwt-token');
-        localStorage.setItem('user', JSON.stringify(userData));
-        updateAuthState(true, userData);
+        login(userData);
         navigate('/');
       } else {
         setError('Please fill in all fields');

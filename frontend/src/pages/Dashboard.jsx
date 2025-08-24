@@ -1,18 +1,11 @@
-import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import SummaryCards from '../components/Finance/SummaryCards.jsx';
 import MonthlyChart from '../components/Finance/MonthlyChart.jsx';
-import { getTransactions, calculateTotals, formatIndianCurrency } from '../utils/storage.js';
+import { useFinance } from '../context/FinanceContext.jsx';
+import { formatIndianCurrency } from '../utils/storage.js';
 
 function Dashboard() {
-  const [transactions, setTransactions] = useState([]);
-  const [totals, setTotals] = useState({ balance: 0, income: 0, expenses: 0 });
-
-  useEffect(() => {
-    const loadedTransactions = getTransactions();
-    setTransactions(loadedTransactions);
-    setTotals(calculateTotals(loadedTransactions));
-  }, []);
+  const { transactions, totals } = useFinance();
 
   return (
     <Container>
