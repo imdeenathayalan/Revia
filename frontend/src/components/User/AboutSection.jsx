@@ -125,28 +125,28 @@ function AboutSection() {
           </h3>
           <div className="space-y-2">
             <Button
-              variant="outline-light"
-              className="w-100 text-start d-flex align-items-center"
-              onClick={() => openExternalLink('https://github.com/yourusername/revia')}
-            >
-              <i className="bi bi-github me-3"></i>
-              GitHub Repository
-            </Button>
-            <Button
-              variant="outline-light"
-              className="w-100 text-start d-flex align-items-center"
-              onClick={() => openExternalLink('https://github.com/yourusername/revia/issues')}
-            >
-              <i className="bi bi-bug me-3"></i>
-              Report an Issue
-            </Button>
-            <Button
-              variant="outline-light"
-              className="w-100 text-start d-flex align-items-center"
-              onClick={() => openExternalLink('https://github.com/yourusername/revia/discussions')}
-            >
-              <i className="bi bi-chat-dots me-3"></i>
-              Community Discussions
+                variant="outline-light"
+                className="w-100 text-start d-flex align-items-center mb-3"
+                onClick={() => openExternalLink('https://github.com/yourusername/revia')}
+                >
+                <i className="bi bi-github me-3"></i>
+                GitHub Repository
+                </Button>
+                <Button
+                variant="outline-light"
+                className="w-100 text-start d-flex align-items-center mb-3"
+                onClick={() => openExternalLink('https://github.com/yourusername/revia/issues')}
+                >
+                <i className="bi bi-bug me-3"></i>
+                Report an Issue
+                </Button>
+                <Button
+                variant="outline-light"
+                className="w-100 text-start d-flex align-items-center mb-3"
+                onClick={() => openExternalLink('https://github.com/yourusername/revia/discussions')}
+                >
+                <i className="bi bi-chat-dots me-3"></i>
+                Community Discussions
             </Button>
           </div>
         </Card.Body>
@@ -157,7 +157,7 @@ function AboutSection() {
         <Card.Body className="p-4">
           <h3 className="text-lg font-semibold text-white mb-3">
             <i className="bi bi-heart me-2"></i>
-            Developed With ❤️
+            REVIA is made by ARC-VORTEX
           </h3>
           <p className="text-white mb-3">
             Revia is developed by <strong>ARC-VORTEX</strong> as a free and open-source project 
@@ -165,17 +165,17 @@ function AboutSection() {
           </p>
           <div className="space-y-2">
             <Button
-              variant="outline-info"
-              className="w-100 text-start d-flex align-items-center"
-              onClick={() => openExternalLink('https://github.com/ARC-VORTEX')}
-            >
-              <i className="bi bi-person-circle me-3"></i>
-              ARC-VORTEX on GitHub
+                variant="outline-info"
+                className="w-100 text-start d-flex align-items-center mb-3"
+                onClick={() => openExternalLink('https://github.com/ARC-VORTEX')}
+                >
+                <i className="bi bi-person-circle me-3"></i>
+                ARC-VORTEX on GitHub
             </Button>
             <Button
               variant="outline-info"
               className="w-100 text-start d-flex align-items-center"
-              onClick={() => openExternalLink('mailto:your-email@example.com')}
+              onClick={() => openExternalLink('mailto:imdeenathayalan@gmail.com')}
             >
               <i className="bi bi-envelope me-3"></i>
               Contact Developer

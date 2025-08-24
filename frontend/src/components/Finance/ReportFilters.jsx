@@ -127,7 +127,7 @@ function ReportFilters({ filters, setFilters }) {
                 variant={localFilters.categories.includes(category) ? 'maroon' : 'outline-maroon'}
                 size="sm"
                 onClick={() => handleCategoryToggle(category)}
-                className="rounded-pill border-maroon"
+                className="rounded-pill border-maroon text-white hover:bg-maroon-dark"
               >
                 {category}
                 {localFilters.categories.includes(category) && (

@@ -61,14 +61,14 @@ function Navigation() {
                   <Dropdown.Toggle 
                     variant="outline-light" 
                     id="dropdown-basic"
-                    className="border-maroon text-white bg-transparent dropdown-custom"
+                    className="border-maroon text-white bg-transparent hover:bg-maroon-dark hover:border-maroon-dark hover:text-white"
                   >
                     <i className="bi bi-person-circle me-1"></i>
                     {user?.name || 'User'}
                   </Dropdown.Toggle>
-                  <Dropdown.Menu className="bg-grey-dark border border-maroon p-0 overflow-hidden dropdown-menu-custom">
+                  <Dropdown.Menu className="bg-grey-dark border border-maroon p-0 overflow-hidden mt-2 rounded-lg">
                     <Dropdown.Item 
-                      className="text-white dropdown-item-custom py-2"
+                      className="text-white hover:bg-maroon-dark hover:text-white py-3"
                       onClick={handleLogout}
                     >
                       <i className="bi bi-box-arrow-right me-2"></i>
@@ -100,33 +100,6 @@ function Navigation() {
           )}
         </Navbar.Collapse>
       </Container>
-      
-      <style>{`
-        .dropdown-custom:hover, .dropdown-custom:focus {
-          background-color: var(--color-maroon-dark) !important;
-          border-color: var(--color-maroon-dark) !important;
-          color: white !important;
-        }
-        .dropdown-menu-custom {
-          border-color: var(--color-maroon) !important;
-        }
-        .dropdown-item-custom:hover, .dropdown-item-custom:focus {
-          background-color: var(--color-maroon-dark) !important;
-          color: white !important;
-        }
-        .dropdown-item-custom:hover ~ .dropdown-menu-custom,
-        .dropdown-menu-custom:hover {
-          border-color: var(--color-maroon-dark) !important;
-        }
-        .dropdown-menu {
-          min-width: 100% !important;
-        }
-        .dropdown-item {
-          padding: 0.5rem 1rem !important;
-          margin: 0 !important;
-          border-radius: 0 !important;
-        }
-      `}</style>
     </Navbar>
   );
 }
