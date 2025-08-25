@@ -7,6 +7,7 @@ import Transactions from './pages/Transactions.jsx';
 import RecurringTransactions from './pages/RecurringTransactions.jsx';
 import Reports from './pages/Reports.jsx';
 import Settings from './pages/Settings.jsx';
+import Notifications from './pages/Notifications.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import ProtectedRoute from './components/Auth/ProtectedRoute.jsx';
@@ -61,6 +62,11 @@ function App() {
                         <Route path="/reports" element={
                           <ProtectedRoute>
                             <Reports />
+                          </ProtectedRoute>
+                        } />
+                        <Route path="/notifications" element={
+                          <ProtectedRoute>
+                            <Notifications />
                           </ProtectedRoute>
                         } />
                         <Route path="/settings" element={

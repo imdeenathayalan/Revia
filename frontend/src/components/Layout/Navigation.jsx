@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, Dropdown, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import NotificationBell from '../UI/NotificationBell.jsx';
@@ -55,6 +55,14 @@ function Navigation() {
                 >
                   <i className="bi bi-bar-chart me-1"></i>
                   Reports
+                </Nav.Link>
+                <Nav.Link 
+                  as={Link} 
+                  to="/notifications"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
+                >
+                  <i className="bi bi-bell me-1"></i>
+                  Notifications
                 </Nav.Link>
                 <Nav.Link 
                   as={Link} 
