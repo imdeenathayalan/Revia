@@ -5,6 +5,7 @@ import ProfileSettings from '../components/User/ProfileSettings';
 import AppearanceSettings from '../components/User/AppearanceSettings';
 import DataManagement from '../components/User/DataManagement';
 import AboutSection from '../components/User/AboutSection';
+import NotificationTester from '../components/UI/NotificationTester.jsx';
 
 function Settings() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -16,20 +17,27 @@ function Settings() {
     { id: 'about', label: 'About', icon: 'bi-info-circle' }
   ];
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'profile':
-        return <ProfileSettings />;
-      case 'appearance':
-        return <AppearanceSettings />;
-      case 'data':
-        return <DataManagement />;
-      case 'about':
-        return <AboutSection />;
-      default:
-        return <ProfileSettings />;
-    }
-  };
+const renderContent = () => {
+  switch (activeTab) {
+    case 'profile':
+      return <ProfileSettings />;
+    case 'appearance':
+      return <AppearanceSettings />;
+    case 'data':
+      return <DataManagement />;
+    case 'about':
+      return <AboutSection />;
+    case 'notifications':
+      return (
+        <div>
+          <NotificationSettings />
+          <NotificationTester />
+        </div>
+      );
+    default:
+      return <ProfileSettings />;
+  }
+};
 
   return (
     <Container>
