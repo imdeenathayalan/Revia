@@ -1,4 +1,3 @@
-// src/components/User/ProfileSettings.jsx
 import { useState } from 'react';
 import { Form, Button, Alert, Card } from 'react-bootstrap';
 import { useAuth } from '../../context/AuthContext';
@@ -8,7 +7,6 @@ function ProfileSettings() {
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
-    currency: 'INR',
     language: 'en'
   });
   const [message, setMessage] = useState('');
@@ -80,21 +78,6 @@ function ProfileSettings() {
             </Form.Group>
 
             <Form.Group className="mb-4">
-              <Form.Label className="text-black">Preferred Currency</Form.Label>
-              <Form.Select
-                name="currency"
-                value={formData.currency}
-                onChange={handleChange}
-                className="bg-grey-dark border-maroon text-white"
-              >
-                <option value="INR">Indian Rupee (₹)</option>
-                <option value="USD">US Dollar ($)</option>
-                <option value="EUR">Euro (€)</option>
-                <option value="GBP">British Pound (£)</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-4">
               <Form.Label className="text-black">Language</Form.Label>
               <Form.Select
                 name="language"
@@ -136,12 +119,12 @@ function ProfileSettings() {
             <i className="bi bi-shield me-2"></i>
             Account Security
           </h3>
-          <div className="space-y-3"> {/* Added space-y-3 for vertical spacing */}
+          <div className="space-y-3">
             <Button variant="outline-warning" className="w-100 text-start d-flex align-items-center">
               <i className="bi bi-key me-3"></i>
               Change Password
             </Button>
-            <div className="my-2"></div> {/* Added spacing div between buttons */}
+            <div className="my-2"></div>
             <Button variant="outline-info" className="w-100 text-start d-flex align-items-center">
               <i className="bi bi-device-phone me-3"></i>
               Two-Factor Authentication

@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -46,11 +45,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (userData) => {
+    // Remove currency from user data if it exists
+    const { currency, ...userWithoutCurrency } = userData;
+    
     localStorage.setItem('authToken', 'mock-jwt-token');
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(userWithoutCurrency));
     setAuthState({
       isAuthenticated: true,
-      user: userData,
+      user: userWithoutCurrency,
       isLoading: false
     });
   };
@@ -66,7 +68,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateUser = (updatedUserData) => {
-    const userData = { ...authState.user, ...updatedUserData };
+    // Remove currency if it's being passed
+    const { currency, ...cleanUserData } = updatedUserData;
+    const userData = { ...authState.user, ...cleanUserData };
+    
     localStorage.setItem('user', JSON.stringify(userData));
     setAuthState(prev => ({
       ...prev,

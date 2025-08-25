@@ -38,7 +38,7 @@ export const calculateTotals = (transactions) => {
   return { income, expenses, balance };
 };
 
-// Format currency for India (Rupee)
+// Format currency for India (Rupee) - KEEP THIS
 export const formatIndianCurrency = (amount) => {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -48,7 +48,7 @@ export const formatIndianCurrency = (amount) => {
   }).format(amount);
 };
 
-// Indian categories
+// Indian categories - KEEP THIS
 export const indianCategories = [
   'Food & Dining',
   'Transportation',
@@ -65,7 +65,7 @@ export const indianCategories = [
   'Other Expense'
 ];
 
-// Helper function to format date for display
+// Helper function to format date for display - KEEP THIS
 export const formatDisplayDate = (date) => {
   if (!(date instanceof Date) || isNaN(date)) {
     return 'Invalid Date';
