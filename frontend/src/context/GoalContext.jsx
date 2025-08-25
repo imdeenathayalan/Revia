@@ -1,4 +1,3 @@
-// src/context/GoalContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const GoalContext = createContext();
@@ -23,7 +22,16 @@ export const GoalProvider = ({ children }) => {
     const savedGoals = localStorage.getItem('goals');
     if (savedGoals) {
       try {
-        setGoals(JSON.parse(savedGoals));
+        const parsedGoals = JSON.parse(savedGoals);
+        // Ensure all goals have notification flags
+        const goalsWithFlags = parsedGoals.map(goal => ({
+          ...goal,
+          notified25: goal.notified25 || false,
+          notified50: goal.notified50 || false,
+          notified75: goal.notified75 || false,
+          notifiedCompleted: goal.notifiedCompleted || false
+        }));
+        setGoals(goalsWithFlags);
       } catch (error) {
         console.error('Error parsing goals:', error);
         localStorage.removeItem('goals');
@@ -43,7 +51,11 @@ export const GoalProvider = ({ children }) => {
       ...goalData,
       createdAt: new Date().toISOString(),
       currentAmount: 0,
-      completed: false
+      completed: false,
+      notified25: false,
+      notified50: false,
+      notified75: false,
+      notifiedCompleted: false
     };
     const updatedGoals = [...goals, newGoal];
     setGoals(updatedGoals);
@@ -69,10 +81,11 @@ export const GoalProvider = ({ children }) => {
     const updatedGoals = goals.map(goal => {
       if (goal.id === goalId) {
         const newAmount = goal.currentAmount + amount;
+        const completed = newAmount >= goal.targetAmount;
         return {
           ...goal,
           currentAmount: newAmount,
-          completed: newAmount >= goal.targetAmount
+          completed: completed
         };
       }
       return goal;
@@ -94,6 +107,20 @@ export const GoalProvider = ({ children }) => {
     return goals.filter(goal => goal.completed === completed);
   };
 
+  const resetGoalNotifications = (goalId) => {
+    const updatedGoals = goals.map(goal =>
+      goal.id === goalId ? {
+        ...goal,
+        notified25: false,
+        notified50: false,
+        notified75: false,
+        notifiedCompleted: false
+      } : goal
+    );
+    setGoals(updatedGoals);
+    saveGoalsToStorage(updatedGoals);
+  };
+
   const value = {
     goals,
     isLoading,
@@ -103,6 +130,7 @@ export const GoalProvider = ({ children }) => {
     addContribution,
     calculateGoalProgress,
     getGoalsByStatus,
+    resetGoalNotifications,
     refreshGoals: loadGoals
   };
 

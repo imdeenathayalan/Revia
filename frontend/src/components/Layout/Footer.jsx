@@ -1,4 +1,5 @@
 import { Container } from 'react-bootstrap';
+import logo from "../../utils/logo.png";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -6,8 +7,12 @@ function Footer() {
   return (
     <footer className="bg-grey-dark text-white py-6 mt-8 border-t border-maroon">
       <Container className="text-center">
-        <p className="mb-2 text-lg font-semibold text-maroon-light">
-          <i className="bi bi-currency-rupee me-2"></i>
+        <p className="mb-2 text-lg font-semibold text-maroon-light flex items-center justify-center">
+          <img
+            src={logo}
+            alt="Revia Logo"
+            className="h-6 w-6 me-2"
+          />
           Revia - Indian Finance Tracker
         </p>
         <p className="mb-2 text-white">

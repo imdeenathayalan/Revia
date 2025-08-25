@@ -1,4 +1,3 @@
-// src/components/UI/NotificationItem.jsx
 import { Card, Button, Badge } from 'react-bootstrap';
 import { useNotification } from '../../context/NotificationContext';
 import { formatDisplayDate } from '../../utils/storage';
@@ -12,20 +11,65 @@ function NotificationItem({ notification, onMarkAsRead }) {
       case 'budget': return 'bi-piggy-bank';
       case 'goal': return 'bi-trophy';
       case 'balance': return 'bi-wallet2';
+      case 'spending': return 'bi-graph-up-arrow';
       case 'system': return 'bi-info-circle';
+      case 'security': return 'bi-shield';
       default: return 'bi-bell';
     }
   };
 
-  const getColor = (type) => {
-    switch (type) {
-      case 'bill': return 'warning';
-      case 'budget': return 'danger';
-      case 'goal': return 'success';
-      case 'balance': return 'info';
-      case 'system': return 'primary';
-      default: return 'secondary';
-    }
+  const getColor = (type, priority = 'medium') => {
+    const colorMap = {
+      high: {
+        bill: 'warning',
+        budget: 'danger',
+        goal: 'success',
+        balance: 'danger',
+        spending: 'warning',
+        system: 'info',
+        security: 'danger'
+      },
+      medium: {
+        bill: 'warning',
+        budget: 'warning',
+        goal: 'info',
+        balance: 'warning',
+        spending: 'info',
+        system: 'info',
+        security: 'warning'
+      },
+      low: {
+        bill: 'info',
+        budget: 'info',
+        goal: 'success',
+        balance: 'info',
+        spending: 'info',
+        system: 'info',
+        security: 'info'
+      },
+      critical: {
+        balance: 'danger',
+        security: 'danger'
+      }
+    };
+
+    return colorMap[priority]?.[type] || 'secondary';
+  };
+
+  const getPriorityBadge = (priority) => {
+    const priorityMap = {
+      critical: { text: 'Critical', variant: 'danger' },
+      high: { text: 'High', variant: 'warning' },
+      medium: { text: 'Medium', variant: 'info' },
+      low: { text: 'Low', variant: 'success' }
+    };
+    
+    const priorityInfo = priorityMap[priority] || { text: 'Normal', variant: 'secondary' };
+    return (
+      <Badge bg={priorityInfo.variant} className="ms-2">
+        {priorityInfo.text}
+      </Badge>
+    );
   };
 
   return (
@@ -33,11 +77,14 @@ function NotificationItem({ notification, onMarkAsRead }) {
       <Card.Body className="p-4">
         <div className="d-flex justify-between items-start">
           <div className="flex items-start space-x-3 flex-grow">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-${getColor(notification.type)}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-${getColor(notification.type, notification.priority)}`}>
               <i className={`${getIcon(notification.type)} text-white`}></i>
             </div>
             <div className="flex-grow">
-              <p className="text-white mb-1">{notification.message}</p>
+              <div className="d-flex align-items-center mb-1">
+                <p className="text-white mb-0 me-2">{notification.message}</p>
+                {notification.priority && getPriorityBadge(notification.priority)}
+              </div>
               <p className="text-maroon-light text-sm">
                 {formatDisplayDate(new Date(notification.timestamp))}
               </p>

@@ -18,6 +18,7 @@ import { BudgetProvider } from './context/BudgetContext.jsx';
 import { GoalProvider } from './context/GoalContext.jsx';
 import { RecurringProvider } from './context/RecurringContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
+import NotificationScheduler from './components/UI/NotificationScheduler.jsx';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <BudgetProvider>
             <GoalProvider>
               <RecurringProvider>
+                <NotificationScheduler />
                 <Router>
                   <div className="d-flex flex-column min-vh-100 bg-gray-900 text-white">
                     <Navigation />
