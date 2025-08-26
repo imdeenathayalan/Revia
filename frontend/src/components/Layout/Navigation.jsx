@@ -2,7 +2,7 @@ import { Navbar, Nav, Container, Dropdown, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import NotificationBell from '../UI/NotificationBell.jsx';
-import logo from "../../utils/logo.png";
+
 function Navigation() {
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
@@ -15,15 +15,10 @@ function Navigation() {
   return (
     <Navbar bg="grey-dark" variant="dark" expand="lg" className="mb-4 shadow-lg border-b border-maroon">
       <Container>
-          <Navbar.Brand as={Link} to="/" className="flex items-center text-xl font-bold text-white">
-            <img
-              src={logo}
-              alt="Revia Logo"
-              className="h-8 w-8 me-2" // adjust size as needed
-            />
-            Revia
-          </Navbar.Brand>
-
+        <Navbar.Brand as={Link} to="/" className="text-xl font-bold text-white">
+          <i className="bi bi-currency-rupee me-2"></i>
+          Revia
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-maroon" />
         <Navbar.Collapse id="basic-navbar-nav">
           {isAuthenticated ? (
@@ -52,6 +47,14 @@ function Navigation() {
                 >
                   <i className="bi bi-arrow-repeat me-1"></i>
                   Recurring
+                </Nav.Link>
+                <Nav.Link 
+                  as={Link} 
+                  to="/investments"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
+                >
+                  <i className="bi bi-graph-up-arrow me-1"></i>
+                  Investments
                 </Nav.Link>
                 <Nav.Link 
                   as={Link} 
