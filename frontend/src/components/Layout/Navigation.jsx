@@ -58,6 +58,14 @@ function Navigation() {
                 </Nav.Link>
                 <Nav.Link 
                   as={Link} 
+                  to="/debts"
+                  className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
+                >
+                  <i className="bi bi-cash-coin me-1"></i>
+                  Debts
+                </Nav.Link>
+                <Nav.Link 
+                  as={Link} 
                   to="/reports"
                   className="hover:text-maroon-dark transition-colors duration-200 text-white py-3 py-lg-2"
                 >
