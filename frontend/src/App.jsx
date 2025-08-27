@@ -7,6 +7,7 @@ import Transactions from './pages/Transactions.jsx';
 import RecurringTransactions from './pages/RecurringTransactions.jsx';
 import Investments from './pages/Investments.jsx';
 import Debts from './pages/Debts.jsx';
+import SharedAccounts from './pages/SharedAccounts.jsx';
 import Reports from './pages/Reports.jsx';
 import Settings from './pages/Settings.jsx';
 import Notifications from './pages/Notifications.jsx';
@@ -21,6 +22,8 @@ import { GoalProvider } from './context/GoalContext.jsx';
 import { RecurringProvider } from './context/RecurringContext.jsx';
 import { InvestmentProvider } from './context/InvestmentContext.jsx';
 import { DebtProvider } from './context/DebtContext.jsx';
+import { SharedProvider } from './context/SharedContext.jsx';
+import { SearchProvider } from './context/SearchContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
 import NotificationScheduler from './components/UI/NotificationScheduler.jsx';
 import './App.css';
@@ -35,70 +38,79 @@ function App() {
               <RecurringProvider>
                 <InvestmentProvider>
                   <DebtProvider>
-                    <NotificationScheduler />
-                    <Router>
-                      <div className="d-flex flex-column min-vh-100 bg-gray-900 text-white">
-                        <Navigation />
-                        <Container className="my-4 flex-grow-1">
-                          <Routes>
-                            <Route path="/login" element={
-                              <PublicRoute>
-                                <Login />
-                              </PublicRoute>
-                            } />
-                            <Route path="/signup" element={
-                              <PublicRoute>
-                                <Signup />
-                              </PublicRoute>
-                            } />
-                            
-                            <Route path="/" element={
-                              <ProtectedRoute>
-                                <Dashboard />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/transactions" element={
-                              <ProtectedRoute>
-                                <Transactions />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/recurring" element={
-                              <ProtectedRoute>
-                                <RecurringTransactions />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/investments" element={
-                              <ProtectedRoute>
-                                <Investments />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/debts" element={
-                              <ProtectedRoute>
-                                <Debts />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/reports" element={
-                              <ProtectedRoute>
-                                <Reports />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/notifications" element={
-                              <ProtectedRoute>
-                                <Notifications />
-                              </ProtectedRoute>
-                            } />
-                            <Route path="/settings" element={
-                              <ProtectedRoute>
-                                <Settings />
-                              </ProtectedRoute>
-                            } />
-                            
-                            <Route path="*" element={<Navigate to="/login" replace />} />
-                          </Routes>
-                        </Container>
-                        <Footer />
-                      </div>
-                    </Router>
+                    <SharedProvider>
+                      <SearchProvider>
+                        <NotificationScheduler />
+                        <Router>
+                          <div className="d-flex flex-column min-vh-100 bg-gray-900 text-white">
+                            <Navigation />
+                            <Container className="my-4 flex-grow-1">
+                              <Routes>
+                                <Route path="/login" element={
+                                  <PublicRoute>
+                                    <Login />
+                                  </PublicRoute>
+                                } />
+                                <Route path="/signup" element={
+                                  <PublicRoute>
+                                    <Signup />
+                                  </PublicRoute>
+                                } />
+                                
+                                <Route path="/" element={
+                                  <ProtectedRoute>
+                                    <Dashboard />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/transactions" element={
+                                  <ProtectedRoute>
+                                    <Transactions />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/recurring" element={
+                                  <ProtectedRoute>
+                                    <RecurringTransactions />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/investments" element={
+                                  <ProtectedRoute>
+                                    <Investments />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/debts" element={
+                                  <ProtectedRoute>
+                                    <Debts />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/shared" element={
+                                  <ProtectedRoute>
+                                    <SharedAccounts />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/reports" element={
+                                  <ProtectedRoute>
+                                    <Reports />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/notifications" element={
+                                  <ProtectedRoute>
+                                    <Notifications />
+                                  </ProtectedRoute>
+                                } />
+                                <Route path="/settings" element={
+                                  <ProtectedRoute>
+                                    <Settings />
+                                  </ProtectedRoute>
+                                } />
+                                
+                                <Route path="*" element={<Navigate to="/login" replace />} />
+                              </Routes>
+                            </Container>
+                            <Footer />
+                          </div>
+                        </Router>
+                      </SearchProvider>
+                    </SharedProvider>
                   </DebtProvider>
                 </InvestmentProvider>
               </RecurringProvider>

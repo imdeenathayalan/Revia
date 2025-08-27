@@ -50,3 +50,44 @@
   border-top: none;
   font-weight: 600;
 }
+/* Advanced Search Styles */
+.advanced-search-modal .modal-content {
+  border: 2px solid #800000;
+  border-radius: 12px;
+}
+
+.advanced-search-modal .modal-header {
+  border-bottom: 2px solid #800000;
+}
+
+.advanced-search-modal .modal-footer {
+  border-top: 2px solid #800000;
+}
+
+.hover-bg-maroon:hover {
+  background-color: #800000 !important;
+  color: white !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Scrollbar styling for categories */
+.advanced-search-modal ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.advanced-search-modal ::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 3px;
+}
+
+.advanced-search-modal ::-webkit-scrollbar-thumb {
+  background: #800000;
+  border-radius: 3px;
+}
+
+.advanced-search-modal ::-webkit-scrollbar-thumb:hover {
+  background: #5a0000;
+}

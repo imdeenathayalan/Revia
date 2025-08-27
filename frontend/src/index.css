@@ -28,3 +28,45 @@
 
 .hover\:bg-maroon-dark:hover { background-color: var(--color-maroon-dark); }
 .hover\:text-maroon-dark:hover { color: var(--color-maroon-dark); }
+/* Light Mode Variables */
+.light-mode {
+  --color-dark-grey: #f8f9fa;
+  --color-grey-dark: #e9ecef;
+  --color-grey-medium: #dee2e6;
+  --color-grey-light: #adb5bd;
+  --text-color: #212529;
+}
+
+/* Apply light mode styles */
+.light-mode body {
+  background-color: var(--color-dark-grey);
+  color: var(--text-color);
+}
+
+.light-mode .bg-grey-dark {
+  background-color: var(--color-grey-dark) !important;
+}
+
+.light-mode .bg-grey-medium {
+  background-color: var(--color-grey-medium) !important;
+}
+
+.light-mode .text-white {
+  color: var(--text-color) !important;
+}
+
+.light-mode .border-maroon {
+  border-color: var(--color-maroon) !important;
+}
+
+.light-mode .card {
+  background-color: var(--color-grey-dark) !important;
+  color: var(--text-color) !important;
+}
+
+.light-mode .form-control,
+.light-mode .form-select {
+  background-color: white !important;
+  color: var(--text-color) !important;
+  border-color: var(--color-grey-medium) !important;
+}
