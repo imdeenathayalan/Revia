@@ -1,6 +1,4 @@
-// src/components/Finance/AddGoalModal.jsx
 import { useState } from 'react';
-import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import { useGoal } from '../../context/GoalContext';
 
 function AddGoalModal({ show, handleClose }) {
@@ -58,105 +56,122 @@ function AddGoalModal({ show, handleClose }) {
     return tomorrow.toISOString().split('T')[0];
   };
 
+  if (!show) return null;
+
   return (
-    <Modal show={show} onHide={handleClose} className="shadow-xl">
-      <Modal.Header closeButton className="border-b border-maroon bg-white">
-        <Modal.Title className="text-xl font-semibold text-black">
-          <i className="bi bi-trophy me-2"></i>
-          Create New Goal
-        </Modal.Title>
-      </Modal.Header>
-      <Form onSubmit={handleSubmit}>
-        <Modal.Body className="p-6 bg-white">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-gradient-to-br from-navy-700 to-navy-800 rounded-2xl shadow-xl border border-navy-600 w-full max-w-md">
+        <div className="flex justify-between items-center p-6 border-b border-navy-600">
+          <h2 className="text-xl font-bold text-white flex items-center">
+            <div className="w-8 h-8 bg-light-orange rounded-lg flex items-center justify-center mr-3">
+              <i className="bi bi-trophy text-navy-900"></i>
+            </div>
+            Create New Goal
+          </h2>
+          <button
+            onClick={handleClose}
+            className="text-beige-200 hover:text-white transition-colors"
+          >
+            <i className="bi bi-x-lg text-xl"></i>
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="p-6">
           {error && (
-            <Alert variant="danger" className="mb-4 rounded-lg bg-red-100 border-maroon text-red-800">
-              <i className="bi bi-exclamation-triangle-fill me-2"></i>
+            <div className="mb-4 p-3 bg-red-800 border border-red-700 rounded-lg text-red-200 flex items-center">
+              <i className="bi bi-exclamation-triangle-fill mr-2"></i>
               {error}
-            </Alert>
+            </div>
           )}
           
-          <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-bullseye me-2"></i>
-              Goal Name
-            </Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="e.g., New Laptop, Vacation, Emergency Fund"
-              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
-            />
-          </Form.Group>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-beige-200 mb-2 flex items-center">
+                <i className="bi bi-bullseye text-light-orange mr-2"></i>
+                Goal Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="e.g., New Laptop, Vacation, Emergency Fund"
+                className="w-full p-3 bg-navy-600 border border-navy-500 rounded-lg text-white placeholder-beige-300 focus:border-light-orange focus:ring-2 focus:ring-light-orange transition-colors"
+              />
+            </div>
 
-          <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-currency-rupee me-2"></i>
-              Target Amount (₹)
-            </Form.Label>
-            <Form.Control
-              type="number"
-              name="targetAmount"
-              value={formData.targetAmount}
-              onChange={handleChange}
-              placeholder="Enter target amount"
-              step="0.01"
-              min="1"
-              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
-            />
-          </Form.Group>
+            <div>
+              <label className="block text-sm font-medium text-beige-200 mb-2 flex items-center">
+                <i className="bi bi-currency-rupee text-light-orange mr-2"></i>
+                Target Amount (₹)
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-beige-300">
+                  ₹
+                </span>
+                <input
+                  type="number"
+                  name="targetAmount"
+                  value={formData.targetAmount}
+                  onChange={handleChange}
+                  placeholder="Enter target amount"
+                  step="0.01"
+                  min="1"
+                  className="w-full pl-10 p-3 bg-navy-600 border border-navy-500 rounded-lg text-white placeholder-beige-300 focus:border-light-orange focus:ring-2 focus:ring-light-orange transition-colors"
+                />
+              </div>
+            </div>
 
-          <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-calendar me-2"></i>
-              Target Date (Optional)
-            </Form.Label>
-            <Form.Control
-              type="date"
-              name="targetDate"
-              value={formData.targetDate}
-              onChange={handleChange}
-              min={getMinDate()}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
-            />
-          </Form.Group>
+            <div>
+              <label className="block text-sm font-medium text-beige-200 mb-2 flex items-center">
+                <i className="bi bi-calendar text-light-orange mr-2"></i>
+                Target Date (Optional)
+              </label>
+              <input
+                type="date"
+                name="targetDate"
+                value={formData.targetDate}
+                onChange={handleChange}
+                min={getMinDate()}
+                className="w-full p-3 bg-navy-600 border border-navy-500 rounded-lg text-white focus:border-light-orange focus:ring-2 focus:ring-light-orange transition-colors"
+              />
+            </div>
 
-          <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-semibold text-black mb-2">
-              <i className="bi bi-text-paragraph me-2"></i>
-              Description (Optional)
-            </Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Describe your goal..."
-              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer className="border-t border-maroon px-6 py-4 bg-white">
-          <Button 
-            variant="outline-secondary" 
-            onClick={handleClose}
-            className="px-4 py-2 rounded-lg border border-gray-400 text-black hover:bg-gray-100 transition-colors"
-          >
-            <i className="bi bi-x-circle me-2"></i>
-            Cancel
-          </Button>
-          <Button 
-            className="px-4 py-2 rounded-lg bg-maroon hover:bg-maroon-dark text-white border border-maroon transition-colors"
-            type="submit"
-          >
-            <i className="bi bi-check-circle me-2"></i>
-            Create Goal
-          </Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
+            <div>
+              <label className="block text-sm font-medium text-beige-200 mb-2 flex items-center">
+                <i className="bi bi-text-paragraph text-light-orange mr-2"></i>
+                Description (Optional)
+              </label>
+              <textarea
+                rows={3}
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Describe your goal..."
+                className="w-full p-3 bg-navy-600 border border-navy-500 rounded-lg text-white placeholder-beige-300 focus:border-light-orange focus:ring-2 focus:ring-light-orange transition-colors"
+              />
+            </div>
+          </div>
+          
+          <div className="flex justify-end space-x-3 pt-6 mt-6 border-t border-navy-600">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="px-4 py-2 border border-navy-500 text-beige-200 rounded-lg hover:bg-navy-600 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-light-orange text-navy-900 rounded-lg hover:bg-light-orange-dark transition-all duration-200 flex items-center"
+            >
+              <i className="bi bi-check-circle mr-2"></i>
+              Create Goal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

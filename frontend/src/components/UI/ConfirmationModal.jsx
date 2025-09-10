@@ -1,4 +1,5 @@
 import { Modal, Button } from 'react-bootstrap';
+import './ConfirmationModal.css'; // Import our enhanced CSS
 
 function ConfirmationModal({
   show,
@@ -13,11 +14,11 @@ function ConfirmationModal({
   isLoading = false
 }) {
   const buttonClasses = {
-    danger: "bg-maroon hover:bg-maroon-dark text-white border border-maroon",
-    primary: "bg-maroon hover:bg-maroon-dark text-white border border-maroon",
-    secondary: "bg-grey-medium hover:bg-grey-light text-white border border-grey-medium",
-    success: "bg-green-600 hover:bg-green-700 text-white border border-green-600",
-    warning: "bg-yellow-600 hover:bg-yellow-700 text-white border border-yellow-600"
+    danger: "btn-confirm-danger",
+    primary: "btn-confirm-primary", 
+    secondary: "btn-confirm-secondary",
+    success: "btn-confirm-success",
+    warning: "btn-confirm-warning"
   };
 
   const iconClasses = {
@@ -28,40 +29,46 @@ function ConfirmationModal({
     warning: "bi-exclamation-circle"
   };
 
+  const iconColors = {
+    danger: "#ff5252",
+    primary: "#3498db",
+    secondary: "#95a5a6", 
+    success: "#2ecc71",
+    warning: "#f39c12"
+  };
+
   return (
     <Modal 
       show={show} 
       onHide={onHide} 
       centered 
       size={size} 
-      contentClassName="bg-grey-dark border border-maroon" 
-      backdrop="static"
+      contentClassName="confirmation-modal-content animate-scale-in" 
+      backdropClassName="modal-backdrop-enhanced"
+      dialogClassName="w-full mx-auto px-4 xl:px-6 2xl:px-8"
     >
-      <Modal.Header closeButton className="border-b border-maroon bg-grey-medium">
-        <Modal.Title className="text-lg font-semibold text-white">
-          <i className={`bi ${iconClasses[variant] || 'bi-question-circle'} me-2`}></i>
-          {title}
+      <Modal.Header closeButton className="modal-header-enhanced">
+        <Modal.Title className="modal-title font-poppins font-semibold">
+          <div className="title-icon" style={{ color: iconColors[variant] }}>
+            <i className={`bi ${iconClasses[variant] || 'bi-question-circle'}`}></i>
+          </div>
+          <span>{title}</span>
         </Modal.Title>
       </Modal.Header>
       
-      <Modal.Body className="px-6 py-4 bg-grey-dark">
-        <div className="flex items-start">
-          <div className="flex-shrink-0">
-            <div className="w-6 h-6 rounded-full bg-maroon flex items-center justify-center mr-3">
-              <span className="text-white text-sm">!</span>
-            </div>
-          </div>
-          <p className="text-white leading-relaxed">
+      <Modal.Body className="modal-body-enhanced">
+        <div className="message-container">
+          <p className="message-text font-poppins font-medium">
             {message}
           </p>
         </div>
       </Modal.Body>
       
-      <Modal.Footer className="border-t border-maroon px-6 py-4 bg-grey-medium">
+      <Modal.Footer className="modal-footer-enhanced">
         <Button 
           variant="outline-secondary" 
           onClick={onHide}
-          className="px-4 py-2 rounded-lg border border-grey-light text-white hover:bg-grey-light transition-colors disabled:opacity-50"
+          className="btn-cancel font-poppins font-semibold"
           disabled={isLoading}
         >
           <i className="bi bi-x-circle me-2"></i>
@@ -69,17 +76,20 @@ function ConfirmationModal({
         </Button>
         
         <Button 
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${buttonClasses[variant]} disabled:opacity-50 disabled:cursor-not-allowed`}
+          className={`btn-confirm ${buttonClasses[variant]} font-poppins font-semibold`}
           onClick={onConfirm}
           disabled={isLoading}
         >
           {isLoading ? (
             <>
-              <span className="spinner-border spinner-border-sm me-2"></span>
+              <span className="spinner me-2"></span>
               Processing...
             </>
           ) : (
-            confirmText
+            <>
+              <i className="bi bi-check-circle me-2"></i>
+              {confirmText}
+            </>
           )}
         </Button>
       </Modal.Footer>

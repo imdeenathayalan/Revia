@@ -1,0 +1,504 @@
+/* ReportFilters.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Root color variables for dark theme */
+:root {
+  --color-primary: #243447;
+  --color-secondary: #141d26;
+  --color-card: #2c3e50;
+  --color-border: #3a506b;
+  --color-accent-start: #ff5252;
+  --color-accent-end: #ff7b46;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e7ff;
+  --text-muted: #a0aec0;
+}
+
+/* Animation Keyframes */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Animation Classes */
+.animate-slide-down {
+  animation: slideDown 0.4s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-pulse {
+  animation: pulse 0.5s ease-in-out;
+}
+
+/* Base styles - color only */
+.report-filters-container {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--text-primary);
+}
+
+/* Typography - color only */
+.text-meta {
+  color: var(--text-muted);
+}
+
+.text-detail {
+  color: var(--text-secondary);
+}
+
+/* Card components - color only */
+.report-filters-card {
+  background-color: var(--color-card);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--color-border);
+}
+
+.report-filters-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Buttons - color only */
+.btn {
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, var(--color-accent-start), var(--color-accent-end));
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Forms - color only */
+.form-control {
+  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-control:focus {
+  border-color: var(--color-accent-start);
+}
+
+.form-select {
+  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+/* Focus styles for accessibility - color only */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent-start);
+}
+
+/* Enhanced responsive breakpoints */
+@media (max-width: 480px) {
+  .xs-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .xs-col-span-2 {
+    grid-column: span 2 / span 2 !important;
+  }
+  
+  .xs-col-span-1 {
+    grid-column: span 1 / span 1 !important;
+  }
+  
+  .xs-flex-row {
+    flex-direction: row !important;
+  }
+  
+  .xs-flex {
+    display: flex !important;
+  }
+}
+
+/* Form control focus states */
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 82, 82, 0.3);
+  border-color: var(--color-accent-start);
+}
+
+/* Button hover effects */
+.btn {
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Custom scrollbar for dropdowns */
+.form-select {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-card);
+}
+
+.form-select::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form-select::-webkit-scrollbar-track {
+  background: var(--color-card);
+  border-radius: 3px;
+}
+
+.form-select::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.form-select::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Enhanced responsive adjustments */
+@media (max-width: 640px) {
+  .report-filters-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  
+  .categories-container {
+    justify-content: center;
+  }
+  
+  .category-btn {
+    flex: 1 0 calc(50% - 0.5rem);
+    min-width: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-filters-card {
+    padding: 0.75rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .category-btn {
+    flex: 1 0 100%;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .grid-cols-1 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .xs-grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .xs-col-span-2,
+  .xs-col-span-1 {
+    grid-column: span 1 !important;
+  }
+}
+
+/* Focus states for accessibility */
+.filter-select:focus,
+.date-input:focus,
+.apply-btn:focus,
+.reset-btn:focus,
+.category-btn:focus {
+  outline: 2px solid var(--color-accent-start);
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #2c3e50 0%, #3a506b 50%, #2c3e50 100%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+.report-filters-card * {
+  transition: all 0.2s ease;
+}
+
+/* Enhanced dropdown styling - FIXED ICON VISIBILITY */
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 14px 10px;
+  padding-right: 2.25rem;
+}
+
+/* Date input placeholder color */
+.form-control::placeholder {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.form-control:-ms-input-placeholder {
+  color: var(--text-muted);
+}
+
+.form-control::-ms-input-placeholder {
+  color: var(--text-muted);
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover {
+    transform: none;
+  }
+  
+  .form-control,
+  .form-select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .report-filters-card {
+    border-width: 2px;
+  }
+  
+  .btn {
+    border-width: 2px;
+  }
+  
+  /* Ensure icons are visible in high contrast mode */
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-down,
+  .animate-fade-in,
+  .animate-shake,
+  .animate-pulse,
+  .btn,
+  .report-filters-card * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fix for text visibility issues */
+.report-filters-card {
+  background: var(--color-card);
+  color: var(--text-primary);
+}
+
+.report-filters-card .form-label {
+  color: var(--text-secondary) !important;
+}
+
+.report-filters-card .form-control,
+.report-filters-card .form-select {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-border);
+  color: var(--text-primary);
+}
+
+.report-filters-card .form-control:disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+}
+
+.report-filters-card .text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+.report-filters-card .text-gray-200 {
+  color: var(--text-secondary) !important;
+}
+
+.report-filters-card .btn-outline-secondary {
+  color: var(--text-secondary);
+  border-color: var(--color-border);
+}
+
+.report-filters-card .btn-outline-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+/* FIX FOR DATE INPUT TEXT ISSUE */
+.date-input-field {
+  color-scheme: dark;
+}
+
+.date-input-field::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
+/* Ensure date inputs have proper contrast */
+.date-input-field::-webkit-datetime-edit-fields-wrapper {
+  color: var(--text-primary);
+}
+
+.date-input-field::-webkit-datetime-edit-text {
+  color: var(--text-muted);
+}
+
+.date-input-field::-webkit-datetime-edit-month-field,
+.date-input-field::-webkit-datetime-edit-day-field,
+.date-input-field::-webkit-datetime-edit-year-field {
+  color: var(--text-primary);
+}
+
+.date-input-field:disabled {
+  color: var(--text-muted);
+}
+
+.date-input-field:disabled::-webkit-datetime-edit-fields-wrapper {
+  color: var(--text-muted);
+}
+
+/* Custom styling for better appearance */
+.report-filters-card {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.category-btn:focus {
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.3);
+}
+
+/* ICON FIXES */
+/* Ensure all icons have proper contrast */
+.filter-icon {
+  color: var(--text-muted);
+}
+
+/* Fix for icon buttons */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Badges - color only */
+.badge-success {
+  background-color: rgba(72, 187, 120, 0.2);
+  color: #48bb78;
+}
+
+.badge-warning {
+  background-color: rgba(237, 137, 54, 0.2);
+  color: #ed8936;
+}
+
+.badge-error {
+  background-color: rgba(245, 101, 101, 0.2);
+  color: #f56565;
+}
+
+/* Lists - color only */
+.list-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.list-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Dark mode support for icons */
+@media (prefers-color-scheme: dark) {
+  .report-filters-card {
+    background: var(--color-card);
+    color: var(--text-primary);
+  }
+  
+  .report-filters-card .form-label {
+    color: var(--text-secondary) !important;
+  }
+  
+  .report-filters-card .form-control,
+  .report-filters-card .form-select {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-border);
+    color: var(--text-primary);
+  }
+  
+  .report-filters-card .form-control:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+  }
+  
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  }
+  
+  .date-input-field::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+  }
+}

@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Container, Card, Form, Button, Alert, InputGroup } from 'react-bootstrap';
+import { Card, Form, Button, Alert, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import './Login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -11,15 +12,45 @@ function Login() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [formValidations, setFormValidations] = useState({
+    email: false,
+    password: false
+  });
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Validate field in real-time
+    validateField(name, value);
+    
     if (error) setError('');
+  };
+
+  const validateField = (name, value) => {
+    let isValid = false;
+    
+    switch (name) {
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(value);
+        break;
+      case 'password':
+        isValid = value.length >= 6;
+        break;
+      default:
+        break;
+    }
+    
+    setFormValidations({
+      ...formValidations,
+      [name]: isValid
+    });
   };
 
   const togglePasswordVisibility = () => {
@@ -53,32 +84,35 @@ function Login() {
     }
   };
 
+  // Check if all fields are valid
+  const isFormValid = Object.values(formValidations).every(valid => valid);
+
   return (
-    <Container className="d-flex align-items-center justify-content-center min-vh-100 bg-dark-grey">
-      <div className="w-full max-w-md">
-        <Card className="shadow-xl border border-maroon bg-grey-dark">
-          <Card.Body className="p-8">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-maroon rounded-full flex items-center justify-center mx-auto mb-4 border border-maroon-light">
-                <span className="text-2xl text-white">
+    <div className="login-container">
+      <div className="login-wrapper">
+        <Card className="login-card">
+          <Card.Body className="login-card-body">
+            <div className="login-header">
+              <div className="login-icon">
+                <span>
                   <i className="bi bi-currency-rupee"></i>
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-2">Welcome to Revia</h1>
-              <p className="text-white">Sign in to manage your finances</p>
+              <h1>Welcome to Revia</h1>
+              <p>Sign in to manage your finances</p>
             </div>
 
             {error && (
-              <Alert variant="danger" className="mb-6 bg-maroon-dark border-maroon text-white rounded-lg">
+              <Alert variant="danger" className="error-alert">
                 <i className="bi bi-exclamation-triangle-fill me-2"></i>
                 {error}
               </Alert>
             )}
 
-            <div className="bg-white rounded-lg p-6 border border-grey-light">
+            <div className="login-form-container">
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-5">
-                  <Form.Label className="block text-sm font-semibold text-black mb-3">
+                <Form.Group className="form-group-animate">
+                  <Form.Label>
                     <i className="bi bi-envelope me-2"></i>
                     Email Address
                   </Form.Label>
@@ -88,13 +122,26 @@ function Login() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email address"
-                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
+                    className={formValidations.email ? 'is-valid' : formData.email ? 'is-warning' : ''}
                     disabled={isLoading}
                   />
+                  {formData.email && (
+                    <div className="validation-feedback">
+                      {formValidations.email ? (
+                        <small className="text-success">
+                          <i className="bi bi-check-circle-fill me-1"></i> Valid email
+                        </small>
+                      ) : (
+                        <small className="text-warning">
+                          <i className="bi bi-exclamation-circle-fill me-1"></i> Please enter a valid email
+                        </small>
+                      )}
+                    </div>
+                  )}
                 </Form.Group>
 
-                <Form.Group className="mb-6">
-                  <Form.Label className="block text-sm font-semibold text-black mb-3">
+                <Form.Group className="form-group-animate">
+                  <Form.Label>
                     <i className="bi bi-lock me-2"></i>
                     Password
                   </Form.Label>
@@ -105,14 +152,15 @@ function Login() {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Enter your password"
-                      className="p-3 border border-gray-300 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon border-r-0"
+                      className={formValidations.password ? 'is-valid' : formData.password ? 'is-warning' : ''}
                       disabled={isLoading}
                     />
                     <Button
                       variant="outline-secondary"
                       onClick={togglePasswordVisibility}
-                      className="bg-white border border-gray-300 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
+                      className="password-toggle"
                       disabled={isLoading}
+                      type="button"
                     >
                       {showPassword ? (
                         <i className="bi bi-eye-slash"></i>
@@ -121,12 +169,25 @@ function Login() {
                       )}
                     </Button>
                   </InputGroup>
+                  {formData.password && (
+                    <div className="validation-feedback">
+                      {formValidations.password ? (
+                        <small className="text-success">
+                          <i className="bi bi-check-circle-fill me-1"></i> Valid password
+                        </small>
+                      ) : (
+                        <small className="text-warning">
+                          <i className="bi bi-exclamation-circle-fill me-1"></i> Password must be at least 6 characters
+                        </small>
+                      )}
+                    </div>
+                  )}
                 </Form.Group>
 
                 <Button
                   type="submit"
-                  className="w-full py-3 rounded-lg bg-maroon hover:bg-maroon-dark text-white font-semibold border border-maroon shadow-lg disabled:opacity-50 disabled: cursor-not-allowed"
-                  disabled={isLoading}
+                  className={`login-btn ${isFormValid ? '' : 'disabled'}`}
+                  disabled={isLoading || !isFormValid}
                 >
                   {isLoading ? (
                     <>
@@ -143,20 +204,20 @@ function Login() {
               </Form>
             </div>
 
-            <div className="text-center mt-6 pt-6 border-t border-grey-medium">
-              <p className="text-white">
+            <div className="login-footer">
+              <p>
                 Don't have an account?{' '}
                 <Link 
                   to="/signup" 
-                  className="text-maroon-light hover:text-maroon font-medium transition-colors"
+                  className="signup-link"
                 >
                   Create Account
                 </Link>
               </p>
             </div>
 
-            <div className="mt-6 p-4 bg-grey-medium rounded-lg border border-grey-medium">
-              <p className="text-white text-sm text-center">
+            <div className="demo-info">
+              <p>
                 <i className="bi bi-info-circle me-2"></i>
                 Demo: Use any email and password to explore features
               </p>
@@ -164,7 +225,7 @@ function Login() {
           </Card.Body>
         </Card>
       </div>
-    </Container>
+    </div>
   );
 }
 

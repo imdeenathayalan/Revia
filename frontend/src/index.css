@@ -1,72 +1,239 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
-
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+/* Root color variables for dark theme */
 :root {
-  --color-maroon: #800000;
-  --color-maroon-dark: #5a0000;
-  --color-maroon-light: #a52a2a;
-  --color-dark-grey: #1a1a1a;
-  --color-grey-dark: #2d2d2d;
-  --color-grey-medium: #404040;
-  --color-grey-light: #666666;
+  --color-primary: #243447;
+  --color-secondary: #141d26;
+  --color-card: #2c3e50;
+  --color-border: #3a506b;
+  --color-accent-start: #ff5252;
+  --color-accent-end: #ff7b46;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e7ff;
+  --text-muted: #a0aec0;
 }
 
-.bg-maroon { background-color: var(--color-maroon); }
-.bg-maroon-dark { background-color: var(--color-maroon-dark); }
-.bg-maroon-light { background-color: var(--color-maroon-light); }
-.bg-dark-grey { background-color: var(--color-dark-grey); }
-.bg-grey-dark { background-color: var(--color-grey-dark); }
-.bg-grey-medium { background-color: var(--color-grey-medium); }
-.bg-grey-light { background-color: var(--color-grey-light); }
-
-.border-maroon { border-color: var(--color-maroon); }
-.border-maroon-dark { border-color: var(--color-maroon-dark); }
-.border-maroon-light { border-color: var(--color-maroon-light); }
-
-.text-maroon { color: var(--color-maroon); }
-.text-maroon-dark { color: var(--color-maroon-dark); }
-.text-maroon-light { color: var(--color-maroon-light); }
-
-.hover\:bg-maroon-dark:hover { background-color: var(--color-maroon-dark); }
-.hover\:text-maroon-dark:hover { color: var(--color-maroon-dark); }
-/* Light Mode Variables */
-.light-mode {
-  --color-dark-grey: #f8f9fa;
-  --color-grey-dark: #e9ecef;
-  --color-grey-medium: #dee2e6;
-  --color-grey-light: #adb5bd;
-  --text-color: #212529;
+/* Base styles - color only */
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--text-primary);
 }
 
-/* Apply light mode styles */
-.light-mode body {
-  background-color: var(--color-dark-grey);
-  color: var(--text-color);
+/* Typography - color only */
+.text-meta {
+  color: var(--text-muted);
 }
 
-.light-mode .bg-grey-dark {
-  background-color: var(--color-grey-dark) !important;
+.text-detail {
+  color: var(--text-secondary);
 }
 
-.light-mode .bg-grey-medium {
-  background-color: var(--color-grey-medium) !important;
+/* Card components - color only */
+.card {
+  background-color: var(--color-card);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--color-border);
 }
 
-.light-mode .text-white {
-  color: var(--text-color) !important;
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.light-mode .border-maroon {
-  border-color: var(--color-maroon) !important;
+.card-header {
+  border-bottom: 1px solid var(--color-border);
 }
 
-.light-mode .card {
-  background-color: var(--color-grey-dark) !important;
-  color: var(--text-color) !important;
+/* Buttons - color only */
+.btn {
+  font-family: 'Poppins', sans-serif;
 }
 
-.light-mode .form-control,
-.light-mode .form-select {
-  background-color: white !important;
-  color: var(--text-color) !important;
-  border-color: var(--color-grey-medium) !important;
+.btn-primary {
+  background: linear-gradient(to right, var(--color-accent-start), var(--color-accent-end));
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Forms - color only - UPDATED */
+.form-control {
+  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary) !important;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-control:focus {
+  border-color: var(--color-accent-start);
+  color: var(--text-primary) !important;
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 0.2rem rgba(255, 82, 82, 0.25);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1;
+}
+
+.form-select {
+  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary) !important;
+  font-family: 'Poppins', sans-serif;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+.form-select:focus {
+  border-color: var(--color-accent-start);
+  box-shadow: 0 0 0 0.2rem rgba(255, 82, 82, 0.25);
+}
+
+/* Input group text */
+.input-group-text {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Date input specific styling */
+input[type="date"] {
+  color: var(--text-primary) !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  color: var(--text-primary) !important;
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  color: var(--text-primary) !important;
+}
+
+/* Number input specific styling */
+input[type="number"] {
+  color: var(--text-primary) !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(1);
+}
+
+/* Text input specific styling */
+input[type="text"] {
+  color: var(--text-primary) !important;
+}
+
+/* Fix for all input types */
+input, select, textarea {
+  color: var(--text-primary) !important;
+}
+
+/* Placeholder text for all browsers */
+::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1 !important;
+}
+
+:-ms-input-placeholder {
+  color: var(--text-muted) !important;
+}
+
+::-ms-input-placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Tables - color only */
+.table th {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-secondary);
+}
+
+.table td {
+  border-top: 1px solid var(--color-border);
+}
+
+.table tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Lists - color only */
+.list-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.list-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Icons - color only */
+.icon-container {
+  background: linear-gradient(to right, var(--color-accent-start), var(--color-accent-end));
+}
+
+.icon {
+  color: white;
+}
+
+/* Badges - color only */
+.badge-success {
+  background-color: rgba(72, 187, 120, 0.2);
+  color: #48bb78;
+}
+
+.badge-warning {
+  background-color: rgba(237, 137, 54, 0.2);
+  color: #ed8936;
+}
+
+.badge-error {
+  background-color: rgba(245, 101, 101, 0.2);
+  color: #f56565;
+}
+
+/* Focus styles for accessibility - color only */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent-start);
+}
+
+/* Modal specific styles */
+.modal-content {
+  background: linear-gradient(to bottom, #0a192f, #020c1b);
+  border: 1px solid var(--color-border);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-border);
+}
+
+/* High contrast mode support - color only */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid var(--color-border);
+  }
+  
+  .btn {
+    border: 1px solid currentColor;
+  }
+  
+  .form-control {
+    border: 2px solid var(--color-border);
+  }
 }

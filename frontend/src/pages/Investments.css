@@ -1,0 +1,501 @@
+/* src/pages/Investments.css */
+
+/* Poppins font import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+  100% { opacity: 0.2; }
+}
+
+/* Base styles */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+/* Header Section Styles - FIXED FOR DESKTOP */
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  background: linear-gradient(135deg, #243447 0%, #141d26 100%);
+  border: 1px solid #3a506b;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .header-container {
+    flex-direction: row;
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+
+/* Header content - ensures left alignment */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Changed from center to flex-start */
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .header-content {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+
+/* Header actions (button) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .header-actions {
+    width: auto;
+    justify-content: flex-end;
+  }
+}
+
+/* Fixed Rounded icon for Investment Portfolio header */
+.rounded-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #ff5252 0%, #ff7b46 100%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-right: 1rem;
+}
+
+.rounded-icon-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #ff5252 0%, #ff7b46 100%);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: pulse 2s infinite;
+}
+
+.rounded-icon-container i {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-size: 1.3rem;
+}
+
+/* Enhanced responsive icon sizing */
+@media (min-width: 768px) {
+  .rounded-icon-container {
+    width: 55px;
+    height: 55px;
+    margin-right: 1.25rem;
+  }
+  
+  .rounded-icon-container i {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rounded-icon-container {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .rounded-icon-container i {
+    font-size: 1.6rem;
+  }
+}
+
+/* Header text styles */
+.header-text h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.header-text p {
+  font-size: 0.85rem;
+  color: #cbd5e0;
+  margin: 0.25rem 0 0 0;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .header-text h1 {
+    font-size: 1.5rem;
+  }
+  
+  .header-text p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Enhanced spacing for performance card */
+.performance-card-spaced {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #3a506b;
+  border-radius: 12px;
+  background: #2c3e50;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.performance-card-spaced .card-body {
+  padding: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+  .performance-card-spaced .card-body {
+    padding: 2rem !important;
+  }
+}
+
+/* Progress bar height */
+.performance-bar {
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #3a506b;
+}
+
+.performance-bar .progress-bar {
+  border-radius: 4px;
+}
+
+/* Section header spacing */
+.section-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #3a506b;
+  color: white;
+  font-weight: 600;
+  font-size: 1.35rem;
+}
+
+/* Card styling */
+.summary-card {
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid #3a506b;
+  border-radius: 12px;
+  background: #2c3e50;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Card icon positioning */
+.card-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0.15;
+  font-size: 1.8rem;
+  color: white;
+}
+
+/* Icon container styling */
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Button enhancements */
+.btn-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(255, 82, 82, 0.3);
+  background: linear-gradient(135deg, #ff5252 0%, #ff7b46 100%);
+  padding: 0.5rem 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s ease;
+}
+
+.btn-enhanced:hover::before {
+  left: 100%;
+}
+
+.btn-enhanced:hover {
+  box-shadow: 0 6px 15px rgba(255, 82, 82, 0.4);
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .summary-card {
+    margin-bottom: 1rem;
+  }
+  
+  .performance-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-header {
+    font-size: 1.25rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  /* Smaller icon on very small screens */
+  .rounded-icon-container {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.75rem;
+  }
+  
+  .rounded-icon-container i {
+    font-size: 1.1rem;
+  }
+  
+  .header-text h1 {
+    font-size: 1.1rem;
+  }
+  
+  .header-text p {
+    font-size: 0.8rem;
+  }
+  
+  .btn-enhanced {
+    width: 100%;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .summary-card:hover {
+    transform: none;
+  }
+  
+  .btn-enhanced:hover {
+    transform: none;
+  }
+  
+  .rounded-icon-container::before {
+    animation: none;
+  }
+}
+
+/* Badge enhancements */
+.badge-compact {
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .badge-compact {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Text size scaling for better compactness */
+.text-scale-sm {
+  font-size: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .text-scale-sm {
+    font-size: 0.9rem;
+  }
+}
+
+/* Tight spacing utilities */
+.mt-tight {
+  margin-top: 0.5rem;
+}
+
+.mb-tight {
+  margin-bottom: 0.5rem;
+}
+
+.px-tight {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.py-tight {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Investment item spacing */
+.investment-item {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  border-radius: 10px;
+  background-color: #2c3e50;
+  border: 1px solid #3a506b;
+  transition: all 0.2s ease;
+}
+
+.investment-item:hover {
+  background-color: #34495e;
+  border-color: #4a6188;
+}
+
+.investment-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Empty state styling */
+.empty-state-icon {
+  margin-bottom: 1.5rem;
+}
+
+.empty-state-icon div {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+}
+
+/* Stats card spacing */
+.stats-card {
+  margin-top: 2rem;
+  border: 1px solid #3a506b;
+  border-radius: 12px;
+  background: #2c3e50;
+}
+
+.stats-card .card-body {
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .stats-card .card-body {
+    padding: 2rem;
+  }
+}
+
+/* Button spacing */
+.btn-spacing {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Additional spacing improvements */
+.mb-8 {
+  margin-bottom: 2rem !important;
+}
+
+.mt-8 {
+  margin-top: 2rem !important;
+}
+
+/* Custom scrollbar for investment list */
+.investments-list-container {
+  scrollbar-width: thin;
+  scrollbar-color: #3a506b #2c3e50;
+}
+
+.investments-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.investments-list-container::-webkit-scrollbar-track {
+  background: #2c3e50;
+  border-radius: 3px;
+}
+
+.investments-list-container::-webkit-scrollbar-thumb {
+  background: #3a506b;
+  border-radius: 3px;
+}
+
+.investments-list-container::-webkit-scrollbar-thumb:hover {
+  background: #4a6188;
+}

@@ -1,88 +1,124 @@
-// src/components/Finance/RecurringTransactionsList.jsx
-import { Card, Badge, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { Card, Button, Badge } from 'react-bootstrap';
 import { useRecurring } from '../../context/RecurringContext';
-import { formatIndianCurrency, formatDisplayDate } from '../../utils/storage';
+import './RecurringTransactionsList.css'; // Import our enhanced CSS
 
 function RecurringTransactionsList({ transactions }) {
+  const [expandedId, setExpandedId] = useState(null);
   const { deleteRecurringTransaction } = useRecurring();
 
-  const getFrequencyBadge = (frequency) => {
-    const variants = {
-      daily: 'primary',
-      weekly: 'info',
-      monthly: 'success',
-      yearly: 'warning'
-    };
-    return variants[frequency] || 'secondary';
+  const toggleExpand = (id) => {
+    setExpandedId(expandedId === id ? null : id);
   };
 
-  const getStatusBadge = (isActive, endDate) => {
-    if (!isActive) return 'danger';
-    if (endDate && new Date(endDate) < new Date()) return 'warning';
-    return 'success';
+  // Format date to be more readable
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  // Format frequency to be more readable
+  const formatFrequency = (frequency) => {
+    const frequencyMap = {
+      daily: 'Daily',
+      weekly: 'Weekly',
+      monthly: 'Monthly',
+      quarterly: 'Quarterly',
+      yearly: 'Yearly'
+    };
+    return frequencyMap[frequency] || frequency;
   };
 
   if (transactions.length === 0) {
     return (
-      <Card className="shadow-xl border border-maroon bg-grey-dark">
-        <Card.Body className="p-8 text-center">
-          <div className="text-6xl mb-4 text-maroon-light">
-            <i className="bi bi-arrow-repeat"></i>
-          </div>
-          <h3 className="text-xl font-semibold text-white mb-2">No Recurring Transactions</h3>
-          <p className="text-white">
-            Set up recurring transactions for bills, subscriptions, or regular income
-          </p>
-        </Card.Body>
-      </Card>
+      <div className="w-full px-4 xl:px-6 2xl:px-8 mx-auto">
+        <Card className="recurring-empty-state bg-gradient-to-br from-[#243447] to-[#141d26] border-[#3a506b]">
+          <Card.Body className="empty-state-content">
+            <i className="bi bi-arrow-repeat empty-state-icon"></i>
+            <h3 className="font-poppins font-semibold text-white">No Recurring Transactions Yet</h3>
+            <p className="font-poppins font-medium text-gray-300">Set up your first recurring transaction to automate your finances</p>
+          </Card.Body>
+        </Card>
+      </div>
     );
   }
 
   return (
-    <Card className="shadow-xl border border-maroon bg-grey-dark">
-      <Card.Body className="p-6">
-        <div className="space-y-4">
-          {transactions.map((transaction) => (
-            <div key={transaction.id} className="p-4 bg-grey-medium rounded-lg border border-maroon">
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <h4 className="text-white font-semibold">{transaction.description}</h4>
-                  <p className="text-white text-sm">
-                    {formatIndianCurrency(Math.abs(transaction.amount))} • {transaction.category}
-                  </p>
-                  <p className="text-maroon-light text-sm">
-                    Starts: {formatDisplayDate(new Date(transaction.startDate))}
-                    {transaction.endDate && ` • Ends: ${formatDisplayDate(new Date(transaction.endDate))}`}
-                  </p>
+    <div className="w-full px-4 xl:px-6 2xl:px-8 mx-auto recurring-list">
+      {transactions.map((transaction, index) => (
+        <Card 
+          key={transaction.id} 
+          className={`recurring-item ${expandedId === transaction.id ? 'expanded' : ''} bg-gradient-to-br from-[#243447] to-[#141d26] border-[#3a506b] shadow-lg`}
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          <Card.Body className="recurring-item-body">
+            <div className="recurring-item-header">
+              <div className="recurring-item-info">
+                <div className={`icon-container ${transaction.amount >= 0 ? 'income' : 'expense'}`}>
+                  <i className={`bi ${transaction.amount >= 0 ? 'bi-arrow-down-right' : 'bi-arrow-up-right'}`}></i>
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                  <Badge bg={getFrequencyBadge(transaction.frequency)} className="px-3 py-1">
-                    {transaction.frequency}
-                  </Badge>
-                  <Badge bg={getStatusBadge(transaction.isActive, transaction.endDate)} className="px-3 py-1">
-                    {transaction.isActive ? 'Active' : 'Inactive'}
-                  </Badge>
+                <div className="recurring-details">
+                  <h5 className="recurring-title font-poppins font-semibold text-white">{transaction.description}</h5>
+                  <div className="recurring-meta">
+                    <span className={`amount-badge ${transaction.amount >= 0 ? 'income' : 'expense'} font-poppins font-semibold`}>
+                      {transaction.amount >= 0 ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)}
+                    </span>
+                    <span className="frequency-badge font-poppins font-medium text-blue-300">
+                      <i className="bi bi-arrow-repeat me-1"></i>
+                      {formatFrequency(transaction.frequency)}
+                    </span>
+                    <span className="next-date font-poppins font-medium text-gray-300">
+                      <i className="bi bi-calendar me-1"></i>
+                      Next: {formatDate(transaction.nextDate)}
+                    </span>
+                  </div>
                 </div>
               </div>
-              
-              <div className="flex justify-between items-center">
-                <div className="text-white text-sm">
-                  Next: {formatDisplayDate(new Date(transaction.nextDate))}
-                </div>
-                <Button
-                  variant="outline-danger"
+              <div className="recurring-actions">
+                <Button 
+                  variant="outline-light" 
                   size="sm"
-                  onClick={() => deleteRecurringTransaction(transaction.id)}
-                  className="px-3 py-1"
+                  onClick={() => toggleExpand(transaction.id)}
+                  className="expand-btn border-[#3a506b] font-poppins font-semibold text-gray-300 hover:text-white"
                 >
-                  <i className="bi bi-trash"></i>
+                  <i className={`bi ${expandedId === transaction.id ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
                 </Button>
               </div>
             </div>
-          ))}
-        </div>
-      </Card.Body>
-    </Card>
+            
+            {expandedId === transaction.id && (
+              <div className="expandable-content">
+                <div className="expanded-details">
+                  <div className="detail-column">
+                    <p className="detail-item font-poppins font-medium text-gray-200"><strong className="font-semibold text-gray-300">Category:</strong> {transaction.category}</p>
+                    <p className="detail-item font-poppins font-medium text-gray-200"><strong className="font-semibold text-gray-300">Started:</strong> {formatDate(transaction.startDate)}</p>
+                  </div>
+                  <div className="detail-column">
+                    <p className="detail-item font-poppins font-medium text-gray-200"><strong className="font-semibold text-gray-300">Account:</strong> {transaction.account}</p>
+                    {transaction.endDate && (
+                      <p className="detail-item font-poppins font-medium text-gray-200"><strong className="font-semibold text-gray-300">Ends:</strong> {formatDate(transaction.endDate)}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="action-buttons">
+                  <Button variant="outline-warning" size="sm" className="edit-btn font-poppins font-semibold text-amber-400 border-amber-400 hover:bg-amber-400/10">
+                    <i className="bi bi-pencil me-1"></i> Edit
+                  </Button>
+                  <Button 
+                    variant="outline-danger" 
+                    size="sm"
+                    onClick={() => deleteRecurringTransaction(transaction.id)}
+                    className="delete-btn font-poppins font-semibold text-rose-400 border-rose-400 hover:bg-rose-400/10"
+                  >
+                    <i className="bi bi-trash me-1"></i> Delete
+                  </Button>
+                </div>
+              </div>
+            )}
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
   );
 }
 

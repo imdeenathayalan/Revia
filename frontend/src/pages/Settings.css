@@ -1,0 +1,211 @@
+/* src/pages/Settings.css */
+
+/* Container and layout styles */
+.settings-container {
+  padding-bottom: 2rem;
+}
+
+.settings-header {
+  background: linear-gradient(135deg, #243447 0%, #141d26 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,82,82,0.1)"/></svg>');
+  background-size: cover;
+  pointer-events: none;
+}
+
+/* Sidebar styles */
+.settings-sidebar {
+  position: sticky;
+  top: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.settings-sidebar:hover {
+  transform: translateY(-5px);
+}
+
+.settings-tab-link {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.settings-tab-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.settings-tab-link:hover::before {
+  left: 100%;
+}
+
+.settings-tab-link:hover {
+  transform: translateX(5px);
+}
+
+.active-tab {
+  box-shadow: 0 0 15px rgba(255, 82, 82, 0.3);
+  position: relative;
+}
+
+.active-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60%;
+  width: 3px;
+  background: white;
+  border-radius: 0 3px 3px 0;
+}
+
+.tab-icon {
+  transition: transform 0.3s ease;
+}
+
+.settings-tab-link:hover .tab-icon {
+  transform: scale(1.2);
+}
+
+.tab-indicator {
+  animation: bounceRight 1s infinite;
+}
+
+/* Content area styles */
+.settings-content-card {
+  min-height: 500px;
+  transition: all 0.3s ease;
+}
+
+.settings-content-card:hover {
+  box-shadow: 0 0 20px rgba(255, 82, 82, 0.2);
+}
+
+.content-transition {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Loading animation */
+.settings-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+/* Notification section specific styles */
+.notification-settings-container {
+  animation: slideUp 0.4s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceRight {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+.animated-rotate {
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hover effects for cards */
+.hover-tab:hover {
+  background: linear-gradient(135deg, #ff5252 0%, #ff7b46 100%) !important;
+  transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .settings-sidebar {
+    position: relative;
+    top: 0;
+  }
+  
+  .settings-tab-link:hover {
+    transform: none;
+  }
+  
+  .active-tab::after {
+    display: none;
+  }
+}
+
+/* Focus states for accessibility */
+.settings-tab-link:focus {
+  outline: 2px solid #ff5252;
+  outline-offset: 2px;
+}
+
+/* Typography improvements */
+.settings-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.settings-header p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.settings-tab-link {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.settings-tab-link.active-tab {
+  font-weight: 600;
+}

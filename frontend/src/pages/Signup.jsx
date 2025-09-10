@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Container, Card, Form, Button, Alert, InputGroup } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Card, Form, Button, Alert, InputGroup, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import './Signup.css';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -14,15 +15,53 @@ function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formValidations, setFormValidations] = useState({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  });
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Validate field in real-time
+    validateField(name, value);
+    
     if (error) setError('');
+  };
+
+  const validateField = (name, value) => {
+    let isValid = false;
+    
+    switch (name) {
+      case 'name':
+        isValid = value.trim().length >= 2;
+        break;
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(value);
+        break;
+      case 'password':
+        isValid = value.length >= 6;
+        break;
+      case 'confirmPassword':
+        isValid = value === formData.password && value.length >= 6;
+        break;
+      default:
+        break;
+    }
+    
+    setFormValidations({
+      ...formValidations,
+      [name]: isValid
+    });
   };
 
   const togglePasswordVisibility = (field) => {
@@ -60,6 +99,7 @@ function Signup() {
         return;
       }
 
+      // Simulate API call with animation
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       const userData = {
@@ -78,32 +118,35 @@ function Signup() {
     }
   };
 
+  // Check if all fields are valid
+  const isFormValid = Object.values(formValidations).every(valid => valid);
+
   return (
-    <Container className="d-flex align-items-center justify-content-center min-vh-100 bg-dark-grey">
-      <div className="w-full max-w-md">
-        <Card className="shadow-xl border border-maroon bg-grey-dark">
-          <Card.Body className="p-8">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-maroon rounded-full flex items-center justify-center mx-auto mb-4 border border-maroon-light">
-                <span className="text-2xl text-white">
+    <div className="signup-container">
+      <div className="signup-wrapper">
+        <Card className="signup-card">
+          <Card.Body className="signup-card-body">
+            <div className="signup-header">
+              <div className="signup-icon">
+                <span>
                   <i className="bi bi-person-plus"></i>
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-2">Create Account</h1>
-              <p className="text-white">Join Revia to manage your finances</p>
+              <h1>Create Account</h1>
+              <p>Join Revia to manage your finances</p>
             </div>
 
             {error && (
-              <Alert variant="danger" className="mb-6 bg-maroon-dark border-maroon text-white rounded-lg">
+              <Alert variant="danger" className="error-alert">
                 <i className="bi bi-exclamation-triangle-fill me-2"></i>
                 {error}
               </Alert>
             )}
 
-            <div className="bg-white rounded-lg p-6 border border-grey-light">
+            <div className="signup-form-container">
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-4">
-                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Group className="form-group-animate">
+                  <Form.Label>
                     <i className="bi bi-person me-2"></i>
                     Full Name
                   </Form.Label>
@@ -113,13 +156,26 @@ function Signup() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Enter your full name"
-                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
+                    className={formValidations.name ? 'is-valid' : formData.name ? 'is-warning' : ''}
                     disabled={isLoading}
                   />
+                  {formData.name && (
+                    <div className="validation-feedback">
+                      {formValidations.name ? (
+                        <small className="text-success">
+                          <i className="bi bi-check-circle-fill me-1"></i> Valid name
+                        </small>
+                      ) : (
+                        <small className="text-warning">
+                          <i className="bi bi-exclamation-circle-fill me-1"></i> Name should be at least 2 characters
+                        </small>
+                      )}
+                    </div>
+                  )}
                 </Form.Group>
 
-                <Form.Group className="mb-4">
-                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Group className="form-group-animate">
+                  <Form.Label>
                     <i className="bi bi-envelope me-2"></i>
                     Email Address
                   </Form.Label>
@@ -129,13 +185,26 @@ function Signup() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email address"
-                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon"
+                    className={formValidations.email ? 'is-valid' : formData.email ? 'is-warning' : ''}
                     disabled={isLoading}
                   />
+                  {formData.email && (
+                    <div className="validation-feedback">
+                      {formValidations.email ? (
+                        <small className="text-success">
+                          <i className="bi bi-check-circle-fill me-1"></i> Valid email
+                        </small>
+                      ) : (
+                        <small className="text-warning">
+                          <i className="bi bi-exclamation-circle-fill me-1"></i> Please enter a valid email
+                        </small>
+                      )}
+                    </div>
+                  )}
                 </Form.Group>
 
-                <Form.Group className="mb-4">
-                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Group className="form-group-animate">
+                  <Form.Label>
                     <i className="bi bi-lock me-2"></i>
                     Password
                   </Form.Label>
@@ -146,14 +215,15 @@ function Signup() {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Create a password (min. 6 characters)"
-                      className="p-3 border border-gray-300 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon border-r-0"
+                      className={formValidations.password ? 'is-valid' : formData.password ? 'is-warning' : ''}
                       disabled={isLoading}
                     />
                     <Button
                       variant="outline-secondary"
                       onClick={() => togglePasswordVisibility('password')}
-                      className="bg-white border border-gray-300 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
+                      className="password-toggle"
                       disabled={isLoading}
+                      type="button"
                     >
                       {showPassword ? (
                         <i className="bi bi-eye-slash"></i>
@@ -162,13 +232,23 @@ function Signup() {
                       )}
                     </Button>
                   </InputGroup>
-                  <Form.Text className="text-gray-500 text-xs mt-1">
-                    Must be at least 6 characters long
-                  </Form.Text>
+                  {formData.password && (
+                    <div className="validation-feedback">
+                      {formValidations.password ? (
+                        <small className="text-success">
+                          <i className="bi bi-check-circle-fill me-1"></i> Strong password
+                        </small>
+                      ) : (
+                        <small className="text-warning">
+                          <i className="bi bi-exclamation-circle-fill me-1"></i> Password must be at least 6 characters
+                        </small>
+                      )}
+                    </div>
+                  )}
                 </Form.Group>
 
-                <Form.Group className="mb-6">
-                  <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Group className="form-group-animate">
+                  <Form.Label>
                     <i className="bi bi-lock-fill me-2"></i>
                     Confirm Password
                   </Form.Label>
@@ -179,14 +259,15 @@ function Signup() {
                       value={formData.confirmPassword}
                       onChange={handleChange}
                       placeholder="Confirm your password"
-                      className="p-3 border border-gray-300 rounded-l-lg bg-white text-black placeholder-gray-500 focus:border-maroon focus:ring-2 focus:ring-maroon border-r-0"
+                      className={formValidations.confirmPassword ? 'is-valid' : formData.confirmPassword ? 'is-warning' : ''}
                       disabled={isLoading}
                     />
                     <Button
                       variant="outline-secondary"
                       onClick={() => togglePasswordVisibility('confirm')}
-                      className="bg-white border border-gray-300 border-l-0 text-black hover:bg-gray-100 rounded-r-lg px-4"
+                      className="password-toggle"
                       disabled={isLoading}
+                      type="button"
                     >
                       {showConfirmPassword ? (
                         <i className="bi bi-eye-slash"></i>
@@ -195,12 +276,25 @@ function Signup() {
                       )}
                     </Button>
                   </InputGroup>
+                  {formData.confirmPassword && (
+                    <div className="validation-feedback">
+                      {formValidations.confirmPassword ? (
+                        <small className="text-success">
+                          <i className="bi bi-check-circle-fill me-1"></i> Passwords match
+                        </small>
+                      ) : (
+                        <small className="text-warning">
+                          <i className="bi bi-exclamation-circle-fill me-1"></i> Passwords do not match
+                        </small>
+                      )}
+                    </div>
+                  )}
                 </Form.Group>
 
                 <Button
                   type="submit"
-                  className="w-full py-3 rounded-lg bg-maroon hover:bg-maroon-dark text-white font-semibold border border-maroon shadow-lg disabled:opacity-50 disabled: cursor-not-allowed"
-                  disabled={isLoading}
+                  className={`signup-btn ${isFormValid ? '' : 'disabled'}`}
+                  disabled={isLoading || !isFormValid}
                 >
                   {isLoading ? (
                     <>
@@ -217,12 +311,12 @@ function Signup() {
               </Form>
             </div>
 
-            <div className="text-center mt-6 pt-6 border-t border-grey-medium">
-              <p className="text-white">
+            <div className="signup-footer">
+              <p>
                 Already have an account?{' '}
                 <Link 
                   to="/login" 
-                  className="text-maroon-light hover:text-maroon font-medium transition-colors"
+                  className="login-link"
                 >
                   Sign In
                 </Link>
@@ -231,7 +325,7 @@ function Signup() {
           </Card.Body>
         </Card>
       </div>
-    </Container>
+    </div>
   );
 }
 

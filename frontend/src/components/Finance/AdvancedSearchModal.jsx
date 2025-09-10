@@ -81,18 +81,24 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" className="advanced-search-modal">
-      <Modal.Header closeButton className="bg-grey-dark border-maroon">
-        <Modal.Title className="text-white">
+    <Modal 
+      show={show} 
+      onHide={handleClose} 
+      size="lg" 
+      className="advanced-search-modal w-full"
+      contentClassName="bg-gradient-to-br from-[#0a192f] to-[#020c1b] border-[#3a506b]"
+    >
+      <Modal.Header closeButton className="bg-[#2c3e50] border-[#3a506b]">
+        <Modal.Title className="text-white font-semibold font-poppins">
           <i className="bi bi-search-heart me-2"></i>
           Advanced Search
         </Modal.Title>
       </Modal.Header>
       
-      <Modal.Body className="bg-grey-dark text-white p-4">
+      <Modal.Body className="bg-gradient-to-br from-[#0a192f] to-[#020c1b] text-white p-4 px-4 xl:px-6 2xl:px-8">
         {/* Search Query */}
         <Form.Group className="mb-4">
-          <Form.Label className="text-white mb-2">
+          <Form.Label className="text-white mb-2 font-medium font-poppins">
             <i className="bi bi-search me-1"></i>
             Search Text
           </Form.Label>
@@ -101,18 +107,18 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
             placeholder="Search in descriptions, categories, notes..."
             value={filters.query}
             onChange={(e) => handleFilterChange('query', e.target.value)}
-            className="bg-grey-medium border-maroon text-white"
+            className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins placeholder-gray-400"
+            style={{ color: 'white !important' }}
           />
           {suggestions.length > 0 && (
-            <Card className="mt-2 bg-grey-medium border-maroon">
+            <Card className="mt-2 bg-[#2c3e50] border-[#3a506b] shadow-lg">
               <Card.Body className="p-2">
-                <small className="text-maroon-light mb-1 d-block">Suggestions:</small>
+                <small className="text-gray-300 mb-1 d-block font-medium font-poppins">Suggestions:</small>
                 <div className="d-flex flex-wrap gap-1">
                   {suggestions.map((suggestion, index) => (
                     <Badge
                       key={index}
-                      bg="secondary"
-                      className="cursor-pointer hover-bg-maroon"
+                      className="cursor-pointer bg-gradient-to-r from-[#ff5252] to-[#ff7b46] border-0 font-medium font-poppins"
                       onClick={() => handleSuggestionClick(suggestion)}
                       style={{ cursor: 'pointer' }}
                     >
@@ -129,36 +135,42 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
           {/* Amount Range */}
           <Col md={6}>
             <Form.Group>
-              <Form.Label className="text-white">
+              <Form.Label className="text-white font-medium font-poppins">
                 <i className="bi bi-currency-rupee me-1"></i>
                 Min Amount
               </Form.Label>
               <InputGroup>
-                <InputGroup.Text className="bg-grey-medium border-maroon text-white">₹</InputGroup.Text>
+                <InputGroup.Text className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins">
+                  <i className="bi bi-currency-rupee text-white"></i>
+                </InputGroup.Text>
                 <Form.Control
                   type="number"
                   placeholder="0"
                   value={filters.minAmount}
                   onChange={(e) => handleFilterChange('minAmount', e.target.value)}
-                  className="bg-grey-medium border-maroon text-white"
+                  className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins placeholder-gray-400"
+                  style={{ color: 'white !important' }}
                 />
               </InputGroup>
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group>
-              <Form.Label className="text-white">
+              <Form.Label className="text-white font-medium font-poppins">
                 <i className="bi bi-currency-rupee me-1"></i>
                 Max Amount
               </Form.Label>
               <InputGroup>
-                <InputGroup.Text className="bg-grey-medium border-maroon text-white">₹</InputGroup.Text>
+                <InputGroup.Text className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins">
+                  <i className="bi bi-currency-rupee text-white"></i>
+                </InputGroup.Text>
                 <Form.Control
                   type="number"
                   placeholder="100000"
                   value={filters.maxAmount}
                   onChange={(e) => handleFilterChange('maxAmount', e.target.value)}
-                  className="bg-grey-medium border-maroon text-white"
+                  className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins placeholder-gray-400"
+                  style={{ color: 'white !important' }}
                 />
               </InputGroup>
             </Form.Group>
@@ -169,7 +181,7 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
           {/* Date Range */}
           <Col md={6}>
             <Form.Group>
-              <Form.Label className="text-white">
+              <Form.Label className="text-white font-medium font-poppins">
                 <i className="bi bi-calendar me-1"></i>
                 From Date
               </Form.Label>
@@ -177,13 +189,14 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
                 type="date"
                 value={filters.startDate}
                 onChange={(e) => handleFilterChange('startDate', e.target.value)}
-                className="bg-grey-medium border-maroon text-white"
+                className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins"
+                style={{ color: 'white !important' }}
               />
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group>
-              <Form.Label className="text-white">
+              <Form.Label className="text-white font-medium font-poppins">
                 <i className="bi bi-calendar me-1"></i>
                 To Date
               </Form.Label>
@@ -191,7 +204,8 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
                 type="date"
                 value={filters.endDate}
                 onChange={(e) => handleFilterChange('endDate', e.target.value)}
-                className="bg-grey-medium border-maroon text-white"
+                className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins"
+                style={{ color: 'white !important' }}
               />
             </Form.Group>
           </Col>
@@ -199,35 +213,39 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
 
         {/* Transaction Type */}
         <Form.Group className="mb-4">
-          <Form.Label className="text-white">
+          <Form.Label className="text-white font-medium font-poppins">
             <i className="bi bi-filter me-1"></i>
             Transaction Type
           </Form.Label>
           <Form.Select
             value={filters.type}
             onChange={(e) => handleFilterChange('type', e.target.value)}
-            className="bg-grey-medium border-maroon text-white"
+            className="bg-[#2c3e50] border-[#3a506b] text-white font-poppins"
+            style={{ color: 'white !important' }}
           >
-            <option value="all">All Transactions</option>
-            <option value="income">Income Only</option>
-            <option value="expense">Expenses Only</option>
+            <option value="all" className="text-white bg-[#2c3e50]">All Transactions</option>
+            <option value="income" className="text-white bg-[#2c3e50]">Income Only</option>
+            <option value="expense" className="text-white bg-[#2c3e50]">Expenses Only</option>
           </Form.Select>
         </Form.Group>
 
         {/* Categories */}
         <Form.Group className="mb-4">
-          <Form.Label className="text-white">
+          <Form.Label className="text-white font-medium font-poppins">
             <i className="bi bi-tags me-1"></i>
             Categories
           </Form.Label>
-          <Card className="bg-grey-medium border-maroon">
+          <Card className="bg-[#2c3e50] border-[#3a506b] shadow-lg">
             <Card.Body className="p-3">
               <div className="d-flex flex-wrap gap-2">
                 {indianCategories.map(category => (
                   <Badge
                     key={category}
-                    bg={filters.categories.includes(category) ? "maroon" : "secondary"}
-                    className="cursor-pointer px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 font-medium font-poppins ${
+                      filters.categories.includes(category) 
+                        ? "bg-gradient-to-r from-[#ff5252] to-[#ff7b46] border-0 text-white" 
+                        : "bg-[#3a506b] border-0 text-white"
+                    }`}
                     onClick={() => handleCategoryToggle(category)}
                     style={{ cursor: 'pointer', fontSize: '0.9rem' }}
                   >
@@ -244,51 +262,51 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
 
         {/* Active Filters Summary */}
         {hasActiveFilters() && (
-          <Card className="bg-maroon border-maroon mb-4">
+          <Card className="bg-gradient-to-r from-[#ff5252] to-[#ff7b46] border-0 shadow-lg mb-4">
             <Card.Body className="p-3">
-              <h6 className="text-white mb-2">
+              <h6 className="text-white mb-2 font-semibold font-poppins">
                 <i className="bi bi-funnel me-2"></i>
                 Active Filters:
               </h6>
               <div className="d-flex flex-wrap gap-2">
                 {filters.query && (
-                  <Badge bg="light" text="dark" className="px-2 py-1">
+                  <Badge className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-search me-1"></i>
                     "{filters.query}"
                   </Badge>
                 )}
                 {filters.minAmount && (
-                  <Badge bg="warning" text="dark" className="px-2 py-1">
+                  <Badge className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-arrow-up me-1"></i>
                     Min: ₹{filters.minAmount}
                   </Badge>
                 )}
                 {filters.maxAmount && (
-                  <Badge bg="warning" text="dark" className="px-2 py-1">
+                  <Badge className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-arrow-down me-1"></i>
                     Max: ₹{filters.maxAmount}
                   </Badge>
                 )}
                 {filters.startDate && (
-                  <Badge bg="success" className="px-2 py-1">
+                  <Badge className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-calendar-plus me-1"></i>
                     From: {filters.startDate}
                   </Badge>
                 )}
                 {filters.endDate && (
-                  <Badge bg="success" className="px-2 py-1">
+                  <Badge className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-calendar-minus me-1"></i>
                     To: {filters.endDate}
                   </Badge>
                 )}
                 {filters.type !== 'all' && (
-                  <Badge bg="primary" className="px-2 py-1">
+                  <Badge className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-filter me-1"></i>
                     {filters.type}
                   </Badge>
                 )}
                 {filters.categories.map(cat => (
-                  <Badge key={cat} bg="info" className="px-2 py-1">
+                  <Badge key={cat} className="px-2 py-1 font-medium font-poppins bg-white text-gray-800">
                     <i className="bi bi-tag me-1"></i>
                     {cat}
                   </Badge>
@@ -299,21 +317,25 @@ function AdvancedSearchModal({ show, handleClose, onSearchResults }) {
         )}
       </Modal.Body>
       
-      <Modal.Footer className="bg-grey-dark border-maroon p-3">
+      <Modal.Footer className="bg-[#2c3e50] border-[#3a506b] p-3">
         <Button 
-          variant="outline-secondary" 
+          variant="outline-light" 
           onClick={clearFilters}
           disabled={!hasActiveFilters()}
+          className="font-semibold font-poppins"
         >
           <i className="bi bi-x-circle me-2"></i>
           Clear All
         </Button>
         <div className="flex-grow-1"></div>
-        <Button variant="outline-light" onClick={handleClose}>
+        <Button variant="outline-light" onClick={handleClose} className="font-semibold font-poppins">
           <i className="bi bi-x me-2"></i>
           Cancel
         </Button>
-        <Button variant="maroon" onClick={handleSearch}>
+        <Button 
+          className="bg-gradient-to-r from-[#ff5252] to-[#ff7b46] border-0 font-semibold font-poppins"
+          onClick={handleSearch}
+        >
           <i className="bi bi-search me-2"></i>
           Search
         </Button>

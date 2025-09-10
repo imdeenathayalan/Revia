@@ -32,21 +32,36 @@ function NotificationBell() {
     <Dropdown show={showDropdown} onToggle={setShowDropdown} align="end">
       <Dropdown.Toggle 
         variant="outline-light" 
-        className="border-maroon text-white bg-transparent hover:bg-maroon-dark hover:border-maroon-dark position-relative"
+        className="border-maroon text-white bg-transparent hover:bg-maroon-dark hover:border-maroon-dark position-relative p-2"
+        style={{ borderRadius: '8px', transition: 'all 0.3s ease' }}
       >
         <i className="bi bi-bell"></i>
         {unreadCount > 0 && (
           <Badge 
             bg="danger" 
             className="position-absolute top-0 start-100 translate-middle rounded-pill"
-            style={{ fontSize: '0.6rem', minWidth: '18px', height: '18px' }}
+            style={{ 
+              fontSize: '0.6rem', 
+              minWidth: '18px', 
+              height: '18px',
+              zIndex: 1035 // Higher than dropdown
+            }}
           >
             {unreadCount > 9 ? '9+' : unreadCount}
           </Badge>
         )}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu className="bg-grey-dark border border-maroon p-0 mt-2 rounded-lg" style={{ width: '380px', maxHeight: '500px', overflow: 'hidden' }}>
+      <Dropdown.Menu 
+        className="bg-grey-dark border border-maroon p-0 mt-2 rounded-lg shadow-lg" 
+        style={{ 
+          width: '380px', 
+          maxHeight: '500px', 
+          overflow: 'hidden',
+          zIndex: 1032, // Higher than navbar
+          transform: 'translateZ(0)' // Force GPU rendering
+        }}
+      >
         <div className="p-3 border-bottom border-maroon bg-grey-medium">
           <div className="d-flex justify-content-between align-items-center">
             <h6 className="text-white mb-0">
@@ -64,6 +79,7 @@ function NotificationBell() {
                 size="sm"
                 onClick={markAllAsRead}
                 className="px-2 py-1"
+                style={{ fontSize: '0.75rem' }}
               >
                 Mark all read
               </Button>
@@ -82,10 +98,11 @@ function NotificationBell() {
             recentNotifications.map(notification => (
               <div
                 key={notification.id}
-                className={`p-3 border-bottom border-maroon cursor-pointer ${
-                  !notification.read ? 'bg-grey-medium' : 'hover-bg-grey-dark'
+                className={`p-3 border-bottom border-maroon cursor-pointer notification-item ${
+                  !notification.read ? 'bg-grey-medium' : ''
                 }`}
                 onClick={() => handleNotificationClick(notification)}
+                style={{ transition: 'background-color 0.2s ease' }}
               >
                 <div className="d-flex align-items-start">
                   <div className="flex-shrink-0 me-3">
@@ -112,7 +129,8 @@ function NotificationBell() {
                       e.stopPropagation();
                       // Delete notification logic would go here
                     }}
-                    className="ms-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="ms-2 opacity-0 notification-delete-btn"
+                    style={{ transition: 'opacity 0.2s ease' }}
                   >
                     <i className="bi bi-x"></i>
                   </Button>
@@ -135,6 +153,7 @@ function NotificationBell() {
                   // Navigate to full notifications page
                   window.location.href = '/notifications';
                 }}
+                style={{ fontSize: '0.75rem' }}
               >
                 View All
               </Button>
@@ -142,6 +161,17 @@ function NotificationBell() {
           </div>
         )}
       </Dropdown.Menu>
+      
+      <style>
+        {`
+          .notification-item:hover {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+          }
+          .notification-item:hover .notification-delete-btn {
+            opacity: 1 !important;
+          }
+        `}
+      </style>
     </Dropdown>
   );
 }

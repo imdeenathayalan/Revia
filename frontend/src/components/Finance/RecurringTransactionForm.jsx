@@ -1,4 +1,3 @@
-// src/components/Finance/RecurringTransactionForm.jsx
 import { useState } from 'react';
 import { Modal, Button, Form, Alert, Row, Col } from 'react-bootstrap';
 import { useRecurring } from '../../context/RecurringContext';
@@ -62,17 +61,17 @@ function RecurringTransactionForm({ show, handleClose }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" className="shadow-xl">
-      <Modal.Header closeButton className="border-b border-maroon bg-white">
-        <Modal.Title className="text-xl font-semibold text-black">
+    <Modal show={show} onHide={handleClose} size="lg" className="shadow-xl w-full px-4 xl:px-6 2xl:px-8 mx-auto">
+      <Modal.Header closeButton className="border-b border-[#3a506b] bg-[#2c3e50]">
+        <Modal.Title className="text-xl font-semibold text-white font-poppins">
           <i className="bi bi-arrow-repeat me-2"></i>
           Add Recurring Transaction
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
-        <Modal.Body className="p-6 bg-white">
+        <Modal.Body className="p-6 bg-[#2c3e50]">
           {error && (
-            <Alert variant="danger" className="mb-4 rounded-lg bg-red-100 border-maroon text-red-800">
+            <Alert variant="danger" className="mb-4 rounded-lg bg-red-100 border-red-400 text-red-800 font-poppins">
               <i className="bi bi-exclamation-triangle-fill me-2"></i>
               {error}
             </Alert>
@@ -81,7 +80,7 @@ function RecurringTransactionForm({ show, handleClose }) {
           <Row>
             <Col md={6}>
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
                   <i className="bi bi-text-paragraph me-2"></i>
                   Description
                 </Form.Label>
@@ -91,13 +90,13 @@ function RecurringTransactionForm({ show, handleClose }) {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="e.g., Rent, Salary, Netflix"
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+                  className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
                 />
               </Form.Group>
             </Col>
             <Col md={6}>
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
                   <i className="bi bi-currency-rupee me-2"></i>
                   Amount (₹)
                 </Form.Label>
@@ -109,7 +108,7 @@ function RecurringTransactionForm({ show, handleClose }) {
                   placeholder="Enter amount"
                   step="0.01"
                   min="1"
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+                  className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
                 />
               </Form.Group>
             </Col>
@@ -118,7 +117,7 @@ function RecurringTransactionForm({ show, handleClose }) {
           <Row>
             <Col md={6}>
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
                   <i className="bi bi-arrow-left-right me-2"></i>
                   Type
                 </Form.Label>
@@ -126,7 +125,7 @@ function RecurringTransactionForm({ show, handleClose }) {
                   name="type" 
                   value={formData.type} 
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+                  className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
                 >
                   <option value="expense">Expense</option>
                   <option value="income">Income</option>
@@ -135,7 +134,7 @@ function RecurringTransactionForm({ show, handleClose }) {
             </Col>
             <Col md={6}>
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
                   <i className="bi bi-tag me-2"></i>
                   Category
                 </Form.Label>
@@ -143,7 +142,7 @@ function RecurringTransactionForm({ show, handleClose }) {
                   name="category" 
                   value={formData.category} 
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+                  className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
                 >
                   <option value="">Select category</option>
                   {indianCategories.map(cat => (
@@ -157,7 +156,7 @@ function RecurringTransactionForm({ show, handleClose }) {
           <Row>
             <Col md={6}>
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
                   <i className="bi bi-calendar me-2"></i>
                   Frequency
                 </Form.Label>
@@ -165,7 +164,7 @@ function RecurringTransactionForm({ show, handleClose }) {
                   name="frequency" 
                   value={formData.frequency} 
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+                  className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
                 >
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
@@ -176,7 +175,7 @@ function RecurringTransactionForm({ show, handleClose }) {
             </Col>
             <Col md={6}>
               <Form.Group className="mb-4">
-                <Form.Label className="block text-sm font-semibold text-black mb-2">
+                <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
                   <i className="bi bi-calendar-plus me-2"></i>
                   Start Date
                 </Form.Label>
@@ -185,14 +184,14 @@ function RecurringTransactionForm({ show, handleClose }) {
                   name="startDate"
                   value={formData.startDate}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+                  className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
                 />
               </Form.Group>
             </Col>
           </Row>
 
           <Form.Group className="mb-4">
-            <Form.Label className="block text-sm font-semibold text-black mb-2">
+            <Form.Label className="block text-sm font-semibold text-white mb-2 font-poppins">
               <i className="bi bi-calendar-minus me-2"></i>
               End Date (Optional)
             </Form.Label>
@@ -202,21 +201,21 @@ function RecurringTransactionForm({ show, handleClose }) {
               value={formData.endDate}
               onChange={handleChange}
               min={formData.startDate}
-              className="w-full p-3 border border-gray-300 rounded-lg bg-white text-black focus:border-maroon focus:ring-2 focus:ring-maroon"
+              className="w-full p-3 border border-[#3a506b] rounded-lg bg-[#243447] text-white font-poppins focus:border-[#ff5252] focus:ring-2 focus:ring-[#ff5252]"
             />
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer className="border-t border-maroon px-6 py-4 bg-white">
+        <Modal.Footer className="border-t border-[#3a506b] px-6 py-4 bg-[#2c3e50]">
           <Button 
             variant="outline-secondary" 
             onClick={handleClose}
-            className="px-4 py-2 rounded-lg border border-gray-400 text-black hover:bg-gray-100 transition-colors"
+            className="px-4 py-2 rounded-lg border border-[#3a506b] text-gray-300 hover:bg-[#3a506b] transition-colors font-poppins font-semibold"
           >
             <i className="bi bi-x-circle me-2"></i>
             Cancel
           </Button>
           <Button 
-            className="px-4 py-2 rounded-lg bg-maroon hover:bg-maroon-dark text-white border border-maroon transition-colors"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#ff5252] to-[#ff7b46] hover:from-[#ff7b46] hover:to-[#ff5252] text-white border-0 transition-colors font-poppins font-semibold"
             type="submit"
           >
             <i className="bi bi-check-circle me-2"></i>
