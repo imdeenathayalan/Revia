@@ -82,24 +82,24 @@ function PDFExportModal({ show, handleClose, reportData }) {
   const selectedTemplate = PDF_TEMPLATES[exportOptions.template];
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" className="shadow-xl">
-      <Modal.Header closeButton className="border-b border-maroon bg-white">
-        <Modal.Title className="text-xl font-semibold text-black">
-          <i className="bi bi-file-earmark-pdf me-2"></i>
+    <Modal show={show} onHide={handleClose} size="lg" centered className="border-0">
+      <Modal.Header closeButton className="bg-gray-800 border-b border-gray-700 p-4">
+        <Modal.Title className="text-white font-semibold text-xl">
+          <i className="bi bi-file-earmark-pdf me-2 text-[#ff7b46]"></i>
           Export PDF Report
         </Modal.Title>
       </Modal.Header>
       
-      <Modal.Body className="p-0 bg-white">
+      <Modal.Body className="bg-gray-800 text-white p-5">
         <Tabs
           activeKey={activeTab}
           onSelect={setActiveTab}
-          className="px-4 pt-3 border-bottom border-maroon"
+          className="border-b border-gray-700 mb-4"
         >
           <Tab eventKey="content" title="Content" className="border-0">
-            <div className="p-3">
-              <h6 className="text-black mb-3">
-                <i className="bi bi-layout-wtf me-2"></i>
+            <div className="pt-4">
+              <h6 className="text-white mb-3 font-semibold flex items-center">
+                <i className="bi bi-layout-wtf me-2 text-[#ff7b46]"></i>
                 Report Template
               </h6>
               
@@ -109,8 +109,8 @@ function PDFExportModal({ show, handleClose, reportData }) {
                     <Card 
                       className={`cursor-pointer h-100 border-2 ${
                         exportOptions.template === template.id 
-                          ? 'border-maroon bg-maroon-light' 
-                          : 'border-gray-300 bg-gray-50 hover-border-maroon'
+                          ? 'border-[#ff5252] bg-[#3a506b]' 
+                          : 'border-gray-600 bg-gray-700 hover:border-[#ff5252]'
                       } transition-all`}
                       onClick={() => handleTemplateChange(template.id)}
                     >
@@ -118,19 +118,19 @@ function PDFExportModal({ show, handleClose, reportData }) {
                         <div className="d-flex align-items-start">
                           <div className="flex-shrink-0 me-3">
                             <i className={`bi bi-file-earmark-pdf fs-5 ${
-                              exportOptions.template === template.id ? 'text-maroon' : 'text-gray-600'
+                              exportOptions.template === template.id ? 'text-[#ff5252]' : 'text-gray-400'
                             }`}></i>
                           </div>
                           <div className="flex-grow-1">
-                            <h6 className={`mb-1 ${exportOptions.template === template.id ? 'text-maroon' : 'text-black'}`}>
+                            <h6 className={`mb-1 ${exportOptions.template === template.id ? 'text-[#ff5252]' : 'text-white'}`}>
                               {template.name}
                             </h6>
-                            <p className={`mb-0 small ${exportOptions.template === template.id ? 'text-maroon' : 'text-gray-600'}`}>
+                            <p className={`mb-0 small ${exportOptions.template === template.id ? 'text-[#ff7b46]' : 'text-gray-400'}`}>
                               {template.description}
                             </p>
                           </div>
                           {exportOptions.template === template.id && (
-                            <i className="bi bi-check-circle-fill text-success"></i>
+                            <i className="bi bi-check-circle-fill text-green-400"></i>
                           )}
                         </div>
                       </Card.Body>
@@ -139,8 +139,8 @@ function PDFExportModal({ show, handleClose, reportData }) {
                 ))}
               </Row>
 
-              <h6 className="text-black mb-3">
-                <i className="bi bi-check2-square me-2"></i>
+              <h6 className="text-white mb-3 font-semibold flex items-center">
+                <i className="bi bi-check2-square me-2 text-[#ff7b46]"></i>
                 Report Content
               </h6>
               
@@ -152,7 +152,7 @@ function PDFExportModal({ show, handleClose, reportData }) {
                     label="Transactions"
                     checked={exportOptions.includeTransactions}
                     onChange={() => handleOptionChange('includeTransactions')}
-                    className="text-black mb-3"
+                    className="text-white mb-3"
                   />
                   <Form.Check
                     type="checkbox"
@@ -160,7 +160,7 @@ function PDFExportModal({ show, handleClose, reportData }) {
                     label="Budgets"
                     checked={exportOptions.includeBudgets}
                     onChange={() => handleOptionChange('includeBudgets')}
-                    className="text-black mb-3"
+                    className="text-white mb-3"
                     disabled={true}
                   />
                 </Col>
@@ -171,7 +171,7 @@ function PDFExportModal({ show, handleClose, reportData }) {
                     label="Goals"
                     checked={exportOptions.includeGoals}
                     onChange={() => handleOptionChange('includeGoals')}
-                    className="text-black mb-3"
+                    className="text-white mb-3"
                     disabled={true}
                   />
                 </Col>
@@ -180,48 +180,61 @@ function PDFExportModal({ show, handleClose, reportData }) {
           </Tab>
 
           <Tab eventKey="settings" title="Settings" className="border-0">
-            <div className="p-3">
+            <div className="pt-4">
               <Row className="g-3">
                 <Col md={6}>
-                  <Form.Group>
-                    <Form.Label className="text-black">Time Period</Form.Label>
-                    <Form.Select
-                      value={exportOptions.dateRange}
-                      onChange={(e) => handleOptionChange('dateRange', e.target.value)}
-                      className="border-gray-300 text-black"
-                    >
-                      <option value="all">All Time</option>
-                      <option value="month">This Month</option>
-                      <option value="quarter">This Quarter</option>
-                      <option value="year">This Year</option>
-                      <option value="custom">Custom Range</option>
-                    </Form.Select>
+                  <Form.Group className="mb-4">
+                    <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                      <i className="bi bi-calendar-range me-2 text-[#ff7b46]"></i>
+                      Time Period
+                    </Form.Label>
+                    <div className="relative">
+                      <Form.Select
+                        value={exportOptions.dateRange}
+                        onChange={(e) => handleOptionChange('dateRange', e.target.value)}
+                        className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
+                      >
+                        <option value="all">All Time</option>
+                        <option value="month">This Month</option>
+                        <option value="quarter">This Quarter</option>
+                        <option value="year">This Year</option>
+                        <option value="custom">Custom Range</option>
+                      </Form.Select>
+                      <i className="bi bi-calendar-range text-[#ff7b46] absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                    </div>
                   </Form.Group>
                 </Col>
                 
                 <Col md={6}>
-                  <Form.Group>
-                    <Form.Label className="text-black">
+                  <Form.Group className="mb-4">
+                    <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                      <i className="bi bi-calendar me-2 text-[#ff7b46]"></i>
                       {isCustomRange ? 'Custom Date Range*' : 'Date Range'}
                     </Form.Label>
                     <div className="d-flex gap-2">
-                      <Form.Control
-                        type="date"
-                        value={exportOptions.startDate}
-                        onChange={(e) => handleOptionChange('startDate', e.target.value)}
-                        className="border-gray-300 text-black"
-                        disabled={!isCustomRange}
-                      />
-                      <Form.Control
-                        type="date"
-                        value={exportOptions.endDate}
-                        onChange={(e) => handleOptionChange('endDate', e.target.value)}
-                        className="border-gray-300 text-black"
-                        disabled={!isCustomRange}
-                      />
+                      <div className="relative flex-1">
+                        <Form.Control
+                          type="date"
+                          value={exportOptions.startDate}
+                          onChange={(e) => handleOptionChange('startDate', e.target.value)}
+                          className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
+                          disabled={!isCustomRange}
+                        />
+                        <i className="bi bi-calendar text-[#ff7b46] absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                      </div>
+                      <div className="relative flex-1">
+                        <Form.Control
+                          type="date"
+                          value={exportOptions.endDate}
+                          onChange={(e) => handleOptionChange('endDate', e.target.value)}
+                          className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
+                          disabled={!isCustomRange}
+                        />
+                        <i className="bi bi-calendar text-[#ff7b46] absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                      </div>
                     </div>
                     {isCustomRange && (
-                      <Form.Text className="text-muted">
+                      <Form.Text className="text-gray-400">
                         * Select start and end dates
                       </Form.Text>
                     )}
@@ -229,31 +242,43 @@ function PDFExportModal({ show, handleClose, reportData }) {
                 </Col>
 
                 <Col md={6}>
-                  <Form.Group>
-                    <Form.Label className="text-black">Paper Size</Form.Label>
-                    <Form.Select
-                      value={exportOptions.paperSize}
-                      onChange={(e) => handleOptionChange('paperSize', e.target.value)}
-                      className="border-gray-300 text-black"
-                    >
-                      <option value="a4">A4</option>
-                      <option value="letter">Letter</option>
-                      <option value="legal">Legal</option>
-                    </Form.Select>
+                  <Form.Group className="mb-4">
+                    <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                      <i className="bi bi-file-earmark me-2 text-[#ff7b46]"></i>
+                      Paper Size
+                    </Form.Label>
+                    <div className="relative">
+                      <Form.Select
+                        value={exportOptions.paperSize}
+                        onChange={(e) => handleOptionChange('paperSize', e.target.value)}
+                        className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
+                      >
+                        <option value="a4">A4</option>
+                        <option value="letter">Letter</option>
+                        <option value="legal">Legal</option>
+                      </Form.Select>
+                      <i className="bi bi-file-earmark text-[#ff7b46] absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                    </div>
                   </Form.Group>
                 </Col>
 
                 <Col md={6}>
-                  <Form.Group>
-                    <Form.Label className="text-black">Orientation</Form.Label>
-                    <Form.Select
-                      value={exportOptions.orientation}
-                      onChange={(e) => handleOptionChange('orientation', e.target.value)}
-                      className="border-gray-300 text-black"
-                    >
-                      <option value="portrait">Portrait</option>
-                      <option value="landscape">Landscape</option>
-                    </Form.Select>
+                  <Form.Group className="mb-4">
+                    <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                      <i className="bi bi-arrow-left-right me-2 text-[#ff7b46]"></i>
+                      Orientation
+                    </Form.Label>
+                    <div className="relative">
+                      <Form.Select
+                        value={exportOptions.orientation}
+                        onChange={(e) => handleOptionChange('orientation', e.target.value)}
+                        className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
+                      >
+                        <option value="portrait">Portrait</option>
+                        <option value="landscape">Landscape</option>
+                      </Form.Select>
+                      <i className="bi bi-arrow-left-right text-[#ff7b46] absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                    </div>
                   </Form.Group>
                 </Col>
               </Row>
@@ -262,16 +287,16 @@ function PDFExportModal({ show, handleClose, reportData }) {
         </Tabs>
 
         {error && (
-          <Alert variant="danger" className="m-3 mb-0 bg-red-100 border-red-400 text-red-800">
+          <Alert variant="danger" className="bg-red-900 border border-red-700 text-red-200 rounded-lg mb-4">
             <i className="bi bi-exclamation-triangle-fill me-2"></i>
             {error}
           </Alert>
         )}
 
-        <Card className="m-3 bg-light border-maroon">
-          <Card.Body className="p-3">
-            <h6 className="text-black mb-2">Report Preview</h6>
-            <div className="text-sm text-black">
+        <Card className="bg-gray-700 border border-gray-600">
+          <Card.Body className="p-4">
+            <h6 className="text-white mb-2 font-semibold">Report Preview</h6>
+            <div className="text-sm text-gray-300">
               <p className="mb-1">
                 <strong>Template:</strong> {selectedTemplate.name}
               </p>
@@ -289,19 +314,18 @@ function PDFExportModal({ show, handleClose, reportData }) {
         </Card>
       </Modal.Body>
       
-      <Modal.Footer className="border-t border-maroon px-4 py-3 bg-white">
+      <Modal.Footer className="bg-gray-800 border-t border-gray-700 p-4">
         <Button 
           variant="outline-secondary" 
           onClick={handleClose}
           disabled={isGenerating}
-          className="px-4 py-2"
+          className="px-4 py-2 rounded-lg border-gray-600 text-gray-300 hover:bg-gray-700 transition-colors"
         >
-          <i className="bi bi-x-circle me-2"></i>
           Cancel
         </Button>
         
         <Button 
-          className="px-4 py-2 bg-maroon hover:bg-maroon-dark text-white border-maroon"
+          className="flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-[#ff5252] to-[#ff7b46] border-0 text-white hover:from-[#ff4141] hover:to-[#ff6b35] transition-colors"
           onClick={handleExportPDF}
           disabled={isGenerating}
         >
