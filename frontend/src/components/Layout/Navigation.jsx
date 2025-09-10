@@ -163,6 +163,18 @@ function Navigation({
                           aria-label="User menu options"
                           popperConfig={{ strategy: 'fixed' }}
                         >
+                          {/* Added Settings option to desktop dropdown */}
+                          <Dropdown.Item
+                            as={Link}
+                            to="/settings"
+                            className="text-white hover:bg-maroon-dark hover:text-white py-3 px-4 dropdown-item-animate"
+                            onClick={handleNavClick}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <i className="bi bi-gear me-2"></i>
+                            Settings
+                          </Dropdown.Item>
                           <Dropdown.Item
                             className="text-white hover:bg-maroon-dark hover:text-white py-3 px-4 dropdown-item-animate"
                             onClick={handleLogout}

@@ -1,39 +1,41 @@
-// src/components/Finance/AddInvestmentModal.jsx
 import { useState } from 'react';
-import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { Modal, Button, Form, Alert, Row, Col } from 'react-bootstrap';
 import { useInvestment } from '../../context/InvestmentContext';
-import { INVESTMENT_TYPES, INVESTMENT_TYPE_LABELS } from '../../utils/investmentTypes';
+import { INVESTMENT_TYPES } from '../../utils/investmentTypes';
 
 function AddInvestmentModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
     name: '',
-    type: INVESTMENT_TYPES.STOCK,
-    investedAmount: '',
-    quantity: '1',
-    purchaseDate: new Date().toISOString().split('T')[0]
+    type: INVESTMENT_TYPES.STOCKS,
+    amount: '',
+    purchaseDate: new Date().toISOString().split('T')[0],
+    quantity: '',
+    purchasePrice: '',
+    currentValue: '',
+    notes: ''
   });
   const [error, setError] = useState('');
   const { addInvestment } = useInvestment();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
     if (error) setError('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.investedAmount) {
-      setError('Please fill in name and invested amount');
+    if (!formData.name || !formData.amount) {
+      setError('Please fill in required fields');
       return;
     }
 
-    const amount = parseFloat(formData.investedAmount);
-    const quantity = parseFloat(formData.quantity) || 1;
-
+    const amount = parseFloat(formData.amount);
     if (isNaN(amount) || amount <= 0) {
       setError('Please enter a valid amount');
       return;
@@ -42,151 +44,240 @@ function AddInvestmentModal({ show, handleClose }) {
     addInvestment({
       name: formData.name,
       type: formData.type,
-      investedAmount: amount,
-      quantity: quantity,
-      purchaseDate: formData.purchaseDate
+      amount: amount,
+      purchaseDate: formData.purchaseDate,
+      quantity: parseFloat(formData.quantity) || 0,
+      purchasePrice: parseFloat(formData.purchasePrice) || 0,
+      currentValue: parseFloat(formData.currentValue) || amount,
+      notes: formData.notes
     });
 
-    // Reset form and close
     setFormData({
       name: '',
-      type: INVESTMENT_TYPES.STOCK,
-      investedAmount: '',
-      quantity: '1',
-      purchaseDate: new Date().toISOString().split('T')[0]
+      type: INVESTMENT_TYPES.STOCKS,
+      amount: '',
+      purchaseDate: new Date().toISOString().split('T')[0],
+      quantity: '',
+      purchasePrice: '',
+      currentValue: '',
+      notes: ''
     });
     setError('');
     handleClose();
   };
 
   return (
-    <Modal 
-      show={show} 
-      onHide={handleClose}
-      contentClassName="w-full"
-      dialogClassName="w-full max-w-2xl mx-auto px-4 xl:px-6 2xl:px-8"
-    >
-      <div className="bg-gradient-to-br from-[#243447] to-[#141d26] border border-[#3a506b] rounded-lg shadow-lg overflow-hidden">
-        <div className="border-b border-[#3a506b] px-6 py-4">
-          <h5 className="text-white font-semibold font-poppins text-lg">
-            <i className="bi bi-plus-circle me-2"></i>
-            Add Investment
-          </h5>
-          <button 
-            type="button" 
-            className="absolute top-4 right-4 text-gray-400 hover:text-white"
-            onClick={handleClose}
-          >
-            <span className="sr-only">Close</span>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        
-        <Form onSubmit={handleSubmit}>
-          <div className="px-6 py-4">
-            {error && (
-              <div className="bg-red-900/30 border border-red-700 text-red-200 px-4 py-3 rounded mb-4">
-                {error}
-              </div>
-            )}
-            
-            <div className="mb-4">
-              <label className="block text-gray-200 font-medium font-poppins mb-2">
-                Investment Name *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="e.g., Reliance Industries"
-                required
-                className="w-full bg-[#2c3e50] border border-[#3a506b] rounded-md px-3 py-2 text-white font-poppins focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-200 font-medium font-poppins mb-2">
-                Investment Type
-              </label>
-              <select 
-                name="type" 
-                value={formData.type} 
-                onChange={handleChange}
-                className="w-full bg-[#2c3e50] border border-[#3a506b] rounded-md px-3 py-2 text-white font-poppins focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
-              >
-                {Object.entries(INVESTMENT_TYPE_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-200 font-medium font-poppins mb-2">
-                Invested Amount (₹) *
-              </label>
-              <input
-                type="number"
-                name="investedAmount"
-                value={formData.investedAmount}
-                onChange={handleChange}
-                placeholder="10000"
-                step="0.01"
-                min="0.01"
-                required
-                className="w-full bg-[#2c3e50] border border-[#3a506b] rounded-md px-3 py-2 text-white font-poppins focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-200 font-medium font-poppins mb-2">
-                Quantity
-              </label>
-              <input
-                type="number"
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleChange}
-                placeholder="Number of units"
-                step="0.001"
-                min="0.001"
-                className="w-full bg-[#2c3e50] border border-[#3a506b] rounded-md px-3 py-2 text-white font-poppins focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-200 font-medium font-poppins mb-2">
-                Purchase Date
-              </label>
-              <input
-                type="date"
-                name="purchaseDate"
-                value={formData.purchaseDate}
-                onChange={handleChange}
-                className="w-full bg-[#2c3e50] border border-[#3a506b] rounded-md px-3 py-2 text-white font-poppins focus:ring-2 focus:ring-[#ff5252] focus:border-transparent"
-              />
-            </div>
-          </div>
+    <Modal show={show} onHide={handleClose} size="lg" centered className="border-0">
+      <Modal.Header closeButton className="bg-gray-800 border-b border-maroon-600 p-4">
+        <Modal.Title className="text-white font-semibold text-xl">
+          <i className="bi bi-graph-up-arrow me-2 text-maroon-400"></i>
+          Add Investment
+        </Modal.Title>
+      </Modal.Header>
+      
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body className="bg-gray-800 text-white p-5">
+          {error && (
+            <Alert variant="danger" className="bg-red-900 border border-red-700 text-red-200 rounded-lg mb-4">
+              <i className="bi bi-exclamation-triangle-fill me-2"></i>
+              {error}
+            </Alert>
+          )}
           
-          <div className="border-t border-[#3a506b] px-6 py-4 flex justify-end space-x-3">
-            <button
-              type="button"
-              onClick={handleClose}
-              className="px-4 py-2 bg-[#2c3e50] border border-[#3a506b] text-white font-semibold font-poppins rounded-md hover:bg-[#3a506b] transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-gradient-to-r from-[#ff5252] to-[#ff7b46] text-white font-semibold font-poppins rounded-md hover:opacity-90 transition-opacity"
-            >
-              Add Investment
-            </button>
-          </div>
-        </Form>
-      </div>
+          <Row className="mb-4">
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-tag-fill text-maroon-400 me-2"></i>
+                  Investment Name *
+                </Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="e.g., Apple Stocks, Mutual Fund"
+                    required
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  />
+                  <i className="bi bi-tag-fill text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-diagram-3 text-maroon-400 me-2"></i>
+                  Investment Type
+                </Form.Label>
+                <div className="relative">
+                  <Form.Select 
+                    name="type" 
+                    value={formData.type} 
+                    onChange={handleChange}
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  >
+                    {Object.entries(INVESTMENT_TYPES).map(([key, value]) => (
+                      <option key={key} value={value}>{value}</option>
+                    ))}
+                  </Form.Select>
+                  <i className="bi bi-diagram-3 text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-currency-rupee text-maroon-400 me-2"></i>
+                  Invested Amount (₹) *
+                </Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="number"
+                    name="amount"
+                    value={formData.amount}
+                    onChange={handleChange}
+                    placeholder="100000"
+                    step="0.01"
+                    min="0.01"
+                    required
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  />
+                  <i className="bi bi-currency-rupee text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-calendar-date text-maroon-400 me-2"></i>
+                  Purchase Date
+                </Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="date"
+                    name="purchaseDate"
+                    value={formData.purchaseDate}
+                    onChange={handleChange}
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  />
+                  <i className="bi bi-calendar-date text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-hash text-maroon-400 me-2"></i>
+                  Quantity
+                </Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="number"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleChange}
+                    placeholder="e.g., 10 shares"
+                    step="0.0001"
+                    min="0"
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  />
+                  <i className="bi bi-hash text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-currency-rupee text-maroon-400 me-2"></i>
+                  Purchase Price (₹)
+                </Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="number"
+                    name="purchasePrice"
+                    value={formData.purchasePrice}
+                    onChange={handleChange}
+                    placeholder="Price per unit"
+                    step="0.01"
+                    min="0"
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  />
+                  <i className="bi bi-currency-rupee text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col md={6}>
+              <Form.Group className="mb-4">
+                <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+                  <i className="bi bi-graph-up text-maroon-400 me-2"></i>
+                  Current Value (₹)
+                </Form.Label>
+                <div className="relative">
+                  <Form.Control
+                    type="number"
+                    name="currentValue"
+                    value={formData.currentValue}
+                    onChange={handleChange}
+                    placeholder="Current market value"
+                    step="0.01"
+                    min="0"
+                    className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  />
+                  <i className="bi bi-graph-up text-maroon-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Form.Group className="mb-4">
+            <Form.Label className="flex items-center text-gray-300 mb-2 font-medium">
+              <i className="bi bi-text-paragraph text-maroon-400 me-2"></i>
+              Notes
+            </Form.Label>
+            <div className="relative">
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="notes"
+                value={formData.notes}
+                onChange={handleChange}
+                placeholder="Any additional notes about this investment..."
+                className="bg-gray-700 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 w-full focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+              />
+              <i className="bi bi-text-paragraph text-maroon-400 absolute left-3 top-4"></i>
+            </div>
+          </Form.Group>
+        </Modal.Body>
+        
+        <Modal.Footer className="bg-gray-800 border-t border-gray-700 p-4">
+          <Button 
+            variant="outline-secondary" 
+            onClick={handleClose}
+            className="px-4 py-2 rounded-lg border-gray-600 text-gray-300 hover:bg-gray-700 transition-colors"
+          >
+            Cancel
+          </Button>
+          <Button 
+            variant="primary" 
+            type="submit" 
+            className="flex items-center px-4 py-2 rounded-lg bg-maroon-600 border-maroon-600 hover:bg-maroon-700 hover:border-maroon-700 transition-colors"
+          >
+            <i className="bi bi-check-circle me-2"></i>
+            Add Investment
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 }

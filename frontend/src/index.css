@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+
 /* Root color variables for dark theme */
 :root {
   --color-primary: #243447;
@@ -13,6 +14,8 @@
   --text-primary: #ffffff;
   --text-secondary: #e0e7ff;
   --text-muted: #a0aec0;
+  --form-icon-color: #ff7b46;
+  --form-bg: rgba(44, 62, 80, 0.8);
 }
 
 /* Base styles - color only */
@@ -61,12 +64,35 @@ body {
   opacity: 0.9;
 }
 
-/* Forms - color only - UPDATED */
+/* Forms - UPDATED with better icon positioning */
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-label-icon {
+  margin-right: 0.5rem;
+  color: var(--form-icon-color);
+  font-size: 1.1rem;
+}
+
 .form-control {
   border: 1px solid var(--color-border);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--form-bg);
   color: var(--text-primary) !important;
   font-family: 'Poppins', sans-serif;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  width: 100%;
 }
 
 .form-control:focus {
@@ -74,6 +100,7 @@ body {
   color: var(--text-primary) !important;
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 0.2rem rgba(255, 82, 82, 0.25);
+  outline: none;
 }
 
 .form-control::placeholder {
@@ -81,34 +108,68 @@ body {
   opacity: 1;
 }
 
+/* Form icon positioning */
+.form-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--form-icon-color);
+  font-size: 1.1rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* For textareas with icons */
+.form-control-textarea + .form-icon {
+  top: 1.25rem;
+  transform: none;
+}
+
 .form-select {
   border: 1px solid var(--color-border);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--form-bg);
   color: var(--text-primary) !important;
   font-family: 'Poppins', sans-serif;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border-radius: 0.5rem;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-size: 16px;
 }
 
 .form-select:focus {
   border-color: var(--color-accent-start);
   box-shadow: 0 0 0 0.2rem rgba(255, 82, 82, 0.25);
+  outline: none;
 }
 
 /* Input group text */
+.input-group {
+  position: relative;
+}
+
 .input-group-text {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: var(--form-bg) !important;
   border: 1px solid var(--color-border) !important;
   color: var(--text-primary) !important;
+  padding: 0.75rem 1rem;
 }
 
 /* Date input specific styling */
 input[type="date"] {
   color: var(--text-primary) !important;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
 }
 
 input[type="date"]::-webkit-datetime-edit {
@@ -122,21 +183,36 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
 /* Number input specific styling */
 input[type="number"] {
   color: var(--text-primary) !important;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   filter: invert(1);
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
 }
 
 /* Text input specific styling */
 input[type="text"] {
   color: var(--text-primary) !important;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+}
+
+/* Textarea specific styling */
+textarea.form-control {
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  min-height: 100px;
+  resize: vertical;
 }
 
 /* Fix for all input types */
 input, select, textarea {
   color: var(--text-primary) !important;
+  position: relative;
 }
 
 /* Placeholder text for all browsers */
@@ -151,6 +227,34 @@ input, select, textarea {
 
 ::-ms-input-placeholder {
   color: var(--text-muted) !important;
+}
+
+/* Radio and checkbox styling */
+.form-check {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-check-input {
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--form-bg);
+  border: 1px solid var(--color-border);
+}
+
+.form-check-input:checked {
+  background-color: var(--color-accent-start);
+  border-color: var(--color-accent-start);
+}
+
+.form-check-label {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
 }
 
 /* Tables - color only */
@@ -207,20 +311,41 @@ input:focus-visible,
 select:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--color-accent-start);
+  outline-offset: 2px;
 }
 
 /* Modal specific styles */
 .modal-content {
   background: linear-gradient(to bottom, #0a192f, #020c1b);
   border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
 }
 
 .modal-header {
   border-bottom: 1px solid var(--color-border);
+  padding: 1.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
 }
 
 .modal-footer {
   border-top: 1px solid var(--color-border);
+  padding: 1.5rem;
+}
+
+/* Form row spacing */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.75rem;
+  margin-left: -0.75rem;
+}
+
+.form-row > .col {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
 }
 
 /* High contrast mode support - color only */
@@ -236,4 +361,65 @@ a:focus-visible {
   .form-control {
     border: 2px solid var(--color-border);
   }
+  
+  .form-icon {
+    color: var(--text-primary);
+  }
+}
+
+/* Custom utility classes for form positioning */
+.form-icon-wrapper {
+  position: relative;
+}
+
+.form-icon-wrapper .form-control {
+  padding-left: 2.5rem;
+}
+
+.form-icon-wrapper .form-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--form-icon-color);
+  font-size: 1.1rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-control {
+    padding: 0.625rem 0.875rem 0.625rem 2.25rem;
+  }
+  
+  .form-icon {
+    left: 0.625rem;
+    font-size: 1rem;
+  }
+  
+  .form-select {
+    padding: 0.625rem 0.875rem 0.625rem 2.25rem;
+  }
+}
+
+/* Animation for form focus */
+.form-control:focus ~ .form-icon {
+  color: var(--color-accent-start);
+  transition: color 0.2s ease;
+}
+
+/* Error state styling */
+.form-control.is-invalid {
+  border-color: #f56565;
+}
+
+.form-control.is-invalid ~ .form-icon {
+  color: #f56565;
+}
+
+.invalid-feedback {
+  color: #f56565;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }

@@ -9,6 +9,7 @@
   background: linear-gradient(135deg, #243447 0%, #141d26 100%);
   position: relative;
   overflow: hidden;
+  margin-bottom: 2.5rem !important;
 }
 
 .settings-header::after {
@@ -79,6 +80,8 @@
 
 .tab-icon {
   transition: transform 0.3s ease;
+  width: 18px;
+  text-align: center;
 }
 
 .settings-tab-link:hover .tab-icon {
@@ -168,6 +171,20 @@
   transform: translateX(5px);
 }
 
+/* Improved spacing and alignment */
+.settings-header {
+  padding: 1.5rem !important;
+}
+
+.settings-tab-link {
+  margin-bottom: 0.5rem;
+}
+
+/* Added space below header */
+.settings-header {
+  margin-bottom: 2.5rem !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .settings-sidebar {
@@ -182,6 +199,26 @@
   .active-tab::after {
     display: none;
   }
+  
+  .settings-header {
+    text-align: center;
+    padding: 1.25rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .settings-header h1 {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .settings-content-card .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .settings-header {
+    margin-bottom: 1.5rem !important;
+  }
 }
 
 /* Focus states for accessibility */
@@ -194,18 +231,31 @@
 .settings-header h1 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .settings-header p {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .settings-tab-link {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .settings-tab-link.active-tab {
   font-weight: 600;
+}
+
+/* Better card alignment */
+.settings-sidebar,
+.settings-content-card {
+  border-radius: 12px !important;
+}
+
+/* Improved text contrast */
+.text-gray-200 {
+  color: #e2e8f0 !important;
 }

@@ -88,20 +88,20 @@ function NotificationSettings() {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <h2 className="text-xl font-semibold text-white mb-4">
         <i className="bi bi-gear me-2"></i>
         Notification Settings
       </h2>
 
       {message && (
-        <Alert variant="success" className="mb-4 bg-green-600 border-green-700 text-white">
+        <Alert variant="success" className="mb-4 bg-gradient-to-r from-[#ff5252] to-[#ff7b46] border-[#3a506b] text-white">
           <i className="bi bi-check-circle me-2"></i>
           {message}
         </Alert>
       )}
 
-      <Card className="bg-grey-medium border border-maroon mb-4">
+      <Card className="border border-[#3a506b] bg-[#2c3e50] mb-4">
         <Card.Body className="p-4">
           <h3 className="text-lg font-semibold text-white mb-3">
             <i className="bi bi-bell me-2"></i>
@@ -117,7 +117,7 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('billReminders')}
               className="text-white mb-2"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Get reminders for upcoming bills and subscriptions
             </Form.Text>
           </Form.Group>
@@ -131,7 +131,7 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('budgetAlerts')}
               className="text-white mb-2"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Notifications when approaching or exceeding budget limits
             </Form.Text>
           </Form.Group>
@@ -145,7 +145,7 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('goalUpdates')}
               className="text-white mb-2"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Progress updates and achievements for your savings goals
             </Form.Text>
           </Form.Group>
@@ -159,14 +159,14 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('lowBalanceWarnings')}
               className="text-white"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Alerts when your balance falls below set thresholds
             </Form.Text>
           </Form.Group>
         </Card.Body>
       </Card>
 
-      <Card className="bg-grey-medium border border-maroon mb-4">
+      <Card className="border border-[#3a506b] bg-[#2c3e50] mb-4">
         <Card.Body className="p-4">
           <h3 className="text-lg font-semibold text-white mb-3">
             <i className="bi bi-sliders me-2"></i>
@@ -184,11 +184,11 @@ function NotificationSettings() {
                     max="100"
                     value={settings.budgetWarningThreshold}
                     onChange={(e) => handleThresholdChange('budgetWarningThreshold', e.target.value)}
-                    className="bg-grey-dark border-maroon text-white"
+                    className="bg-[#243447] border-[#3a506b] text-white"
                   />
-                  <InputGroup.Text className="bg-maroon text-white">%</InputGroup.Text>
+                  <InputGroup.Text className="bg-gradient-to-r from-[#ff5252] to-[#ff7b46] text-white">%</InputGroup.Text>
                 </InputGroup>
-                <Form.Text className="text-maroon-light">
+                <Form.Text className="text-gray-300">
                   Send warning when budget usage reaches this percentage
                 </Form.Text>
               </Form.Group>
@@ -203,11 +203,11 @@ function NotificationSettings() {
                     max="100"
                     value={settings.budgetCriticalThreshold}
                     onChange={(e) => handleThresholdChange('budgetCriticalThreshold', e.target.value)}
-                    className="bg-grey-dark border-maroon text-white"
+                    className="bg-[#243447] border-[#3a506b] text-white"
                   />
-                  <InputGroup.Text className="bg-maroon text-white">%</InputGroup.Text>
+                  <InputGroup.Text className="bg-gradient-to-r from-[#ff5252] to-[#ff7b46] text-white">%</InputGroup.Text>
                 </InputGroup>
-                <Form.Text className="text-maroon-light">
+                <Form.Text className="text-gray-300">
                   Send critical alert when budget usage reaches this percentage
                 </Form.Text>
               </Form.Group>
@@ -217,16 +217,16 @@ function NotificationSettings() {
           <Form.Group className="mb-3">
             <Form.Label className="text-white">Low Balance Threshold (₹)</Form.Label>
             <InputGroup>
-              <InputGroup.Text className="bg-maroon text-white">₹</InputGroup.Text>
+              <InputGroup.Text className="bg-gradient-to-r from-[#ff5252] to-[#ff7b46] text-white">₹</InputGroup.Text>
               <Form.Control
                 type="number"
                 min="0"
                 value={settings.lowBalanceThreshold}
                 onChange={(e) => handleThresholdChange('lowBalanceThreshold', e.target.value)}
-                className="bg-grey-dark border-maroon text-white"
+                className="bg-[#243447] border-[#3a506b] text-white"
               />
             </InputGroup>
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Send low balance warning when amount falls below this value
             </Form.Text>
           </Form.Group>
@@ -243,21 +243,21 @@ function NotificationSettings() {
                       max="100"
                       value={milestone}
                       onChange={(e) => handleMilestoneChange(index, e.target.value)}
-                      className="bg-grey-dark border-maroon text-white"
+                      className="bg-[#243447] border-[#3a506b] text-white"
                     />
-                    <InputGroup.Text className="bg-maroon text-white">%</InputGroup.Text>
+                    <InputGroup.Text className="bg-gradient-to-r from-[#ff5252] to-[#ff7b46] text-white">%</InputGroup.Text>
                   </InputGroup>
                 </Col>
               ))}
             </Row>
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Percentage milestones for goal progress notifications
             </Form.Text>
           </Form.Group>
         </Card.Body>
       </Card>
 
-      <Card className="bg-grey-medium border border-maroon mb-4">
+      <Card className="border border-[#3a506b] bg-[#2c3e50] mb-4">
         <Card.Body className="p-4">
           <h3 className="text-lg font-semibold text-white mb-3">
             <i className="bi bi-devices me-2"></i>
@@ -273,7 +273,7 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('pushNotifications')}
               className="text-white mb-2"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Show notifications within the app
             </Form.Text>
           </Form.Group>
@@ -287,7 +287,7 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('emailNotifications')}
               className="text-white mb-2"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Receive notifications via email (requires email setup)
             </Form.Text>
           </Form.Group>
@@ -301,7 +301,7 @@ function NotificationSettings() {
               onChange={() => handleSettingChange('soundEnabled')}
               className="text-white"
             />
-            <Form.Text className="text-maroon-light">
+            <Form.Text className="text-gray-300">
               Play sound when new notifications arrive
             </Form.Text>
           </Form.Group>
@@ -310,7 +310,7 @@ function NotificationSettings() {
 
       <div className="d-flex gap-3">
         <Button 
-          className="px-6 py-2 rounded-lg bg-maroon hover:bg-maroon-dark text-white border border-maroon"
+          className="px-6 py-2 rounded-lg bg-gradient-to-r from-[#ff5252] to-[#ff7b46] text-white border border-[#3a506b]"
           onClick={handleSave}
         >
           <i className="bi bi-check-circle me-2"></i>
@@ -319,7 +319,7 @@ function NotificationSettings() {
 
         <Button 
           variant="outline-secondary"
-          className="px-6 py-2 rounded-lg border border-maroon text-white"
+          className="px-6 py-2 rounded-lg border border-[#3a506b] text-white"
           onClick={handleReset}
         >
           <i className="bi bi-arrow-clockwise me-2"></i>
