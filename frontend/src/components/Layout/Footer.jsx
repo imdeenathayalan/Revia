@@ -54,17 +54,17 @@ function Footer() {
                 Manage your personal finances with ease. Track expenses, investments, and debts in Indian Rupees.
               </p>
               <div className="social-links d-flex gap-2">
-                <a href="#" className="text-gray-200 social-link" aria-label="Twitter">
-                  <i className="bi bi-twitter"></i>
+                <a href="https://www.linkedin.com/in/imdeenathayalan/" className="text-gray-200 social-link" aria-label="LinkedIn">
+                  <i className="bi bi-linkedin"></i>
                 </a>
-                <a href="#" className="text-gray-200 social-link" aria-label="Facebook">
+                <a href="https://www.facebook.com/imdeenathayalan/" className="text-gray-200 social-link" aria-label="Facebook">
                   <i className="bi bi-facebook"></i>
                 </a>
-                <a href="#" className="text-gray-200 social-link" aria-label="Instagram">
+                <a href="https://www.instagram.com/deenathayalan_m_/" className="text-gray-200 social-link" aria-label="Instagram">
                   <i className="bi bi-instagram"></i>
                 </a>
-                <a href="#" className="text-gray-200 social-link" aria-label="LinkedIn">
-                  <i className="bi bi-linkedin"></i>
+                <a href="https://github.com/imdeenathayalan" className="text-gray-200 social-link" aria-label="GitHub">
+                  <i className="bi bi-github"></i>
                 </a>
               </div>
             </div>
@@ -74,16 +74,9 @@ function Footer() {
             <h5 className="text-white mb-2 small-header">Support</h5>
             <ul className="list-unstyled">
               <li className="mb-1">
-                <a href="#" className="text-gray-200 footer-link small">Help Center</a>
-              </li>
-              <li className="mb-1">
-                <a href="#" className="text-gray-200 footer-link small">FAQs</a>
-              </li>
-              <li className="mb-1">
-                <a href="#" className="text-gray-200 footer-link small">Contact Us</a>
-              </li>
-              <li className="mb-1">
-                <a href="#" className="text-gray-200 footer-link small">Feedback</a>
+                <a href="mailto:imdeenathayalan@gmail.com" className="text-gray-200 footer-link small">
+                  <i className="bi bi-envelope me-1"></i>Gmail
+                </a>
               </li>
             </ul>
           </Col>
