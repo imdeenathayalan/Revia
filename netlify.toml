@@ -4,4 +4,4 @@ command = "npm run build"
 publish = "frontend/dist" # or "frontend/build" if it’s CRA
 
 [build.environment]
-NODE_VERSION = "18" # or whatever version your frontend needscd
+NODE_VERSION = "20" # or whatever version your frontend needscd
